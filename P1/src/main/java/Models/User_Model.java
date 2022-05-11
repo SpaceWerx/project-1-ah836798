@@ -1,84 +1,77 @@
 package Models;
 
-import mockuserdata.java;
+
+//need to import the data from Mockuserdata.java//
 
 public class User_Model {
 
-  private int userId;
-  private String userName;
-  private String passWord;
+  private int userid;
+  private String username;
+  private String password;
   private Roles role;
+
   
-  //create boilerplate code//
+  //create boilercode//
   
-//created the constructor for User_Model//
-public User_Model() {
+  //created superclass//
+  
+  public User_Model() {
 	super();
-	//created the constructor for User_Model//
 	// TODO Auto-generated constructor stub
 }
-
-//created the constructor for User_Model fields //
-public User_Model(int userId, String userName, String passWord, Roles ole) {
+//create fields//
+public User_Model(int userid, String username, String password, Roles role) {
 	super();
-	this.userId = userId;
-	this.userName = userName;
-	this.passWord = passWord;
+	this.userid = userid;
+	this.username = username;
+	this.password = password;
 	this.role = role;
-	
 }
 
-//Generated getters and setters for User_Model//
-public int getUserId() {
-	return userId;
-}
+//created getters and setters//
 
-public void setUserId(int userId) {
-	this.userId = userId;
+public int getUserid() {
+	return userid;
 }
-
-public String getUserName() {
-	return userName;
+public void setUserid(int userid) {
+	this.userid = userid;
 }
-
-public void setUserName(String userName) {
-	this.userName = userName;
+public String getUsername() {
+	return username;
 }
-
-public String getPassWord() {
-	return passWord;
+public void setUsername(String username) {
+	this.username = username;
 }
-
-public void setPassWord(String passWord) {
-	this.passWord = passWord;
+public String getPassword() {
+	return password;
 }
-
+public void setPassword(String password) {
+	this.password = password;
+}
 public Roles getRole() {
 	return role;
 }
-
 public void setRole(Roles role) {
 	this.role = role;
 }
-//generate toString//
-
+//created toString();
 @Override
 public String toString() {
-	return "User_Model [userId=" + userId + ", userName=" + userName + ", passWord=" + passWord + ", role=" + role
+	return "User_Model [userid=" + userid + ", username=" + username + ", password=" + password + ", role=" + role
 			+ "]";
 }
 
+//created hashcode() and equals//
 
-//generate hashCode() and equals//
 
 @Override
 public int hashCode() {
 	final int prime = 31;
 	int result = 1;
-	result = prime * result + ((passWord == null) ? 0 : passWord.hashCode());
+	result = prime * result + ((password == null) ? 0 : password.hashCode());
 	result = prime * result + ((role == null) ? 0 : role.hashCode());
-	result = prime * result + userId;
-	result = prime * result + ((userName == null) ? 0 : userName.hashCode());
+	result = prime * result + userid;
+	result = prime * result + ((username == null) ? 0 : username.hashCode());
 	return result;
 }
 
@@ -91,30 +84,25 @@ public boolean equals(Object obj) {
 	if (getClass() != obj.getClass())
 		return false;
 	User_Model other = (User_Model) obj;
-	if (passWord == null) {
-		if (other.passWord != null)
+	if (password == null) {
+		if (other.password != null)
 			return false;
-	} else if (!passWord.equals(other.passWord))
+	} else if (!password.equals(other.password))
 		return false;
 	if (role != other.role)
 		return false;
-	if (userId != other.userId)
+	if (userid != other.userid)
 		return false;
-	if (userName == null) {
-		if (other.userName != null)
+	if (username == null) {
+		if (other.username != null)
 			return false;
-	} else if (!userName.equals(other.userName))
+	} else if (!username.equals(other.username))
 		return false;
 	return true;
 }
-
-
-
-
-
+  
+  
 }
 
-
   
-
 
