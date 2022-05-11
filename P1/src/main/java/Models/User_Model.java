@@ -1,6 +1,5 @@
 package Models;
 
-
 //need to import the data from Mockuserdata.java//
 
 public class User_Model {
