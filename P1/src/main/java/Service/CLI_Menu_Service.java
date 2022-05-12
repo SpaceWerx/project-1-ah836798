@@ -13,8 +13,8 @@ public class CLI_Menu_Service {
 	      public static void main(String[] args) {
 	    	  
 	      }
-//       private int validEntries;	        
-//       private int firstChoice;
+	  private int validEntries;	        
+      private int firstChoice;
 	        
 //Display Main Menu Method//	       
 public void displayMenu() {
@@ -41,7 +41,7 @@ public void displayMenu() {
 //Scanner firstChoice = new Scanner(System.in);
 		// Calls the promptSelection() helper method to handle validation
 		// The parameteres list the valid options that the user must choose from  
-		int firstChoice = promptSelection( ...validEntries: 1, 2, 0);
+		int firstChoice = promptSelection( validEntries : 1, 2, 0);
 		
 		// Takes the user input and the switch statement executes the appropriate code
 		switch (firstChoice) {
@@ -165,7 +165,7 @@ public String fetchInput() {
  * @return the selected option as an int
  */
 
-public int promptSelection(int ...validEntries) {
+public int promptSelection(int validEntries) {
 	int input; 
 	boolean valid = false; // flag to track if the input matched a valid entry
 	

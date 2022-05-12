@@ -12,8 +12,7 @@ public void submitReimbursement (Reimbursement reinbursementToBeSubmitted)	{
 	
 	reimbursementToBeSubmitted.setId(id);
 	reimbursementToBeSubmitted.setstatus(Status.Pending);
-	reimbursements.add(reimbursementToBeSubmitted);
-	
+	reimbursements.add(reimbursementToBeSubmitted);	
 }
 
 // Update Reimbursement Method//
@@ -32,7 +31,7 @@ public void update(Reimbursement unprocessedReinbursementToBeSubmitted, resolver
 
 //Get by Id Method//
 
-public Reimbursement getReimbursemenTById(int id) {
+public Reimbursement getReimbursementById(int id) {
 	
 	for (Reimbursement reimbursement : reimbursements ) {
 		if (reimbursement.getId() == id) {
@@ -79,4 +78,3 @@ public List<Reimbursement> getReimbursementsbyAuthor(int userId) {
 	}
 	return userReimburserments;
 }
-

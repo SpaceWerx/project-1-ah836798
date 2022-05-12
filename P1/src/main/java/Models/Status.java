@@ -18,8 +18,8 @@ public enum Status {
 	//	Pending -> Denied
 //		//Reimbursements ***CANNOT*** go from Denied to Approved or vice versa.//
 	
-	  public static void main(String []args) {		  
-		 Status options =Status.Pending;
+//	   
+/*		 Status options =Status.Pending;
 		 
 		 switch(options){
 			
@@ -35,9 +35,8 @@ public enum Status {
 	     
 	     default:
 	    	
-	     System.out.println("Denied");
-		
+	     System.out.println("Denied"); // 		
 		 }
 	  }	
-}
+*/}
 

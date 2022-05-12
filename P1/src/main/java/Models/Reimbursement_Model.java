@@ -6,9 +6,11 @@ public class Reimbursement_Model {
 	private int author;
 	private int resolver;
 	private String description;
-	private String type;
-	private String status;
+	private Reimbursement_Type type;
+	private Status status;
 	private double amount;
+	private String Reimbursement_Type;
+	private String Status;
 	
 	
 	public Reimbursement_Model() {
@@ -16,9 +18,8 @@ public class Reimbursement_Model {
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public Reimbursement_Model(int id, int author, int resolver, String description, String type, String status,
-			double amount) {
+	public Reimbursement_Model(int id, int author, int resolver, String description, Models.Reimbursement_Type type,
+			Models.Status status, double amount, String reimbursement_Type, String status2) {
 		super();
 		this.id = id;
 		this.author = author;
@@ -27,6 +28,8 @@ public class Reimbursement_Model {
 		this.type = type;
 		this.status = status;
 		this.amount = amount;
+		Reimbursement_Type = reimbursement_Type;
+		Status = status2;
 	}
 
 
@@ -70,22 +73,22 @@ public class Reimbursement_Model {
 	}
 
 
-	public String getType() {
+	public Reimbursement_Type getType() {
 		return type;
 	}
 
 
-	public void setType(String type) {
+	public void setType(Reimbursement_Type type) {
 		this.type = type;
 	}
 
 
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
 
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
@@ -97,6 +100,26 @@ public class Reimbursement_Model {
 
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+
+
+	public String getReimbursement_Type() {
+		return Reimbursement_Type;
+	}
+
+
+	public void setReimbursement_Type(String reimbursement_Type) {
+		Reimbursement_Type = reimbursement_Type;
+	}
+
+
+	public String getStatus1() {
+		return Status;
+	}
+
+
+	public void setStatus(String status) {
+		Status = status;
 	}
 
 
