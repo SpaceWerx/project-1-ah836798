@@ -1,6 +1,6 @@
 package Models;
 
-public class Reimbursement_Model {
+public class Reimbursement {
 
 	private int id;
 	private int author;
