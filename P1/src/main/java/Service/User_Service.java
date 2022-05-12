@@ -3,7 +3,7 @@ package Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import Models.User_Model;
+import Models.User;
 
 public class User_Service {
 	

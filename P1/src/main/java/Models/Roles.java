@@ -1,6 +1,6 @@
 package Models;
 
-import Models.User_Model;
+import Models.User;
 public enum Roles {
 
 	Employee, Manager;

@@ -1,13 +1,15 @@
 package Service;
 
+import Models.Reimbursement;
 import Models.Status;
 
 public class Reimbursement_Service {
 
 // Submit Reimbursement Method//
 	
+    
 public void submitReimbursement (Reimbursement reinbursementToBeSubmitted)	{
-	Reimbursement latestReimbursement = reimbursements.get(reimbursements.size() - 1);
+	Reimbursement latestReimbursement = reimbursement.get(reimbursement_Model.size() - 1);
 	int id = latestReimbursement.getId() + 1; //New ID is higher than the previous highest
 	
 	reimbursementToBeSubmitted.setId(id);
@@ -68,13 +70,13 @@ public List<Reimbursement> getResolvedReimbursements() {
 }
 
 //Get By Author..which is UserID... Method//
-public List<Reimbursement> getReimbursementsbyAuthor(int userId) {
+public List<Reimbursement> getReimbursementsbyAuthor(int id) {
 	List<Reimbursement> userReimbursements = new ArrayList<>();
 	
 	for (Reimbursement r: reimbursements) {
-		if (r.getAuthor() == userId || r.getResolver() == userId) {
+		if (r.getAuthor() == id || r.getResolver() == id) {
 			userReimbursements.add(r);
 	    }
 	}
-	return userReimburserments;
+	return userReimbursements;
 }

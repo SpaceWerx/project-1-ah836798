@@ -1,6 +1,6 @@
 package Models;
 
-import Models.Reimbursement_Model;
+import Models.Reimbursement;
 import java.util.Scanner;
 
 

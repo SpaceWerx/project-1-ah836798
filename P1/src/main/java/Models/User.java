@@ -15,15 +15,15 @@ public class User {
   //create boilercode//
   
   //created superclass//
-public User_Model() {
+public User() {
 	super();
-	// TODO Auto-generated constructor stub
+	// TODO Auto-generated constructor stub//
 }
 
 
 //create fields//
 
-public User_Model(int userid, String username, String password, Models.Roles role, String roles) {
+public User(int userid, String username, String password, Models.Roles role, String roles) {
 	super();
 	this.userid = userid;
 	this.username = username;
@@ -88,7 +88,7 @@ public void setRoles(String roles) {
 
 @Override
 public String toString() {
-	return "User_Model [userid=" + userid + ", username=" + username + ", password=" + password + ", role=" + role
+	return "User [userid=" + userid + ", username=" + username + ", password=" + password + ", role=" + role
 			+ ", Roles=" + Roles + "]";
 }
 
@@ -114,7 +114,7 @@ public boolean equals(Object obj) {
 		return false;
 	if (getClass() != obj.getClass())
 		return false;
-	User_Model other = (User_Model) obj;
+	User other = (User) obj;
 	if (Roles == null) {
 		if (other.Roles != null)
 			return false;

@@ -1,6 +1,6 @@
 package Models;
 
-import Models.Reimbursement_Model;
+import Models.Reimbursement;
 
 public enum Reimbursement_Type {
    

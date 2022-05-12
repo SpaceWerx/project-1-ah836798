@@ -2,6 +2,8 @@ package Service;
 
 import java.util.*;
 import java.util.Scanner; // import the Scanner class
+import Models.Reimbursement_Model;
+import Models.*;
 import Models.Roles;
 import Models.Status;
 
@@ -237,7 +239,7 @@ public void handlePortal(Role role) {
 	System.out.println("PLEASE ENTER THE NUMBER OF YOUR CHOICE");
 	
 	// Enhance for loop to print out all users one by one
-	for (User u : users) {
+	for (User_ u : users) {
 		System.out.println(u.getId() + " -> " + u.getUsername());
 	}
 	System.out.println("0 -> Return to Main Menu");
@@ -348,7 +350,7 @@ public void displayPendingReimbursements() {
 	
 }
 
-public void displayPendingReimbursements() {
+public void displayResolvedReimbursements() {
 	List<Reimbursement> resolvedReimbursements = rService.getResolvedReimbursements();
 
 	if (resolvedReimbursements.isEmpty()) {
@@ -404,7 +406,7 @@ public void processReimbursement(User manager) {
         System.out.println("1 -> Approve");
         System.out.println("2 -> Deny");
         
-        int decision = promptSelection( ...validEntries: 1,2);
+        int decision = promptSelection( validEntries: 1,2);
         Status status = (decision == 1) ? Status.Approved : Status.Denied;
         rService.update(reimbursementToBeProcessed, manager.getId(), status);
         

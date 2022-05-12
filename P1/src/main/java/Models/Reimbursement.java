@@ -12,13 +12,14 @@ public class Reimbursement {
 	private String Reimbursement_Type;
 	private String Status;
 	
-	
-	public Reimbursement_Model() {
+
+	public Reimbursement() {
 		super();
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub//
 	}
 
-	public Reimbursement_Model(int id, int author, int resolver, String description, Models.Reimbursement_Type type,
+
+	public Reimbursement(int id, int author, int resolver, String description, Models.Reimbursement_Type type,
 			Models.Status status, double amount, String reimbursement_Type, String status2) {
 		super();
 		this.id = id;
@@ -125,7 +126,7 @@ public class Reimbursement {
 
 	@Override
 	public String toString() {
-		return "Reimbursement_Model [id=" + id + ", author=" + author + ", resolver=" + resolver + ", description="
+		return "Reimbursement [id=" + id + ", author=" + author + ", resolver=" + resolver + ", description="
 				+ description + ", type=" + type + ", status=" + status + ", amount=" + amount + "]";
 	}
 
@@ -155,7 +156,7 @@ public class Reimbursement {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Reimbursement_Model other = (Reimbursement_Model) obj;
+		Reimbursement other = (Reimbursement) obj;
 		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
 			return false;
 		if (author != other.author)

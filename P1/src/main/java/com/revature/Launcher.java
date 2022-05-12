@@ -9,8 +9,10 @@ public class Launcher {
 	//CLI Menu is the Command Line Interface Menu for the 
 		//initialize a new CLI Menu Service 
 	      public static void main(String[] args) {
-	        CLI_Menu_Service CLImenu = new CLI_Menu_Service();
-	        CLImenu.displayMenu();
+	        CLI_Menu_Service options = new CLI_Menu_Service();
+	        options.displayMenu();
+	        options.loginMenu();
+	        options.registerMenu();
 	      }
 	}
 
