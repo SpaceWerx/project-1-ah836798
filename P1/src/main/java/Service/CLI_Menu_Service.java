@@ -7,7 +7,6 @@ import Models.*;
 import Models.Roles;
 import Models.Status;
 
-
 public class CLI_Menu_Service {
 
 	//CLI Menu is the Command Line Interface Menu for the 
@@ -16,7 +15,9 @@ public class CLI_Menu_Service {
 	    	  
 	      }
 	  private int validEntries;	        
-      private int firstChoice;
+      private String firstChoice;
+      private String lastChoice;
+      Scanner scan = new Scanner(System.in);
 	        
 //Display Main Menu Method//	       
 public void displayMenu() {
@@ -43,26 +44,27 @@ public void displayMenu() {
 //Scanner firstChoice = new Scanner(System.in);
 		// Calls the promptSelection() helper method to handle validation
 		// The parameteres list the valid options that the user must choose from  
-		int firstChoice = promptSelection( validEntries : 1, 2, 0);
+		String firstChoice = scan.nextLine();
 		
 		// Takes the user input and the switch statement executes the appropriate code
 		switch (firstChoice) {
 		
 		// A break in each case block so that the other cases will not run 
-		case 1:   
+		case "1":   
 			handlePortal(Roles.Employee);
 			break;
-		case 2:   
+		case "2":   
 			handlePortal(Roles.Manager);
 			break; 
-		case 0:   
+		case "0":   
 			System.out.println("\nHave a great day! Goodbye.");
 			menuOptions = false;
-			break;		
+			break;
+		default:
+			System.out.println("Invalid entry");
 		}	
 	}//end of while loop
 }
-
 
 //Display Employee Menu Method//
 
@@ -81,16 +83,16 @@ public void displayEmployeeMenu(User employee) {
     	System.out.println("0 -> Return to Main Menu");
     
     	//user chooses a menu option and the scanner takes the input and put it into a int variable
-    	int firstChoice = promptSelection(...validEntries: 1,2,0);
+    	String firstChoice = scan.nextLine();
     	
     	switch (firstChoice) {
-    	    case 1:
+    	    case "1":
     	    	displayPreviousRequests(employee);
     	    	break;
-    	    case 2:
+    	    case "2":
     	    	submitReimbursement(employee);
     	    	break;
-    	    case 0:
+    	    case "0":
     	    	System.out.println("Returning to Main Menu...");
     	    	employeePortal = false;
     	    	break;
@@ -102,8 +104,8 @@ public void displayEmployeeMenu(User employee) {
 
 
 //Display Manager Menu Method//	
-public void displayFinanceManagerMenu(User employee) {
-	boolean managerPortal = true;
+public void displayFinanceManagerMenu(User manager) {
+	boolean managerPortal = true; 
 	
 	System.out.println("--------------------------------------------------------");
 	System.out.println("Welcome to the Manager Portal, " + manager.getUsername());
@@ -118,19 +120,19 @@ public void displayFinanceManagerMenu(User employee) {
     	System.out.println("0 -> Return to Main Menu");
     
     	//user chooses a menu option and the scanner takes the input and put it into a int variable
-    	int firstChoice = promptSelection(...validEntries: 1, 2, 3, 0);
+    	String firstChoice = scan.nextLine();
     	
     	switch (firstChoice) {
-    	    case 1:
+    	    case "1":
     	    	displayPendingReimbursements();
     	    	break;
-    	    case 2:
+    	    case "2":
     	    	displayResolvedReimbursements();
     	    	break;
-    	    case 3:
+    	    case "3":
     	    	processReimbursement(manager);
     	    	
-    	    case 0:
+    	    case "0":
     	    	System.out.println("Returning to Main Menu...");
     	    	managerPortal = false;
     	    	break;
@@ -154,7 +156,8 @@ public String fetchInput() {
 	// scan.nextLine() obtains the entire line, such as "123 456"
 	//split() turns it into an array separated by whitespace, such as {"123", "456"}
 	// [0] keeps only the first element, leaving "123" 
-	return scan.nextLine().split( regex: " ")[0];
+	String regex;
+	return scan.nextLine().split( regex " ")[0];
 }
 
 //Prompt Selection Helper Method//
@@ -168,7 +171,8 @@ public String fetchInput() {
  */
 
 public int promptSelection(int validEntries) {
-	int input; 
+	int  input; 
+	int entry; 
 	boolean valid = false; // flag to track if the input matched a valid entry
 	
 	do { // do-while loop to continue to prompt user until the response is valide
@@ -223,8 +227,8 @@ public double parseDoubleInput(String input) {
 }
 
 //Handle Portal Helper Method//
-public void handlePortal(Role role) {
-    // get the List of employees from the repository layer
+public void handlePortal(Roles role) {
+	// get the List of employees from the repository layer
 	List<User> users = userService.getByRole(role);
 	
 	int[] ids = new Int[users.size() + 1];
@@ -252,7 +256,7 @@ public void handlePortal(Role role) {
 	}
 	User employee = userService.getUserById(userChoice);
 	
-	if (role == Role.Manager) {
+	if (role == Roles.Manager) {
 		System.out.println("Opening Manager Portal for " + employee.getUsername());
 		displayFinanceManagerMenu(employee);
 	} else {
@@ -266,7 +270,7 @@ public void handlePortal(Role role) {
 public void displayPreviousRequests(User employee) {
 	List<Reimbursement> reimbursements = rService.getReimbursementsByAuthor(employee.getOd);
 	
-	if (reimbursements.isEmpy()) {
+	if (reimbursements.isEmpty()) {
 		System.out.println("No Previous Requests...");
 		System.out.println("Returning to Previous Menu... ");
 	}
@@ -290,16 +294,16 @@ public void submitReimbursement(User employee) {
     int typeDecision = promptSelction(.employee..validEntries: 1,2,3,4);
 	
 	switch (typeDecision) {
-    case 1:
-    	reimbursementToBeSubmitted.setType(ReimbursementType.Lodging));
+    case "1":
+    	reimbursementToBeSubmitted.setType(Reimbursement_Type.Lodging));
     	break;
-    case 2:
-    	reimbursementToBeSubmitted.setType(ReimbursementType.Travel));
+    case "2:
+    	reimbursementToBeSubmitted.setType(Reimbursement_Type.Travel));
     	break;
-	case 3:
+	case "3":
 		reimbursementToBeSubmitted.setType(ReimbursementType.Food));
 	break;
-	case 4:
+	case "4"
     	reimbursementToBeSubmitted.setType(ReimbursementType.Other));
     	break;
 	}
@@ -415,14 +419,11 @@ public void processReimbursement(User manager) {
         System.out.println("1 -> Yes");
         System.out.println("2 -> No");
         
-        int lastChoice = promptSelection(...validEntries: 1,2);
+        String lastChoice = scan.nextLine();
         
         if (lastChoice ==2) {
         	processPortal = false;
         }  	        
     }
 
-
-
-
-
+    

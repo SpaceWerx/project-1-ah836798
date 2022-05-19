@@ -11,8 +11,8 @@ public class Launcher {
 	      public static void main(String[] args) {
 	        CLI_Menu_Service options = new CLI_Menu_Service();
 	        options.displayMenu();
-	        options.loginMenu();
-	        options.registerMenu();
+//	        options.loginMenu();
+//	        options.registerMenu();
 	      }
 	}
 

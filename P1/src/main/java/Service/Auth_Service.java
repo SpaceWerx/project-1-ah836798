@@ -23,7 +23,7 @@ public User loginMenu(String username, String password) {
 	   if (user!=null && password.equals(user.getPassword())) {
 		   
 		   //If this one is true, the user object is returned and login is deemed successful
-		   System.out.println("Logged in Successfully!"));
+		   System.out.println("Logged in Successfully!");
 		   return user;
 		   
 	   // The second is checking if the user exists and the password given is different than the one stored
@@ -37,7 +37,7 @@ public User loginMenu(String username, String password) {
 	   } else {
 		   
 		   // This outcome will return a null object and login is deemed unsuccessful
-	      System.out.println()"User Does Not Exist!";
+	      System.out.println("User Does Not Exist!");
 	      return null;
 	   } catch (Exception e) {
 		   System.out.println("Login Unsuccessful");
