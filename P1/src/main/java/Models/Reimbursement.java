@@ -29,7 +29,7 @@ public class Reimbursement {
 		this.type = type;
 		this.status = status;
 		this.amount = amount;
-		Reimbursement_Type = reimbursement_Type;
+		this.Reimbursement_Type = reimbursement_Type;
 		Status = status2;
 	}
 

@@ -1,8 +1,12 @@
 package Service;
 
 import java.util.*;
+import java.util.List;
+
 import java.util.Scanner; // import the Scanner class
-import Models.Reimbursement_Model;
+import Models.Reimbursement;
+import Models.Reimbusement_Type;
+import Models.User;
 import Models.*;
 import Models.Roles;
 import Models.Status;
@@ -17,6 +21,15 @@ public class CLI_Menu_Service {
 	  private int validEntries;	        
       private String firstChoice;
       private String lastChoice;
+      private int ids;
+      private String users;
+      private String typeDecision;
+      private String reimbursementToBeSubmitted;
+      private String reimbursementToBeProcessed;
+      
+      
+      
+      
       Scanner scan = new Scanner(System.in);
 	        
 //Display Main Menu Method//	       
@@ -141,7 +154,7 @@ public void displayFinanceManagerMenu(User manager) {
         
     }
 }
-
+/*
 //Fetch Input Helper Method//
 
 /** 
@@ -152,13 +165,22 @@ public void displayFinanceManagerMenu(User manager) {
  * @return the first token of user input on the next line
  */
 
+
+
+//
+
 public String fetchInput() {
 	// scan.nextLine() obtains the entire line, such as "123 456"
 	//split() turns it into an array separated by whitespace, such as {"123", "456"}
 	// [0] keeps only the first element, leaving "123" 
+	
 	String regex;
 	return scan.nextLine().split( regex " ")[0];
+	
 }
+
+
+
 
 //Prompt Selection Helper Method//
 
@@ -170,8 +192,9 @@ public String fetchInput() {
  * @return the selected option as an int
  */
 
+
 public int promptSelection(int validEntries) {
-	int  input; 
+	int input; 
 	int entry; 
 	boolean valid = false; // flag to track if the input matched a valid entry
 	
@@ -179,7 +202,7 @@ public int promptSelection(int validEntries) {
 		// process the input
 		input = parseIntegerInput(fetchInput());
 		
-		// Check if the input matches a valid entry
+		// Check if the input\\ matches a valid entry
 		for (int entry : validEntries) {
 			if (entry == input) {
 				//if it does, we activate the flag, which will end the do-while loop
@@ -197,6 +220,8 @@ public int promptSelection(int validEntries) {
 	return input;
 	
 }
+
+
 
 //Parse Integer and Double Helper Methods//
 /** 
@@ -229,7 +254,7 @@ public double parseDoubleInput(String input) {
 //Handle Portal Helper Method//
 public void handlePortal(Roles role) {
 	// get the List of employees from the repository layer
-	List<User> users = userService.getByRole(role);
+	List<User> users = User.getuseridById(role);
 	
 	int[] ids = new Int[users.size() + 1];
 	ids[users.size()] = 0;
@@ -254,7 +279,7 @@ public void handlePortal(Roles role) {
 	if (userChoice == 0) {
 		return;
 	}
-	User employee = userService.getUserById(userChoice);
+	User employee = User_Service.getUserById(userChoice);
 	
 	if (role == Roles.Manager) {
 		System.out.println("Opening Manager Portal for " + employee.getUsername());
@@ -290,21 +315,21 @@ public void submitReimbursement(User employee) {
 	System.out.println("1 -> Lodging");
 	System.out.println("2 -> Travel");
 	System.out.println("3 -> Food");
-	System.out.println("4 -> "Other");"
-    int typeDecision = promptSelction(.employee..validEntries: 1,2,3,4);
+	System.out.println("4 -> Other");
+    String typeDecision = scan.nextLine();
 	
 	switch (typeDecision) {
     case "1":
-    	reimbursementToBeSubmitted.setType(Reimbursement_Type.Lodging));
+    	reimbursementToBeSubmitted.setType(Reimbursement_Type.Lodging);
     	break;
-    case "2:
-    	reimbursementToBeSubmitted.setType(Reimbursement_Type.Travel));
+    case "2":
+    	reimbursementToBeSubmitted.setType(Reimbursement_Type.Travel);
     	break;
 	case "3":
-		reimbursementToBeSubmitted.setType(ReimbursementType.Food));
+		reimbursementToBeSubmitted.setType(Reimbursement_Type.Food);
 	break;
-	case "4"
-    	reimbursementToBeSubmitted.setType(ReimbursementType.Other));
+	case "4":
+    	reimbursementToBeSubmitted.setType(Reimbursement_Type.Other);
     	break;
 	}
 	
@@ -317,7 +342,7 @@ public void submitReimbursement(User employee) {
 		boolean valid = false;
 		while (!valid) {
 			reimbursementToBeSubmitted.setAmount(parseDoubleInput(fetchInput)));
-			if (reimbursementToBeSubmitted.getAmount() != 0) { (parseDoubleInput(fetchInput)));)
+			if (reimbursementToBeSubmitted.getAmount() != 0) { (parseDoubleInput(fetchInput)));
             valid = true;
 			}	
 		}	
@@ -325,12 +350,12 @@ public void submitReimbursement(User employee) {
 	
 	System.out.println("Please enter a description/reason for you reimbursement request.");
 		
-	reimbursementToBeSubmitted.setDescription(scan.nextLine()));
+	reimbursementToBeSubmitted.setDescription(scan.nextLine());
 	if (reimbursementToBeSubmitted.getDescription().trim().equals("")) {
 		System.out.println("You cannot submit a request with an empty description, please explain the reason for your request.");		 
 		boolean valid = false;
 		while (!valid) {
-			reimbursementToBeSubmitted.setDescription(scan.nextLine()));
+			reimbursementToBeSubmitted.setDescription(scan.nextLine());
 			if (reimbursementToBeSubmitted.getDescription().trim().equals("")) {
             valid = true;
 			}	
@@ -425,5 +450,7 @@ public void processReimbursement(User manager) {
         	processPortal = false;
         }  	        
     }
+    
+
 
     

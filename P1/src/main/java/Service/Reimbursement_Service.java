@@ -6,7 +6,9 @@ import Models.Status;
 public class Reimbursement_Service {
 
 // Submit Reimbursement Method//
-	
+
+    private String latestReimbursement;
+    
     
 public void submitReimbursement (Reimbursement reinbursementToBeSubmitted)	{
 	Reimbursement latestReimbursement = reimbursement.get(reimbursement_Model.size() - 1);
