@@ -1,6 +1,4 @@
-package Models;
-
-import Models.Reimbursement;
+package com.revature.models;
 
 public enum Reimbursement_Type {
    

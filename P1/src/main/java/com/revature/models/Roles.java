@@ -1,6 +1,5 @@
-package Models;
+package com.revature.models;
 
-import Models.User;
 public enum Roles {
 
 	Employee, Manager;

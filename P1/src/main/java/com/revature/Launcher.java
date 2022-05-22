@@ -2,7 +2,7 @@ package com.revature;
 
 import java.util.Scanner; // import the Scanner class 
 
-import Service.CLI_Menu_Service;
+import com.revature.services.CLI_Menu_Service;
 
 public class Launcher {
 

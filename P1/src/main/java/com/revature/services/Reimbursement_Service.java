@@ -1,4 +1,4 @@
-package Service;
+package com.revature.services;
 
 import Models.Reimbursement;
 import Models.Status;
@@ -9,24 +9,24 @@ public class Reimbursement_Service {
 
     private String latestReimbursement;
     
-    
-public void submitReimbursement (Reimbursement reinbursementToBeSubmitted)	{
-	Reimbursement latestReimbursement = reimbursement.get(reimbursement_Model.size() - 1);
+   
+public void submitReimbursement (Reimbursement reimbursementToBeSubmitted)	{
+	Reimbursement latestReimbursement = reimbursement.get(reimbursement.size() - 1);
 	int id = latestReimbursement.getId() + 1; //New ID is higher than the previous highest
 	
 	reimbursementToBeSubmitted.setId(id);
-	reimbursementToBeSubmitted.setstatus(Status.Pending);
-	reimbursements.add(reimbursementToBeSubmitted);	
+	reimbursementToBeSubmitted.setStatus(Status.Pending);
+	Reimbursement.add(reimbursementToBeSubmitted);	
 }
 
 // Update Reimbursement Method//
 
-public void update(Reimbursement unprocessedReinbursementToBeSubmitted, resolverId, Status updatedStatus) {	
+public void update(Reimbursement unprocessedReinbursementToBeSubmitted, resolver, Status updatedStatus) {	
 	
 	for (Reimbursement reimbursement : reimbursements) {
-		if (reimbursement.getId() == unprocessedReimbursement.getId))
-			reimbursement.setResolver(resolverId);
-			reimbursement.setStatus(updatedStatus);
+		if (Reimbursement.getId() == unprocessedReimbursement.getId);
+			Reimbursement.setResolver(resolverId);
+			Reimbursement.setStatus(updatedStatus);
 			return;
 	    }
 	}
@@ -37,7 +37,7 @@ public void update(Reimbursement unprocessedReinbursementToBeSubmitted, resolver
 
 public Reimbursement getReimbursementById(int id) {
 	
-	for (Reimbursement reimbursement : reimbursements ) {
+	for (Reimbursement reimbursement : reimbursement ) {
 		if (reimbursement.getId() == id) {
 			return reimbursement;
 		}
@@ -51,11 +51,11 @@ public List<Reimbursement> getPendingReimbursements() {
 	List<Reimbursement> pendingReimbursements = new ArrayList<>();
 	
 	for (Reimbursement reimbursement : reimbursements) {
-		if (reimbursement.getStatus() == Status.Pending;
+		if (Reimbursement.getStatus() == Status.Pending;
 			pendingReimbursements.add(reimbursement);
 	    }
 	}
-	return pendingReimburserments;
+	return pendingReimbursements;
 }
 
 //Get Approved and Resolved Reimbursements Method//
@@ -68,7 +68,7 @@ public List<Reimbursement> getResolvedReimbursements() {
 			resolvedReimbursements.add(reimbursement);
 	    }
 	}
-	return resolvedReimburserments;
+	return resolvedReimbursements;
 }
 
 //Get By Author..which is UserID... Method//

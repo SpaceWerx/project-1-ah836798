@@ -1,7 +1,4 @@
-package Models;
-
-import Models.Reimbursement;
-import java.util.Scanner;
+package com.revature.models;
 
 
 public enum Status {

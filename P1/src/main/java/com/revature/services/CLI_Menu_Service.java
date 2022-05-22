@@ -1,15 +1,13 @@
-package Service;
+package com.revature.services;
 
 import java.util.*;
 import java.util.List;
 
 import java.util.Scanner; // import the Scanner class
-import Models.Reimbursement;
-import Models.Reimbusement_Type;
-import Models.User;
+
+import com.revature.models.User;
+
 import Models.*;
-import Models.Roles;
-import Models.Status;
 
 public class CLI_Menu_Service {
 
