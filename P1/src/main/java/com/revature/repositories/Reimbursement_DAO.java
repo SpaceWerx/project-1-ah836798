@@ -66,7 +66,7 @@ public class Reimbursement_DAO {
 
 public List<Reimbursement> getReimbursementsByUser (int userID) {
 
-	//tray+catch block to catch sql exception that can be thwown with connection
+	//try+catch block to catch sql exception that can be thrown with the connection
 	try (Connection connection =Connection_Factory_Utility.getConnection()) {
 		
 		// SQL statement prepared as a string
@@ -115,3 +115,78 @@ public List<Reimbursement> getReimbursementsByUser (int userID) {
 	return null;
 	
 }
+
+/** 
+ * Should retrieve a List of Reimbursements from the DB with the corresponding Status or an empty List if there are no matches.
+ */
+
+public List<Reimbursement> getByStatus(Status status) {
+	
+	// try+catch block to catch sql exception that can be thrown with connection 
+ try (Connection connection =Connection_Factory_Utility.getConnection()) {
+		
+	//Write the query that we want to send to the database and assign it a String
+	String sql ="select * from ers_reimbursements by an status =?::status";
+	
+	//Put the SQL query into a Statement ohject (The Connection object has a method for this implicitly). 
+	
+	PreparedStatement preparedStatement = connection.prepareStatement(sql); 
+	
+	// Filling the missing query value (?) with the method parameter (userId)
+	preparedStatement.setInt(parameterindex 1, status.toString()); 
+			
+	//Execute the Query by putting the results of the query into our ResultSet object (resultSet)
+	//The Statement object has a method that takes Strings to execute as a SQL query
+	ResultSet resultSet = preparedStatement.executeQuery();
+	
+	// ALL THE CODE ABOVE MAKES A CALL TO OUR DATABASE. Now we need to store the data in an ArrayList.
+	List<Reimbursement> reimbursements =new ArrayList<>(); //Upcasting, we are instantiating an Arraylist
+	
+	//while there are results in the results
+	 while (resultSet.next() ) {
+		
+		//Adding reimbursements to the list with the data extracted from the database
+		reimbursements.add(new Reimbursement(
+				resultSet.getInt(columnLabel: "id"),
+				resultSet.getInt(columnLabel: "author"),
+				resultSet.getInt(columnLabel: "resolver"),
+				resultSet.get.String(columnLabel: "description"),
+				Reimbursement_Type.valueOf(resultSet.getString(columnlabel: "type")),
+				Staus.valueOf(resultSet.getString(columnlabel:"status"))
+				resultSet.getDouble(columnLabel:"amount")
+		));	
+	 }
+				
+	//when there are no more results in resultSet, the while loop will break
+	//then, return the populated ArrayList of Users
+	 return reimbursements;
+	
+ } catch (SQLException e) {
+	
+	// Catching the sql exception (this is a good place to utilize custom exception handling
+	System.out.println("Something Went Wrong obtaining the reimbursements!");
+	e.printStackTrace();
+ }
+		
+ //Fail=safe if the try*catch block does not run
+ return null;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
