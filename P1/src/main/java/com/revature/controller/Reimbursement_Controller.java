@@ -3,6 +3,7 @@ package com.revature.controller;
 import javax.net.ssl.SSLEngineResult.Status;
 
 import com.revature.services.Reimbursement_Service;
+import com.revature.services.User_Service;
 
 import io.javalin.http.Context;
 import io.javalin.http.HttpCode;
@@ -51,6 +52,8 @@ public void handleSubmit(Context ctx) {
 		
 	}
 }
+
+
 
 public void handleProcess(Context ctx) {
 	
@@ -160,24 +163,103 @@ public void handleGetReimbursementsByStatus(Context ctx) {
 	}	
 }
 
+/** 
+ * This Javalin handler method is the entry point for any calls to get reimbursements by author ID  
+ */
 
+public void handleGetReimbursementsByAuthor(Context ctx) {
+	
+	// Try+catch block to catch any exceptions
+	try{
+		// Retrieving the ID from the current user header
+		String idParam = ctx.queryParam(key: "author");
+	
+		// Making sure the client sent the header with the request
+		if(idParam != null) {
+			// Parsing to integer
+			int id = Integer.parseInt(idParam);
+		
+			// Checking if the user exists
+			if (User_Service.checkUserExistsById(id)) {
+				// Proclaim victory
+				ctx.status(HttpCode.OK);
+				// Returnf all reimbursements submitted by the current user
+				ctx.json(Reimbursement_Service.getReimbursementsByAuthor(id));
+			
+			} else { 
+				// Proclaim default and tell the client that the user does not exist
+				ctx.status(HttpCode.NOT_FOUND);
+				ctx.result("Unable to retrieve reimbursments, current user is not in the database");
+			}
+		} else {
+			// Proclaim defeat if the ID was unchanged
+			ctx.status(HttpCode.BAD_REQUEST);
+			CTX.RESULT("Missing Current User header");
+		}
+		// Catching any exception thrown
+	} catch (Exception e) {
+		// Returning 500 status
+		ctx.status(HttpCode.INTERNAL_SERVER_ERROR);
+	
+		// If the exception has a message, send it back to the body 
+		if(!e.getMessage().isEmpty()) {
+		ctx.result(e.getMessage());
+		}
+	
+		// Stacktrace to help debug the server
+		e.printStackTrace();
+		
+
+	}
 }
 
 
+/** 
+ * This Javalin handler method is the entry point for any calls to get reimbursements by reimbursement ID  
+ */
 
 
+public void handleGetReimbursementsById(Context ctx) {
+	
+	// Try+catch block to catch any exceptions
+	try{
+		// Retrieving the ID from the path parameter as designated by the Javalin routes config
+		String idParam = ctx.queryParam(key: "id");
+		// Parsing the ID from the path param
+		int id = Integer.parseInt(idParam);
+		
+		// Using the int ID to get the respective reimbursement
+		Reimbursement reimbursement = reimbursementService.getReimbursementById;
+		
+		// Checking to make sure reimbursement was retrieved
+		if(reimbursement != null) {
+			// Proclaim victory an return the respective reimbursement
+			
+			ctx.status(HttpCode.OK);
+			ctx.json(reimbursement); 
+			
+		} else { 
+			// Proclaim default and tell the client retrieval was unsuccessful 
+			ctx.status(HttpCode.BAD_REQUEST);
+			ctx.result("Could not retrieve the reimbursement");
+			}
+		}
+		// Catching any exception thrown
+	} catch (Exception e) {
+		// Returning 500 status
+		ctx.status(HttpCode.INTERNAL_SERVER_ERROR);
+	
+		// If the exception has a message, send it back to the body 
+		if(!e.getMessage().isEmpty()) {
+		ctx.result(e.getMessage());
+		}
+	
+		// Stacktrace to help debug the server
+		e.printStackTrace();
+		
 
-
-
-
-
+	}
 }
-
-
-
-
-
-
 
 
 
