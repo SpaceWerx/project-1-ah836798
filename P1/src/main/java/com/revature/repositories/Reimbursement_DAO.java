@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -173,20 +174,47 @@ public List<Reimbursement> getByStatus(Status status) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+public List<Reimbursement> getAllReimbursement() {
+	
+	// try+catch block to catch sql exception that can be thrown with connection 
+ try (Connection connection =Connection_Factory_Utility.getConnection()) {
+	
+	 // Instantiate a new arrayList to store the records from the database
+	 List<Reimbursement> reimbursements =new ArrayList<>();
+	 
+	//Write out the appropriate sql query string 
+	String sql ="select * from ers_reimbursements";
+	
+	// we can use createStatement in this case because we do not have any parameters in the query
+	
+	Statement statement = connection.createStatement();
+	
+	//storing the records from the query in a result set
+	ResultSet resultSet = statement.executeQuery(sql);
+	
+	// Looping over the records from the query to then add to the return list 
+			
+	while(resultSet.next() ) {
+		reimbursements.add(new Reimbursement(
+				resultSet.getInt(columnLabel: "id"),
+				resultSet.getInt(columnLabel: "author"),
+				resultSet.getInt(columnLabel: "resolver"),
+				resultSet.get.String(columnLabel: "description"),
+				Reimbursement_Type.valueOf(resultSet.getString(columnlabel: "type")),
+				Staus.valueOf(resultSet.getString(columnlabel:"status"))
+				resultSet.getDouble(columnLabel: "amount")
+		));	
+	 }			
+	// returning the list of records after the result set runs out
+	return reimbursements;
+	
+ } catch (SQLException e) {
+	
+	// Catching the sql exception (this is a good place to utilize custom exception handling
+	System.out.println("Something Went Wrong obtaining the reimbursements!");
+	e.printStackTrace();
+ }
+		
+ //Fail=safe if the try*catch block does not run
+ return null;
+}
