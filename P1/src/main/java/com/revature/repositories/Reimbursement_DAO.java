@@ -114,8 +114,8 @@ public List<Reimbursement> getReimbursementsByUser (int userID) {
 			
 	//Fail=safe if the try*catch block does not run
 	return null;
-	
 }
+
 
 /** 
  * Should retrieve a List of Reimbursements from the DB with the corresponding Status or an empty List if there are no matches.
@@ -196,7 +196,7 @@ public List<Reimbursement> getAllReimbursement() {
 			
 	while(resultSet.next() ) {
 		reimbursements.add(new Reimbursement(
-				resultSet.getInt(columnLabel: "id"),
+				resultSet.getInt(...columnLabel: "id"),
 				resultSet.getInt(columnLabel: "author"),
 				resultSet.getInt(columnLabel: "resolver"),
 				resultSet.get.String(columnLabel: "description"),
@@ -230,14 +230,76 @@ public int create(Reimbursement reimbursementToBeSubmitted) {
 		
 		// writing out the (relativity complex) sql insert string to create a new record
 		// we explicitly ask the database to return the new id after entry
-		String sql = "INSERT INTO ers_reimbursements (author"
-				
-				
+		String sql = "INSERT INTO ers_reimbursements (author, description, type, status, amount)"
+				* "VALUES(?, ? .?::type, ?::status, ?)"
+				* "RETURNING ers_reimbursements.id";
+		
+		// We must use a prepared statement because we have parameters
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		
+		//use the PreparedStatementobjects method to insert values into the query
+		//the values will come from the Reimbursement object we send in. 
+		preparedStatement.setInt( parameterindex: 1, reimbursementToBeSubmitted.getAuthor());
+		preparedStatement.setString( parameterindex: 2, reimbursementToBeSubmitted.getDescription());
+		preparedStatement.setObject( parameterindex: 3, reimbursementToBeSubmitted.getType().name());
+		preparedStatement.setObject( parameterindex: 4, reimbursementToBeSubmitted.getStatus());		
+	    preparedStatement.setDouble( parameterindex: 5, reimbursementToBeSubmitted.getAmount());
+	
+	    //We need to use the result set to retrieve the newly generated ID after entry of the new record
+	    ResultSet resultSet;
+	    
+	    //Here, we are checking that the sql query executed and returned the reimbursement record with new id
+	    if((resultSet = preparedStatement.executeQuery()) !=null) {
+	    	  //must call this to get the returned reimbursement record id
+	    	resultSet.net();
+	    	//finally returning the new id
+	    	return resultSet.getInt( columnindex: 1);
+	    	
+	    }
+	
+	} catch (SQLException e) {
+		System.out.println("Creating reimbursement has failed");
+		e.printStackTrace();
+		
 	}
+	//Fail-safe if the try+catch block does not run
+	return 0;
 	
+}
+
+
+
 	
+	/** 
+	 * The update method is meant to process reimbursements
+	 * This method is void because we are only using it to update specific fields in a given record
+	 */
+
+public void update(Reimbursement unprocessedReimbursement) {
+
+	//try-catch block to catch sql exception that can be thrown with connection 
+	try (Connection connection = ConnectionFactoryUtility.getConnection()) {
+
+		//Write the query that we want to send to the database and assign it to a String 	
+		String sql = "UPDATE ers reimbursements SET resolver = ?, status = ?::status WHERE id = ?";
+
+		//Creating a prepared statement with the sql string we created
+		PreparedStatement preparedStatement = connection.preparedStatement(sql);
+
+		//Setting the update parameteres (?'s) with their respective values.
+		preparedStatement.setInt( paramenterindex: 1, unprocessedReimbursement.getResolver());
+		preparedStatement.setObject( paramenterindex: 2, unprocessedReimbursement.getStatus().name());
+		preparedStatement.setInt( paramenterindex: 3, unprocessedReimbursement.getId());
+
+		//executing the record update
+		preparedStatement.executeUpdate();
 	
-	
-	
+		// Proclaim victory
+		System.out.println("Reimbursement Successfuly Updated!");
+
+	} catch (SQLException e) {
+		System.out.println("Updating Failed!"); //Proclaim defeat
+		e.printStackTrace(); // useful debugging tool
+	}
 }
 
