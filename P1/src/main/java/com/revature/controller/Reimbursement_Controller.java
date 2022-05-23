@@ -78,12 +78,12 @@ public void handleProcess(Context ctx) {
 			String statusInput = ctx.formParam("status");
 			
 			// Calling the getReimbursementByID Method and storing the return method
-			Reimbursement reimbursement =Reimbursement_Service.getReimbursementById(id);
+			Reimbursement reimbursement =reimbursement.getReimbursementById(id);
 			
 			// Checking to ensure that the reimbursement exists in the database before updating
 			if(reimbursement != null) {
 				// Calling the update method and storing the updated reimbursement
-				Reimbursement processedReimbursement = reimbursementService.updated(reimbursement, userid, Status.valueOf(statusInput));
+				Reimbursement processedReimbursement = reimbursement.updated(reimbursement, userid, Status.valueOf(statusInput));
 				
 				// Proclaim victory and return the processed reimbursement object
 				ctx.status(HttpCode.ACCEPTED);
@@ -118,12 +118,13 @@ public void handleProcess(Context ctx) {
  * This Javalin handler method is the entry point for any calls to get reimbursements with various filters
  * Query Parameters such as /reimbursements?author=x or /reimbursements?status=x will instead leverage
  * the corresponding handler method. 
+ * @param  
  */
 
 public void handleGetReimbursements(Context ctx) {
-	if (ctx.queryParam(( key: "author") !=null) {
+	if (ctx.queryParam("author") !=null) {
 		handleGetReimbursementsByAuthor(ctx);
-	} else if (ctx.queryParam(key: "status") !=null) {
+	} else if (ctx.queryParam("status") !=null) {
 		handleGetReimbursementsByStatus(ctx);
 	}
 }
@@ -136,9 +137,9 @@ public void handleGetReimbursementsByStatus(Context ctx) {
 	// Try+catch block to catch any exceptions
 	try { 
 		// Retrieving the status query parameter from the request
-		String statusParam = ctx.queryParam( key: "status");
+		String statusParam = ctx.queryParam("status");
 		
-		// Gettin ghte status desired as an Enum value
+		// Gettin the status desired as an Enum value
 		Status status = Status.valueOf(statusParam);
 		
 		//Retrieving all pending reimbursements or all resolved reimbursements
@@ -173,7 +174,7 @@ public void handleGetReimbursementsByAuthor(Context ctx) {
 	// Try+catch block to catch any exceptions
 	try{
 		// Retrieving the ID from the current user header
-		String idParam = ctx.queryParam(key: "author");
+		String idParam = ctx.queryParam("author");
 	
 		// Making sure the client sent the header with the request
 		if(idParam != null) {
@@ -225,7 +226,7 @@ public void handleGetReimbursementsById(Context ctx) {
 	// Try+catch block to catch any exceptions
 	try{
 		// Retrieving the ID from the path parameter as designated by the Javalin routes config
-		String idParam = ctx.queryParam(key: "id");
+		String idParam = ctx.queryParam("id");
 		// Parsing the ID from the path param
 		int id = Integer.parseInt(idParam);
 		

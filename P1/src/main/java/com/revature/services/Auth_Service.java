@@ -19,7 +19,7 @@ public User loginMenu(String username, String password) {
    try {
 	   
 	   // Retrieving the user data from the database from the username given
-	   user = userDAO.getByUsername(username);
+	   user = User_DAO.getByUsername(username);
 	   
 	   // These conditional statements are checking various contingencies
 	   // The first is checking if the user exists and that the password given matches the one stored
@@ -50,7 +50,8 @@ public User loginMenu(String username, String password) {
 	  
 	   // if the try+catch does not run, a null object is returned and login is deemed unsuccessful
 	   return null;
-}
+   }
+   
 
 	/////registerMenu////
 /**
@@ -63,15 +64,15 @@ public int registerMenu(User userToBeRegistered) {
 	
 	// checking if the username already exists in the database
 	// if the method returns null, the username is already taken 
-	if(userDAO.getByUsername(userToBeRegistered)) != null)
+	if(User_DAO.getByUsername(userToBeRegistered.getUsername()) != null) {
 
 		// Throws a NullPointerException if the username is already taken
-        throw new NullPointerExecption("Username is already taken");
-    }
+        throw new NullPointerException("Username is already taken");
+	}
 	
     // take in the user object sent from the menu and send it to the userDAO to be inserted into the database
     // After the entry has been made, the ID of the new user is immediately removed
-    return userDAO.create(usertoBeRegistered);    
+    return User_DAO.create(userToBeRegistered);    
 
 }
 }
