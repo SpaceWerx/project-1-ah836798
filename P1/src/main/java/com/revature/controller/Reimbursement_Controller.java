@@ -1,5 +1,9 @@
 package com.revature.controller;
 
+import javax.net.ssl.SSLEngineResult.Status;
+
+import com.revature.services.Reimbursement_Service;
+
 import io.javalin.http.Context;
 import io.javalin.http.HttpCode;
 
@@ -104,8 +108,76 @@ public void handleProcess(Context ctx) {
 		ctx.status(HttpCode.FORBIDDEN);
 		ctx.result("Missing Current User Header with ID");
 	}
+}
+
+/** 
+ * This Javalin handler method is the entry point for any calls to get reimbursements with various filters
+ * Query Parameters such as /reimbursements?author=x or /reimbursements?status=x will instead leverage
+ * the corresponding handler method. 
+ */
+
+public void handleGetReimbursements(Context ctx) {
+	if (ctx.queryParam(( key: "author") !=null) {
+		handleGetReimbursementsByAuthor(ctx);
+	} else if (ctx.queryParam(key: "status") !=null) {
+		handleGetReimbursementsByStatus(ctx);
+	}
+}
+
+/** 
+ * This Javalin handler method is the entry point for any calls to get reimbursements by status 
+ */
+public void handleGetReimbursementsByStatus(Context ctx) {
+
+	// Try+catch block to catch any exceptions
+	try { 
+		// Retrieving the status query parameter from the request
+		String statusParam = ctx.queryParam( key: "status");
+		
+		// Gettin ghte status desired as an Enum value
+		Status status = Status.valueOf(statusParam);
+		
+		//Retrieving all pending reimbursements or all resolved reimbursements
+		if(status == Status.Pending) {
+			ctx.status(HttpCode.OK);
+			ctx.json(Reimbursement_Service.getPendingReimbursements());
+		} else {
+			ctx.status(HttpCode.OK);
+			ctx.json(Reimbursement_Service.getResolvedReimbursements());
+		}
+		
+	} catch (Exception e) {
+		// Returning 500 status
+		ctx.status(HttpCode.INTERNAL_SERVER_ERROR);
+		
+		// If the exception has a message, send it back to the body 
+		if(!e.getMessage().isEmpty()) {
+			ctx.result(e.getMessage());
+		}
+		
+		// Stacktrace to help debug the server
+		e.printStackTrace();
+	}	
+}
+
 
 }
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
 
 
 
