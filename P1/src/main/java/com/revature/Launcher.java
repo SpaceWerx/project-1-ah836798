@@ -12,7 +12,7 @@ public class Launcher {
 		User_Controller uc = new User_Controller();
 		Reimbursement_Controller rc = new Reimbursement_Controller();
 		
-		
+	
 	//Testing Database Connectivity - just testing whether our Connection (from ConnectionFactory) is successful
 			try(Connection conn = Connection_Factory_Utility.getConnection()){
 				System.out.println("Connection Successful :)");
@@ -31,5 +31,69 @@ public class Launcher {
 //	        options.loginMenu();
 //	        options.registerMenu();
 	      }
-}
+	      
+	      /**
+	  	 * This method is used in the Launcher class to start the Javalin app on the desired port.
+	  	 */
+	      public void start(int port) {
+	  		// Starting the Javalin instance on the server
+	  		this.app.start(port);
+	  		
+	  	}
+	      
+	      
+// Instantiating respective controllers to access methods for the routes configuration
+AuthController authController = new AuthController();
+UserController userController = new UserController();
+ReimbursementController reimbursementController = new ReimbursementController();
+
+// Creating the Javalin app to designate routes
+// Enabling CORS for all origins to avoid http request constraints
+Javalin app = Javalin.create(JavalinConfig::enableCorsForAllOrigins).routes(()->{
+
+	// Settomg the /login path
+	path( path: "login", () -> {
+		// routes the http post requests to /login to the respective authContoller method
+		post(authController::handleLogin);
+	}};
+	
+	// Setting the /register path
+	path( path: "register", () -> {
+		//routes the http post requests to /register to the respective authController method
+		post(authController::handleRegister);
+		
+	}};
+	
+	// Setting the /users path
+	path( path: "users", () -> {
+		// Routes get requests to /users
+		// Query Params such as /users?username=x will use the respective userController method 
+		get(userController::handleGetUsers);
+		
+		// Setting sub-path for /users/{id} where {id} is a path parameter
+		path( path: "{id}", () -> {
+			//Routes get requests with id path parameter to respective userController method
+		    get(userController::handleGetUserById);
+		}};			
+	}};
+	
+	// Setting the /reimbursements path
+	path( path: "reimbursements", () -> {
+		// Routes get requests to /reimbursements to the respective reimbursementController method
+		// Query Params such as /reimbursements?author=x will use respective reimbursementController method
+		get(reimbursementController::handleGetReimbursements);
+		// Routes post http requests to the submit method
+		post(reimbursementController::handleSubmit);
+		
+		// Setting sub-path for /reimbursements/{id} where {id} is a path parameter
+		path(path: "{id}", () -> {
+			// Routes get requests with id path parameter to respective reimbursementController method
+		    get(reimbursementController::handleGetReimbursementById);
+		    // Routes put http requests for /reimbursements/{id} to process requirements
+		    put(reimbursementController::handleProcess);
+		
+		}};
+	}};	      
+}};
+
 
