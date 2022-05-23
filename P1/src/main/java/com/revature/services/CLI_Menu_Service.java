@@ -5,30 +5,17 @@ import java.util.List;
 
 import java.util.Scanner; // import the Scanner class
 
+import com.revature.models.Roles;
 import com.revature.models.User;
 
-import Models.*;
-
 public class CLI_Menu_Service {
-
+	static Scanner scan = new Scanner(System.in);
+	
 	//CLI Menu is the Command Line Interface Menu for the 
 		//initialize a new CLI Menu Service 
-	      public static void main(String[] args) {
-	    	  
-	      }
-	  private int validEntries;	        
-      private String firstChoice;
-      private String lastChoice;
-      private int ids;
-      private String users;
-      private String typeDecision;
-      private String reimbursementToBeSubmitted;
-      private String reimbursementToBeProcessed;
       
       
-      
-      
-      Scanner scan = new Scanner(System.in);
+       
 	        
 //Display Main Menu Method//	       
 public void displayMenu() {
@@ -167,14 +154,9 @@ public void displayFinanceManagerMenu(User manager) {
 
 //
 
-public String fetchInput() {
-	// scan.nextLine() obtains the entire line, such as "123 456"
-	//split() turns it into an array separated by whitespace, such as {"123", "456"}
-	// [0] keeps only the first element, leaving "123" 
 	
-	String regex;
-	return scan.nextLine().split( regex " ")[0];
-	
+	public static String fetchInput() {
+        return scan.nextLine().split(" ")[0];
 }
 
 
@@ -191,7 +173,7 @@ public String fetchInput() {
  */
 
 
-public int promptSelection(int validEntries) {
+public int promptSelection(int ...validEntries) {
 	int input; 
 	int entry; 
 	boolean valid = false; // flag to track if the input matched a valid entry

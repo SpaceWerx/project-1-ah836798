@@ -1,84 +1,127 @@
 package com.revature.services;
 
-import Models.Reimbursement;
-import Models.Status;
+import com.revature.models.Reimbursement;
+import com.revature.models.Roles;
+import com.revature.models.Status;
+import com.revature.models.User;
+import com.revature.repositories.Reimbursement_DAO;
+
+import MockData.Mockreimbursementdata;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Reimbursement_Service {
 
-// Submit Reimbursement Method//
-
-    private String latestReimbursement;
-    
-   
-public void submitReimbursement (Reimbursement reimbursementToBeSubmitted)	{
-	Reimbursement latestReimbursement = reimbursement.get(reimbursement.size() - 1);
-	int id = latestReimbursement.getId() + 1; //New ID is higher than the previous highest
-	
-	reimbursementToBeSubmitted.setId(id);
-	reimbursementToBeSubmitted.setStatus(Status.Pending);
-	Reimbursement.add(reimbursementToBeSubmitted);	
-}
-
-// Update Reimbursement Method//
-
-public void update(Reimbursement unprocessedReinbursementToBeSubmitted, resolver, Status updatedStatus) {	
-	
-	for (Reimbursement reimbursement : reimbursements) {
-		if (Reimbursement.getId() == unprocessedReimbursement.getId);
-			Reimbursement.setResolver(resolverId);
-			Reimbursement.setStatus(updatedStatus);
-			return;
-	    }
+	public Reimbursement_DAO reimbursementDAO = new Reimbursement_DAO();
+	public User_Service rService = new User_Service();
+	public static List<Mockreimbursementdata> mockData = new ArrayList<>();
+	public static ArrayList<Reimbursement> reimbursements = new ArrayList<>();	
+	public static void clearData() {	
+		reimbursements.clear();
 	}
-	throw new RuntimeException("There was an error processing this reimbursment, please try again.")
-}
 
-//Get by Id Method//
+public Reimbursement update(Reimbursement unprocessedReimbursement, int resolverId, Status updatedStatus) {	
 
-public Reimbursement getReimbursementById(int id) {
+	User manager = rService.getUserById(resolverId);
 	
-	for (Reimbursement reimbursement : reimbursement ) {
-		if (reimbursement.getId() == id) {
-			return reimbursement;
-		}
+	if(manager.getRole() != Roles.Manager) {
+		throw new RuntimeException("There was an error processing this reimbursement, please try again.");
+	}else {
+		
+		unprocessedReimbursement.setResolver(resolverId);
+		unprocessedReimbursement.setStatus(updatedStatus);
+		
+		reimbursementDAO.update(unprocessedReimbursement);
+		
+		return unprocessedReimbursement;
 	}
-    return null;   
 }
-
-//Get Pending Reimbursements Method//
-
-public List<Reimbursement> getPendingReimbursements() {
-	List<Reimbursement> pendingReimbursements = new ArrayList<>();
+		
 	
-	for (Reimbursement reimbursement : reimbursements) {
-		if (Reimbursement.getStatus() == Status.Pending;
-			pendingReimbursements.add(reimbursement);
-	    }
-	}
-	return pendingReimbursements;
-}
 
-//Get Approved and Resolved Reimbursements Method//
 
-public List<Reimbursement> getResolvedReimbursements() {
-	List<Reimbursement> getResolvedReimbursements = new ArrayList<>();
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	for (Reimbursement reimbursement : reimbursements) {
-		if (reimbursement.getStatus() == Status.Approved || reimbursement.getStatus() == Status.Denied
-			resolvedReimbursements.add(reimbursement);
-	    }
-	}
-	return resolvedReimbursements;
-}
+	
+	public List<Reimbursement> getPendingReimbursements() { 
 
-//Get By Author..which is UserID... Method//
-public List<Reimbursement> getReimbursementsbyAuthor(int id) {
+		return reimbursementDAO.getByStatus(Status.Pending);
+}
+////////////////////////////////////////////////////////////////////
+
+	public List<Reimbursement> getResolvedReimbursements(){
+		
+		List<Reimbursement> resolvedReimbursements = new ArrayList<>();
+		
+
+		resolvedReimbursements.addAll(reimbursementDAO.getByStatus(Status.Approved));
+		resolvedReimbursements.addAll(reimbursementDAO.getByStatus(Status.Denied));
+		return resolvedReimbursements;
+		
+		
+	}
+
+/////////////////////////////////////////////////////////////////////////////		
+	
+public int submitReimbursement (Reimbursement reimbursementToBeSubmitted) {
+	
+
+
+	User employee = rService.getUserById(reimbursementToBeSubmitted.getAuthor());
+
+	if(employee.getRole() != Roles.Employee) {
+		
+		throw new IllegalArgumentException("Managers cannot submit reimbursement requests.");
+	} else {
+		reimbursementToBeSubmitted.setStatus(Status.Pending);
+		
+
+		return reimbursementDAO.create(reimbursementToBeSubmitted);
+}
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+public List<Reimbursement> getReimbursementsByAuthor(int userId) {
+	
 	List<Reimbursement> userReimbursements = new ArrayList<>();
 	
-	for (Reimbursement r: reimbursements) {
-		if (r.getAuthor() == id || r.getResolver() == id) {
-			userReimbursements.add(r);
-	    }
+		for(Reimbursement r : reimbursements) {
+			if (r.getAuthor() == userId || r.getResolver() == userId) {
+			}
+		}
+		return userReimbursements;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+public Reimbursement updateManager(Reimbursement unprocessedReimbursement, int resolverId, Status updatedStatus) {
+
+	getUserService();//DELETE IF NECESSARY
+	User manager = rService.getUserById(resolverId);
+	
+	if(manager.getRole() != Roles.Manager) {
+		
+		throw new IllegalArgumentException("An Employee cannot process reimbursement requests.");
+	}else {
+		unprocessedReimbursement.setResolver(resolverId);
+		unprocessedReimbursement.setStatus(updatedStatus);
+		
+		reimbursementDAO.update(unprocessedReimbursement);
+		
+		return unprocessedReimbursement;
 	}
-	return userReimbursements;
+}
+////////////////////////////////////////
+public Reimbursement getReimbursementById(int id) {return Reimbursement_DAO.getReimbursementById(id);}
+
+public List<Reimbursement> getReimbursementByAuthor(int userId) {
+return reimbursementDAO.getReimbursementsByUser(userId);
+}
+public User_Service getUserService() {
+    return rService;
+}
+
+public void setUserService(User_Service userService) {
+    this.rService = userService;
+}
 }

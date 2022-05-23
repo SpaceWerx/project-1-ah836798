@@ -1,90 +1,64 @@
 package com.revature.services;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import 
 
 import java.util.List;
 
+import com.revature.models.Roles;
 import com.revature.models.User;
+import com.revature.repositories.User_DAO;
 
 public class User_Service {
-	
-//Get User by Username  Method//
-	public User getuseridByUserName(String username) {
-		
-		for (User u : user ) {
-			if (u.getuserName() == username) {
-				return username;
-			}
-		}
-	    return null;   
-	}
+	static User_DAO userDAO = new User_DAO();
 
-//Get User by ID Method
-public User getuseridById(int userid) {
 
-	for (User u : user ) {
-		if (u.getId() == userid) {
-			return userid;
-		}
-	}
-    return null;   
+
+    public static User getUserByUsername(String username) {
+        return userDAO.getByUsername(username);
+    }
+//////////////////////////////////////////////////
+
+    public List<User> getAllUsers() {
+        return userDAO.getAllUsers();
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////
+    public void UserExistsById(int id) {
+    for(User user : userDAO.getAllUsers()) {
+        if(user.getId()== id) {
+            System.out.println("This ID exists");
+            break;
+        }
+    }
+        System.out.println("This ID does not exist");
 }
+//////////////////////////////////////////////
+    public List<User> getUserByRole(Roles role){
+        List<User> byRole = new ArrayList<>();
+        for(User user : userDAO.getAllUsers()) {
+            if(user.getRole() == role) 
+            {
+                byRole.add(user);
+            }
+        }
 
-//Get All Users Method by Username Method 
+        return byRole;
+    }
+/////////////////////////////////////////////////////////////////////////
+    public static User getUserById(int id) {
+        return userDAO.getUserbyId(id);
+    }
+//////////////////////////////////////////////////////////////////////////
+    public void addUser(User newEmployee) throws SQLException {
 
-public List<User> getAllUserByUsername  String username) {
-	List<User> username = new ArrayList<>();
-		
-		for (User u: username) {
-			if (u.getUsername() == username ||
-		    }
-		}
-		return username;
+        //take in the Employee object sent from the menu and send it to the EmployeeDAO to be inserted into the database
 
-}
+        //call the DAO method that inserts the new Employee
+        userDAO.create(newEmployee);
+    }
 
-//Get All Users Method by Id Method 
-
-public List<User> getAllUserByUsername int userid) {
-	List<User> userid = new ArrayList<>();
-		
-		for (User u: userid) {
-			if (u.getUsername() == userid ||
-		    }
-		}
-		return userid;
-
-}
-
-//Query user exists by ID Method
-public List<User> queryUserById  String userid) {
-			List<User> userid = new ArrayList<>();
-		
-	for (User u : userid ) {
-		if (u.contains() == true); 
-				
-		//must deterimine if user exists in list/
-		
-			System.out.println("The user exists.");
-		else 
-			System.out.println("The user does not exist")
-			
-		}
-			}
-			
-			}
-}
-			
-
-
-//Get users by Role Method
-
-public User getuseridByRole(String role) {
-	
-	for (User u : user ) {
-		if (u.getRole() == role) {
-			return role;
-		}
-	}
-    return null;   
+    public boolean checkUserExistsById(int id) {
+        return false;
+    }
 }

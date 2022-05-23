@@ -218,3 +218,26 @@ public List<Reimbursement> getAllReimbursement() {
  //Fail=safe if the try*catch block does not run
  return null;
 }
+
+
+
+// The create method is meant to create a new record in the database for new reimbursement submissions
+
+public int create(Reimbursement reimbursementToBeSubmitted) {
+  
+	// try+catch block to catch sql exception that can be thrown with connection
+	try (Connection connection = Connection_Factory_Utility.getConnection()) {
+		
+		// writing out the (relativity complex) sql insert string to create a new record
+		// we explicitly ask the database to return the new id after entry
+		String sql = "INSERT INTO ers_reimbursements (author"
+				
+				
+	}
+	
+	
+	
+	
+	
+}
+
