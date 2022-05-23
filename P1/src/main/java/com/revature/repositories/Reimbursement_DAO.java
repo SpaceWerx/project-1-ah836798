@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.Reimbursement;
+import com.revature.models.Reimbursement_Type;
+import com.revature.models.Status;
 import com.revature.services.Reimbursement_Service;
 import com.revature.utilities.Connection_Factory_Utility;
 
@@ -17,7 +19,7 @@ public class Reimbursement_DAO {
 
 	
 /**
- * Should retreive a Reimbursement from the DB with the corresponding id or null if there is no match.
+ * Should retrieve a Reimbursement from the DB with the corresponding id or null if there is no match.
  */
 	
  public Reimbursement getReimbursementbyId(int id) {
@@ -31,7 +33,7 @@ public class Reimbursement_DAO {
 		PreparedStatement preparedStatement = connection.prepareStatement(sql); //prepareStatement() as opposed to createStatement()
         
 		//insert the methods argument (int id) as the first (and only) variable in our SQL query
-		preparedStatement.setInt(parameterindex 1, id); //the 1 here is referring to the first parameter (?) found in our SQL String
+		preparedStatement.setInt(1, id); //the 1 here is referring to the first parameter (?) found in our SQL String
 		
 		ResultSet resultSet = preparedStatement.executeQuery();
 		
@@ -40,13 +42,13 @@ public class Reimbursement_DAO {
 			
 			// return a reimbursement with the data to be returned to the service layer
 			return new Reimbursement
-					resultSet.getInt(columnLabel: "id"),
-					resultSet.getInt(columnLabel: "author"),
-					resultSet.getInt(columnLabel: "resolver"),
-					resultSet.getInt(columnLabel: "resolver"),
-					Reimbursement_Type.valueOf(resultSet.getString(columnlabel: "type")),
-					Staus.valueOf(resultSet.getString(columnlabel:"status"))
-					resultSet.getDouble(columnLabel:"amount")
+					resultSet.getInt("id"),
+					resultSet.getInt("author"),
+					resultSet.getInt("resolver"),
+					resultSet.getInt("resolver"),
+					Reimbursement_Type.valueOf(resultSet.getString("type"));
+					Status.valueOf(resultSet.getString("status"));
+					resultSet.getDouble("amount");
 					);	
 		}
 	 
@@ -57,6 +59,10 @@ public class Reimbursement_DAO {
  }
      //Fail=safe if the try+catch block does not run
      return null;
+private int columnLabel(String string) {
+	// TODO Auto-generated method stub
+	return 0;
+}
 }
 /**
  *This method is inteded to extract any reimbursements from the database
@@ -65,7 +71,7 @@ public class Reimbursement_DAO {
  * @return List of reimbursements created by author with matching userID
 */
 
-public List<Reimbursement> getReimbursementsByUser (int userID) {
+public List<Reimbursement> getReimbursementsByUser(int userID) {
 
 	//try+catch block to catch sql exception that can be thrown with the connection
 	try (Connection connection =Connection_Factory_Utility.getConnection()) {
@@ -79,7 +85,7 @@ public List<Reimbursement> getReimbursementsByUser (int userID) {
 		PreparedStatement preparedStatement = connection.prepareStatement(sql); 
 		
 		// Filling the missing query value (?) with the method parameter (userId)
-		preparedStatement.setInt(parameterindex 1, userId); 
+		preparedStatement.setInt(1, userID); 
 				
 		//Building a sql result set from the execution of the query statement
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -93,14 +99,13 @@ public List<Reimbursement> getReimbursementsByUser (int userID) {
 			
 			//Adding reimbursements to the list with the data extracted from the database
 			reimbursements.add(new Reimbursement(
-					resultSet.getInt(columnLabel: "id"),
-					resultSet.getInt(columnLabel: "author"),
-					resultSet.getInt(columnLabel: "resolver"),
-					resultSet.get.String(columnLabel: "description"),
-					Reimbursement_Type.valueOf(resultSet.getString(columnlabel: "type")),
-					Staus.valueOf(resultSet.getString(columnlabel:"status"))
-					resultSet.getDouble(columnLabel:"amount")
-					));	
+					resultSet.getInt("id"),
+					resultSet.getInt("author"),
+					resultSet.getInt("resolver"),
+					resultSet.getString("description"),
+					Reimbursement_Type.valueOf(resultSet.getString("type"))),
+					Status.valueOf(resultSet.getString("status")));
+					resultSet.getDouble("amount"));	
 		}
 					
 		//Return the list of reimbursements that hava a matching author (user) id
@@ -134,7 +139,7 @@ public List<Reimbursement> getByStatus(Status status) {
 	PreparedStatement preparedStatement = connection.prepareStatement(sql); 
 	
 	// Filling the missing query value (?) with the method parameter (userId)
-	preparedStatement.setInt(parameterindex 1, status.toString()); 
+	preparedStatement.setInt(1, status.toString()); 
 			
 	//Execute the Query by putting the results of the query into our ResultSet object (resultSet)
 	//The Statement object has a method that takes Strings to execute as a SQL query
@@ -148,14 +153,13 @@ public List<Reimbursement> getByStatus(Status status) {
 		
 		//Adding reimbursements to the list with the data extracted from the database
 		reimbursements.add(new Reimbursement(
-				resultSet.getInt(columnLabel: "id"),
-				resultSet.getInt(columnLabel: "author"),
-				resultSet.getInt(columnLabel: "resolver"),
-				resultSet.get.String(columnLabel: "description"),
-				Reimbursement_Type.valueOf(resultSet.getString(columnlabel: "type")),
-				Staus.valueOf(resultSet.getString(columnlabel:"status"))
-				resultSet.getDouble(columnLabel:"amount")
-		));	
+				resultSet.getInt("id"),
+				resultSet.getInt("author"),
+				resultSet.getInt("resolver"),
+				resultSet.getString("description"),
+				Reimbursement_Type.valueOf(resultSet.getString("type")),
+				Status.valueOf(resultSet.getString("status"));
+				resultSet.getDouble("amount");	
 	 }
 				
 	//when there are no more results in resultSet, the while loop will break
@@ -196,13 +200,13 @@ public List<Reimbursement> getAllReimbursement() {
 			
 	while(resultSet.next() ) {
 		reimbursements.add(new Reimbursement(
-				resultSet.getInt(...columnLabel: "id"),
-				resultSet.getInt(columnLabel: "author"),
-				resultSet.getInt(columnLabel: "resolver"),
-				resultSet.get.String(columnLabel: "description"),
-				Reimbursement_Type.valueOf(resultSet.getString(columnlabel: "type")),
-				Staus.valueOf(resultSet.getString(columnlabel:"status"))
-				resultSet.getDouble(columnLabel: "amount")
+				resultSet.getInt("id"),
+				resultSet.getInt("author"),
+				resultSet.getInt("resolver"),
+				resultSet.getString("description"),
+				Reimbursement_Type.valueOf(resultSet.getString("type")),
+				Status.valueOf(resultSet.getString("status"))
+				resultSet.getDouble("amount")
 		));	
 	 }			
 	// returning the list of records after the result set runs out

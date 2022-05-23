@@ -18,11 +18,11 @@ public void handleLogin(Context ctx) {
 	
 	// Reading the form parameters from the http request with the respective string keys.
 	// Storing the form parameters in local variables
-	String username = ctx.formParam( key: "username");
-	String password = ctx.formParam( key: "password");
+	String username = ctx.formParam("username");
+	String password = ctx.formParam("password");
 	
 	// Checking to make sure that the appropriate forms are provided
-	if (Objects.equals(username, b: "") || Objects.equals(password, b: "")) {
+	if (Objects.equals(username,"") || Objects.equals(password,"")) {
 	
 		// Returning a bad request status and message
 		ctx.status(HttpCode.BAD_REQUEST);
@@ -30,7 +30,7 @@ public void handleLogin(Context ctx) {
 	} else {
 		
 		// Calling the authService login method
-		User user = Auth_Service.login(username, password);
+		User user = Auth_Service.loginMenu(username, password);
 		
 		// Ensuring the user was found and accepted
 		// The service returns null if unsuccesful
@@ -39,9 +39,9 @@ public void handleLogin(Context ctx) {
 			// Sending accepted status code
 			ctx.status(HttpCode.ACCEPTED);
 			// Giving the front-end access to the response headers
-			ctx.header( name: "Access-Control-Expose-Headers", value: "Current-User" );
+			ctx.header("Access-Control-Expose-Headers", "Current-User" );
 			// Returning a Current-User header for authentication
-			ctx.header(name: "Current-User", value: ""+user.getId));
+			ctx.header("Current-User", ""+user.getId));
 			// Sending user role for portal navigation
 			ctx.result(user.getRole().toString());
 			
@@ -60,7 +60,7 @@ public void handleLogin(Context ctx) {
  * The input json user object must have an ID of 0 to map correctly
 */
 
-public void hanldeRegister(Contect ctx) {
+public void handleRegister(Context ctx) {
 	
 	//try+catch block to catch any exceptions thrown
 	try {
@@ -73,12 +73,12 @@ public void hanldeRegister(Contect ctx) {
 		User user =mapper.readValue(input, User.class);
 		
 		//Once user object is created, storing the positive integer ID from the regular service method
-		int id = authService.register(user);
+		int id = Auth_Service.registerMenu(user);
 		
 		// If ID is still 0, the registration was unsuccessful
 		if(id == 0) {
 			// Telling the client that registration failed
-			ctx.status(HttpCode.INTERNAL_SERVER_ERROR_ERROR);
+			ctx.status(HttpCode.INTERNAL_SERVER_ERROR);
 			ctx.result("Registration unsuccessful.");
 		} else {
 			//Proclaiming successful creation of new user
@@ -99,5 +99,6 @@ public void hanldeRegister(Contect ctx) {
 		// Stacktrace to help debug the server
 		e.printStackTrace();
 	}
+}
 }
 

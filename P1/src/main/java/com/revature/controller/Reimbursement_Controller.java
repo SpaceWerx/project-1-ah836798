@@ -2,6 +2,7 @@ package com.revature.controller;
 
 import javax.net.ssl.SSLEngineResult.Status;
 
+import com.revature.models.Reimbursement;
 import com.revature.services.Reimbursement_Service;
 import com.revature.services.User_Service;
 
@@ -24,7 +25,7 @@ public void handleSubmit(Context ctx) {
 		Reimbursement reimbursement = objectMapper.readValue(input, Reimbursement.class);
 		
 		// Storing the positive integer ID that is returned from the service method
-		int id = reimbursementService.submitReimbursement(reimbursement);
+		int id = Reimbursement_Service.submitReimbursement(reimbursement);
 		
 		// If the ID is still 0, the submission was unsuccessful
 		if(id !=0) {
@@ -34,7 +35,7 @@ public void handleSubmit(Context ctx) {
 		} else {
 			// Proclaim defeat if the ID was unchanged
 			ctx.status(HttpCode.BAD_REQUEST);
-			CTX.RESULT("Reimbursement submission was unsuccessful");
+			ctx.result("Reimbursement submission was unsuccessful");
 		}
 	// Catching any exception thrown
 	} catch (Exception e) {
@@ -58,7 +59,7 @@ public void handleSubmit(Context ctx) {
 public void handleProcess(Context ctx) {
 	
 	// Retrieving the header sent with the request that stores the ID of the current user
-	String authHeader = ctx.header("Current-User);"
+	String authHeader = ctx.header("Current-User");
 	
 	// Making sure the client sent the header along with the request
 	if(authHeader !=null) {
@@ -69,15 +70,15 @@ public void handleProcess(Context ctx) {
 		// Try+catch block to catch any exceptions
 		try {
 			// Retrieving the id from the path parameters as designated in the Javalin Routes config
-			String reimbursementIDInput = ctx.pathParam(key: "id");
+			String reimbursementIDInput = ctx.pathParam("id");
 			//Parsing the reimbursement ID from the path parameter
-			int id = Integer.parseInt(ReimbursementIDInput);
+			int id = Integer.parseInt(reimbursementIDInput);
 			
 			// Storing the new status sent with the request as a form parameter
-			String statusInput = ctx.formParam(key: "status");
+			String statusInput = ctx.formParam("status");
 			
 			// Calling the getReimbursementByID Method and storing the return method
-			Reimbursement reimbursement =reimbursementService.getReimbursementById(id);
+			Reimbursement reimbursement =Reimbursement_Service.getReimbursementById(id);
 			
 			// Checking to ensure that the reimbursement exists in the database before updating
 			if(reimbursement != null) {
@@ -194,7 +195,7 @@ public void handleGetReimbursementsByAuthor(Context ctx) {
 		} else {
 			// Proclaim defeat if the ID was unchanged
 			ctx.status(HttpCode.BAD_REQUEST);
-			CTX.RESULT("Missing Current User header");
+			ctx.result("Missing Current User header");
 		}
 		// Catching any exception thrown
 	} catch (Exception e) {

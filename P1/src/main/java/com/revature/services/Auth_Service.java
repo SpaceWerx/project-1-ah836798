@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import com.revature.models.User;
+import com.revature.repositories.User_DAO;
 
 public class Auth_Service {
 
@@ -41,15 +42,16 @@ public User loginMenu(String username, String password) {
 		   // This outcome will return a null object and login is deemed unsuccessful
 	      System.out.println("User Does Not Exist!");
 	      return null;
-	   } catch (Exception e) {
+	 } catch (Exception e) {
 		   System.out.println("Login Unsuccessful");
 		   e.printStackTrace(); // Helpful debugging tool
-	   }
+	 }
 	   
 	  
 	   // if the try+catch does not run, a null object is returned and login is deemed unsuccessful
 	   return null;
-	
+}
+
 	/////registerMenu////
 /**
  * Note: userToBeRegistered will have an id=0.
@@ -70,6 +72,6 @@ public int registerMenu(User userToBeRegistered) {
     // take in the user object sent from the menu and send it to the userDAO to be inserted into the database
     // After the entry has been made, the ID of the new user is immediately removed
     return userDAO.create(usertoBeRegistered);    
-}
 
+}
 }

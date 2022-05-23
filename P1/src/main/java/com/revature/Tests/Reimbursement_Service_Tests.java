@@ -94,6 +94,25 @@ public void testUpdateThrowsIllegalArgumentExceptionWhernResolverIsNotManager() 
 	verify(userService).getUserById(GENERIC_EMPLOYEE_1.getId());
 }
 
+
+
+@Test
+
+public void testResolverIsAssignedAfterReimbursementUpdate() {
+	
+	// Telling the nested userService method to return a Manager when called in the tested update method 
+	when(userService.getUserById(anyInt())).thenReturn(GENERIC_MANAGER_1);
+	
+	// Checking to make sure the resolver is assigned accordingly when the update method is called
+	assertEquals(GENERIC_MANAGER_1.getId, reimbursementService.update(REIMBURSEMENT_TO_PROCESS, GENERIC_EMPLOYEE_1.getId(), Status.Approved));
+		
+	// Verifying that the mocked reimbursementDAO update method is never called
+	// Verifying that the mock userService getUserById method is called
+	verify(reimbursementDAO, never()).update(REIMBURSEMENT_TO_PROCESS);
+	verify(userService).getUserById(GENERIC_MANAGER_1.getId());
+}
+
+
 @Test
 
 public void testSubmitReimbursementThrowsIllegalArgumentExceptionWhernSubmittedByManager() {
@@ -113,20 +132,62 @@ public void testSubmitReimbursementThrowsIllegalArgumentExceptionWhernSubmittedB
 	verify(userService).getUserById(GENERIC_MANAGER_1.getId());
 }
 
+@Test
+
+public void testReimbursementStatusIsChangedAfterUpdate() {
+	
+	// Telling the nested userService method to return a Manager when called in the tested update method
+	when(userService.getUserById(anyInt())).thenReturn(GENERIC_MANAGER_1);
+	
+	// Checking to make sure the tested update method throws the exception we want
+	assertEquals(Status.Approved, reimbursementService.update(REIMBURSEMENT_TO_PROCESS, GENERIC_MANAGER_1.getId(), Status.Approved)
+	);
+	
+	
+	// Verifying that the mocked reimbursementDAO update method is never called
+	// Verifying that the mock userService getUserById method is called
+	verify(reimbursementDAO).update(REIMBURSEMENT_TO_PROCESS);
+	verify(userService).getUserById(GENERIC_EMPLOYEE_1.getId());
+}
+
+@Test
+public void testGetResolvedReimbursementsRetrunsOnlyAppovedAndDenied() {
+	
+	// Telling the nested reimbursementDAO getByStatus method to return the mocked list of Approved and Denied reimbursements
+	when(reimbursementDAO.getByStatus(Status.Approved)).thenReturn(mockApprovedReimbursements);
+	when(reimbursementDAO.getByStatus(Status.Denied)).thenReturn(mockDeniedReimbursements);
+	
+	// Creating a new list that combines the mocked approved and denied reimbursements (similar to how the service method works)
+	List<Reimbursement> resolvedReimbursements = new ArrayList<>();
+	resolvedReimbursements.addAll(mockApprovedReimbursements);
+	resolvedReimbursements.addAll(mockDeniedReimbursements);
+	
+	// Checking to make sure the service method throws the correct data 
+	assertEquals(resolvedReimbursements, reimbursementService.getResolvedReimbursements()); 
+		
+	
+	// Verifying that the mocked reimbursementDAO method getByStatus is called twice 
+	
+	verify(reimbursementDAO).getByStatus(Status.Approved);
+	verify(reimbursementDAO).getByStatus(Status.Denied);
+}
 
 
+@Test
+public void testGetPendingReimbursementsRetrunsOnlyPending() {
+	
+	// Telling the nested reimbursementDAO getByStatus method to return the mocked list of Approved and Denied reimbursements
+	when(reimbursementDAO.getByStatus(Status.class))).thenReturn(mockPendingReimbursements);
+	
+	// Checking to make sure the service method throws the correct data 
+	assertEquals(mockPendingReimbursements, reimbursementService.getResolvedReimbursements()); 
+		
+	
+	// Verifying that the mocked reimbursementDAO method getByStatus is called twice 
+	
+	verify(reimbursementDAO).getByStatus(Status.Pending);
 
 
-
-
-
-
-
-
-
-
-
-
-
+}
 
 }

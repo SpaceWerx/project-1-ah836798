@@ -112,7 +112,7 @@ public Reimbursement updateManager(Reimbursement unprocessedReimbursement, int r
 	}
 }
 ////////////////////////////////////////
-public Reimbursement getReimbursementById(int id) {return Reimbursement_DAO.getReimbursementById(id);}
+public Reimbursement getReimbursementById(int id) {return reimbursementDAO.getReimbursementbyId(id);}
 
 public List<Reimbursement> getReimbursementByAuthor(int userId) {
 return reimbursementDAO.getReimbursementsByUser(userId);

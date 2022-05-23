@@ -5,17 +5,22 @@ import java.util.List;
 
 import java.util.Scanner; // import the Scanner class
 
+import com.revature.models.Reimbursement;
+import com.revature.models.Reimbursement_Type;
 import com.revature.models.Roles;
+import com.revature.models.Status;
 import com.revature.models.User;
 
 public class CLI_Menu_Service {
-	static Scanner scan = new Scanner(System.in);
 	
+	public static void main(String[] args) {
+		
+	}
+	static Scanner scan = new Scanner(System.in);
+	Reimbursement_Service rService = new Reimbursement_Service();
+    User_Service userService = new User_Service();
 	//CLI Menu is the Command Line Interface Menu for the 
-		//initialize a new CLI Menu Service 
-      
-      
-       
+		//initialize a new CLI Menu Service  
 	        
 //Display Main Menu Method//	       
 public void displayMenu() {
@@ -153,14 +158,9 @@ public void displayFinanceManagerMenu(User manager) {
 
 
 //
-
-	
 	public static String fetchInput() {
         return scan.nextLine().split(" ")[0];
 }
-
-
-
 
 //Prompt Selection Helper Method//
 
@@ -174,8 +174,7 @@ public void displayFinanceManagerMenu(User manager) {
 
 
 public int promptSelection(int ...validEntries) {
-	int input; 
-	int entry; 
+	int input;  
 	boolean valid = false; // flag to track if the input matched a valid entry
 	
 	do { // do-while loop to continue to prompt user until the response is valide
@@ -200,8 +199,6 @@ public int promptSelection(int ...validEntries) {
 	return input;
 	
 }
-
-
 
 //Parse Integer and Double Helper Methods//
 /** 
@@ -231,15 +228,16 @@ public double parseDoubleInput(String input) {
 	}
 }
 
+
 //Handle Portal Helper Method//
 public void handlePortal(Roles role) {
 	// get the List of employees from the repository layer
-	List<User> users = User.getuseridById(role);
+	List<User> users = userService.getUserByRole(role);
 	
-	int[] ids = new Int[users.size() + 1];
+	int[] ids = new int[users.size() + 1];
 	ids[users.size()] = 0;
 	for (int i = 0; i < users.size(); i++) {
-		ids[i] = users.get(i0).getId();
+		ids[i] = users.get(i).getId();
 		
 	}
 	
@@ -248,7 +246,7 @@ public void handlePortal(Roles role) {
 	System.out.println("PLEASE ENTER THE NUMBER OF YOUR CHOICE");
 	
 	// Enhance for loop to print out all users one by one
-	for (User_ u : users) {
+	for (User u : users) {
 		System.out.println(u.getId() + " -> " + u.getUsername());
 	}
 	System.out.println("0 -> Return to Main Menu");
@@ -273,7 +271,7 @@ public void handlePortal(Roles role) {
 
 //Display Previous Requests helper method//
 public void displayPreviousRequests(User employee) {
-	List<Reimbursement> reimbursements = rService.getReimbursementsByAuthor(employee.getOd);
+	List<Reimbursement> reimbursements = rService.getReimbursementsByAuthor(employee.getId());
 	
 	if (reimbursements.isEmpty()) {
 		System.out.println("No Previous Requests...");
@@ -288,7 +286,7 @@ public void displayPreviousRequests(User employee) {
 
 public void submitReimbursement(User employee) {
 	Reimbursement reimbursementToBeSubmitted = new Reimbursement();
-	reimbursementToBeSubmitted.setAuthor(employee.getId));
+	reimbursementToBeSubmitted.setAuthor(employee.getId());
 	
 	System.out.println(" What type or reimbursement would you like to submit");
 	System.out.println("PLEASE ENTER THE NUMBER OF YOUR CHOICE");
@@ -316,13 +314,13 @@ public void submitReimbursement(User employee) {
 	System.out.println("Please enter the dollar amount that you are requesting to be reimbursed");
 	System.out.println("$");
 	
-	reimbursementToBeSubmitted.setAmount(parseDoubleInput(fetchInput)));
+	reimbursementToBeSubmitted.setAmount(parseDoubleInput(fetchInput()));
 	if (reimbursementToBeSubmitted.getAmount() <= 0) {
 		System.out.println("Invalid Amount has been entered, please input a correct dollar amount"); 
 		boolean valid = false;
 		while (!valid) {
-			reimbursementToBeSubmitted.setAmount(parseDoubleInput(fetchInput)));
-			if (reimbursementToBeSubmitted.getAmount() != 0) { (parseDoubleInput(fetchInput)));
+			reimbursementToBeSubmitted.setAmount(parseDoubleInput(fetchInput()));
+			if (reimbursementToBeSubmitted.getAmount() != 0) {
             valid = true;
 			}	
 		}	
@@ -384,7 +382,7 @@ public void processReimbursement(User manager) {
     while (processPortal) {
     	List<Reimbursement> reimbursements = rService.getPendingReimbursements();
     
-    	if (reimbursement.isEmpty()) {
+    	if (reimbursements.isEmpty()) {
     		System.out.println("There are no reimbursements to process.");
     		System.out.println("Returning to previous menu...");
     		return;
@@ -394,7 +392,7 @@ public void processReimbursement(User manager) {
     	for (int i = 0; i< reimbursements.size(); i++) {
     		Reimbursement r = reimbursements.get(i);
     		User author = userService.getUserById(r.getAuthor());
-    		System.out.println(r.getId() + " -> " author.getUsername() + " : $" + r.getAmount());
+    		System.out.println(r.getId() + " -> " + author.getUsername() + " : $" + r.getAmount());
     		ids[i] = r.getId();
     		
     	}
@@ -415,7 +413,7 @@ public void processReimbursement(User manager) {
         System.out.println("1 -> Approve");
         System.out.println("2 -> Deny");
         
-        int decision = promptSelection( validEntries: 1,2);
+        int decision = promptSelection( 1,2);
         Status status = (decision == 1) ? Status.Approved : Status.Denied;
         rService.update(reimbursementToBeProcessed, manager.getId(), status);
         
@@ -426,13 +424,11 @@ public void processReimbursement(User manager) {
         
         String lastChoice = scan.nextLine();
         
-        if (lastChoice ==2) {
+        if (lastChoice == "2") {
         	processPortal = false;
         }  	        
     }
     
     
-    
-
-
-    
+}
+}

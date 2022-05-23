@@ -4,6 +4,9 @@ package com.revature.models;
 public enum Status {
 
 		Pending, Approved, Denied;
+
+	
+		}
 		
 	//The Status Options are Pending, Approved and Denied 
 	//Reimbursements can only switch from:
