@@ -1,7 +1,7 @@
 --Remove the tables and all contents if they exists in the current schema
 --WARNING this is only meant to initialize the database structure, do not use otherwise
 --It WILL delete all of your data
---We use CASCADE to ensure that all rferences get deleted as well.
+--We use CASCADE to ensure that all references get deleted as well.
 DROP TABLE IF EXISTS ers_users CASCADE;
 DROP TABLE IF EXISTS ers_reimbursements CASCADE;
 
@@ -30,6 +30,14 @@ role VARCHAR (250) NOT NULL
 
 );
 
+--This is meant to create two default users in the ers_users table
+--The only way to create a Manager, currently, is to put it directly in the database. 
+--You will use the manager credentials to test your manager's functionality and reimbursement processing.
+
+INSERT INTO ers_users(username, password, role)
+VALUES('default', 'guest', 'Employee'),('admin', 'Manager');
+
+
 --This will create a table for the re data
 
 CREATE TABLE ers_reimbursements(
@@ -50,6 +58,9 @@ CREATE TABLE ers_reimbursements(
 	--This field should never be null when a new entry is created
 	description TEXT NOT NULL,
 	
+type VARCHAR (250) NOT NULL, 
+status VARCHAR (250) NOT NULL,
+
 	--The amount must be stored as a float to account for the double datatype
 	--This value will have 2 decimal places and should never be null upon entry
 	amount FLOAT NOT NULL,
@@ -66,11 +77,5 @@ CREATE TABLE ers_reimbursements(
 
 );
 
---This is meant to create two default users in the ers_users table
---The only way to create a Manager, currently, is to put it directly in the database. 
---You will use the manager credentials to test your manager's functionality and reimbursement processing.
-
-INSERT INTO ers_users(username, password, role)
-VALUES('default', 'guest', 'Employee'),('admin', 'Manager');
 
 
