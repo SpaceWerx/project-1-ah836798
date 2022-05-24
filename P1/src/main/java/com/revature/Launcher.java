@@ -17,9 +17,11 @@ import io.javalin.Javalin;
 
 public class Launcher {
 	public static void main(String[] args) throws SQLException {
+		
+		// Instantiating respective controllers to access methods for the routes configuration
 		User_Controller uc = new User_Controller();
 		Reimbursement_Controller rc = new Reimbursement_Controller();
-		
+		Auth_Controller ac = new Auth_Controller();
 	
 	//Testing Database Connectivity - just testing whether our Connection (from ConnectionFactory) is successful
 			try(Connection conn = Connection_Factory_Utility.getConnection()){
@@ -30,10 +32,8 @@ public class Launcher {
 			}	
 	}
 	
-	
 	//CLI Menu is the Command Line Interface Menu for the 
 		//initialize a new CLI Menu Service 
-public static void main(String[] args) {
 
 	        CLI_Menu_Service options = new CLI_Menu_Service();
 	        options.displayMenu();
@@ -49,12 +49,8 @@ public static void main(String[] args) {
 	  		this.app.start(port);
 	  		
 	  	}
+     
 	      
-	      
-// Instantiating respective controllers to access methods for the routes configuration
-Auth_Controller authController = new Auth_Controller();
-User_Controller userController = new User_Controller();
-Reimbursement_Controller reimbursementController = new Reimbursement_Controller();
 
 // Creating the Javalin app to designate routes
 // Enabling CORS for all origins to avoid http request constraints
@@ -103,6 +99,5 @@ Javalin app = Javalin.create(JavalinConfig::enableCorsForAllOrigins).routes(()->
 		});
 	});	      
 });
-
 
 }

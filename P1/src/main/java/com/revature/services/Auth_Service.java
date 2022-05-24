@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.sql.SQLException;
+
 import com.revature.models.User;
 import com.revature.repositories.User_DAO;
 
@@ -19,7 +21,7 @@ public User loginMenu(String username, String password) {
    try {
 	   
 	   // Retrieving the user data from the database from the username given
-	   user = User_DAO.getByUsername(username);
+	   user = User_DAO.getbyUsername(username);
 	   
 	   // These conditional statements are checking various contingencies
 	   // The first is checking if the user exists and that the password given matches the one stored
@@ -42,7 +44,7 @@ public User loginMenu(String username, String password) {
 		   // This outcome will return a null object and login is deemed unsuccessful
 	      System.out.println("User Does Not Exist!");
 	      return null;
-	 } catch (Exception e) {
+	   }   } catch (Exception e) {
 		   System.out.println("Login Unsuccessful");
 		   e.printStackTrace(); // Helpful debugging tool
 	 }
@@ -57,14 +59,15 @@ public User loginMenu(String username, String password) {
 /**
  * Note: userToBeRegistered will have an id=0.
  * After registration, the id will be a positive integer.
+ * @throws SQLException 
  */
 	
 // making a new user object
-public int registerMenu(User userToBeRegistered) {
+public int registerMenu(User userToBeRegistered) throws SQLException {
 	
 	// checking if the username already exists in the database
 	// if the method returns null, the username is already taken 
-	if(userDAO.getByUsername(userToBeRegistered.getUsername()) != null) {
+	if(User_DAO.getbyUsername(userToBeRegistered.getUsername()) != null) {
 
 		// Throws a NullPointerException if the username is already taken
         throw new NullPointerException("Username is already taken");
@@ -72,7 +75,6 @@ public int registerMenu(User userToBeRegistered) {
 	
     // take in the user object sent from the menu and send it to the userDAO to be inserted into the database
     // After the entry has been made, the ID of the new user is immediately removed
-    return userDAO.create(userToBeRegistered);    
-
+    return User_DAO.add(userToBeRegistered);    
 }
 }

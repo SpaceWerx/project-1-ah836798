@@ -12,6 +12,8 @@ import com.revature.repositories.Reimbursement_DAO;
 import com.revature.services.Reimbursement_Service;
 import com.revature.services.User_Service;
 
+import MockData.Mockreimbursementdata;
+
 public class Reimbursement_Service_Tests {
 
 private static Reimbursement_Service reimbursementService;
@@ -32,16 +34,16 @@ public static void setUpBeforeClass() throws Exception {
 	reimbursementService = new Reimbursement_Service();
 }
 
-/ This method will be called before each test is initiated
+// This method will be called before each test is initiated
 @Before
 public void setUp() throws Exception {
 	
 	// Mocking the user service and reimbursementDAO because they are not directly tested here
-	userService = mock(UserService.class);
-	reimbursementDAO - mock(ReimbursementDAO.class);
+	userService = mock(User_Service.class);
+	reimbursementDAO - mock(Reimbursement_DAO.class);
 	
 	// Retrieving the mock data we made in week 1 to leverage in our tests
-	MockReimbursementData mockReimbursementData = new MockReimbursementData();
+	Mockreimbursementdata mockReimbursementData = new Mockreimbursementdata();
 	
 	// We must assign the mocks to the instantiated reimbursement service to ensure it's not using
 	reimbursementService.reimbursementDAO = reimbursementDAO;
@@ -73,6 +75,11 @@ public void setUp() throws Exception {
 	
 	}
 	
+}
+
+private User_Service mock(Class<Reimbursement_DAO> class1) {
+	// TODO Auto-generated method stub
+	return null;
 }
 
 @Test
@@ -112,6 +119,26 @@ public void testResolverIsAssignedAfterReimbursementUpdate() {
 	verify(userService).getUserById(GENERIC_MANAGER_1.getId());
 }
 
+
+private int anyInt() {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
+private Reimbursement_DAO verify(Reimbursement_DAO reimbursementDAO2, Object never) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+private User_Service verify(User_Service userService2) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+private Object never() {
+	// TODO Auto-generated method stub
+	return null;
+}
 
 @Test
 

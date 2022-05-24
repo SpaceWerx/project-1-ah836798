@@ -12,18 +12,16 @@ import com.revature.repositories.User_DAO;
 public class User_Service {
 	static User_DAO userDAO = new User_DAO();
 
-
-
-    public static User getUserByUsername(String username) {
-        return userDAO.getByUsername(username);
+    public static User getUsername(String username) throws SQLException {
+        return userDAO.getbyUsername(username);
     }
 //////////////////////////////////////////////////
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() throws SQLException {
         return userDAO.getAllUsers();
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////
-    public void UserExistsById(int id) {
+    public void UserExistsById(int id) throws SQLException {
     for(User user : userDAO.getAllUsers()) {
         if(user.getId()== id) {
             System.out.println("This ID exists");
@@ -33,7 +31,7 @@ public class User_Service {
         System.out.println("This ID does not exist");
 }
 //////////////////////////////////////////////
-    public List<User> getUserByRole(Roles role){
+    public List<User> getUserByRole(Roles role) throws SQLException{
         List<User> byRole = new ArrayList<>();
         for(User user : userDAO.getAllUsers()) {
             if(user.getRole() == role) 
@@ -45,7 +43,7 @@ public class User_Service {
         return byRole;
     }
 /////////////////////////////////////////////////////////////////////////
-    public static User getUserById(int id) {
+    public static User getUserById(int id) throws SQLException {
         return userDAO.getUserbyId(id);
     }
 //////////////////////////////////////////////////////////////////////////

@@ -55,6 +55,7 @@ public class Reimbursement_DAO {
 					Status.valueOf(resultSet.getString("status")),
 					resultSet.getDouble("amount")
 					);	
+		
 		}
 	 
 				
@@ -318,5 +319,12 @@ public void update(Reimbursement unprocessedReimbursement) {
 		e.printStackTrace(); // useful debugging tool
 	}
 }
+
+
+
+	public Object getByStatus(Class<Status> class1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 

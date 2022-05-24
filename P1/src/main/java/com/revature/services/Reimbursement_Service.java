@@ -8,6 +8,7 @@ import com.revature.repositories.Reimbursement_DAO;
 
 import MockData.Mockreimbursementdata;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Reimbursement_Service {
 		reimbursements.clear();
 	}
 
-public Reimbursement update(Reimbursement unprocessedReimbursement, int resolverId, Status updatedStatus) {	
+public Reimbursement update(Reimbursement unprocessedReimbursement, int resolverId, Status updatedStatus) throws SQLException {	
 
 	User manager = rService.getUserById(resolverId);
 	
@@ -65,7 +66,7 @@ public Reimbursement update(Reimbursement unprocessedReimbursement, int resolver
 
 /////////////////////////////////////////////////////////////////////////////		
 	
-public int submitReimbursement (Reimbursement reimbursementToBeSubmitted) {
+public int submitReimbursement (Reimbursement reimbursementToBeSubmitted) throws SQLException {
 	
 
 
@@ -78,7 +79,7 @@ public int submitReimbursement (Reimbursement reimbursementToBeSubmitted) {
 		reimbursementToBeSubmitted.setStatus(Status.Pending);
 		
 
-		return reimbursementDAO.create(reimbursementToBeSubmitted);
+		return reimbursementDAO.create(reimbursementToBeSubmitted, 0);
 }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -94,7 +95,7 @@ public List<Reimbursement> getReimbursementsByAuthor(int userId) {
 		return userReimbursements;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-public Reimbursement updateManager(Reimbursement unprocessedReimbursement, int resolverId, Status updatedStatus) {
+public Reimbursement updateManager(Reimbursement unprocessedReimbursement, int resolverId, Status updatedStatus) throws SQLException {
 
 	getUserService();//DELETE IF NECESSARY
 	User manager = rService.getUserById(resolverId);
