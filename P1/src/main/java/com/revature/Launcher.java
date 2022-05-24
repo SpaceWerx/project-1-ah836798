@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner; // import the Scanner class 
 
+import org.eclipse.jetty.server.LowResourceMonitor.MainThreadPoolLowResourceCheck;
+
 import com.revature.controller.Auth_Controller;
 import com.revature.controller.Reimbursement_Controller;
 import com.revature.controller.User_Controller;
@@ -31,7 +33,8 @@ public class Launcher {
 	
 	//CLI Menu is the Command Line Interface Menu for the 
 		//initialize a new CLI Menu Service 
-	      public static void main(String[] args) {
+public static void main(String[] args) {
+
 	        CLI_Menu_Service options = new CLI_Menu_Service();
 	        options.displayMenu();
 	        options.loginMenu();
@@ -57,18 +60,18 @@ Reimbursement_Controller reimbursementController = new Reimbursement_Controller(
 // Enabling CORS for all origins to avoid http request constraints
 Javalin app = Javalin.create(JavalinConfig::enableCorsForAllOrigins).routes(()->{
 
-	// Settomg the /login path
+	// Setting the /login path
 	path("login", () -> {
 		// routes the http post requests to /login to the respective authContoller method
 		post(authController::handleLogin);
-	}};
+	});
 	
 	// Setting the /register path
 	path("register", () -> {
 		//routes the http post requests to /register to the respective authController method
 		post(authController::handleRegister);
 		
-	}};
+	});
 	
 	// Setting the /users path
 	path("users", () -> {
@@ -80,8 +83,7 @@ Javalin app = Javalin.create(JavalinConfig::enableCorsForAllOrigins).routes(()->
 		path("{id}", () -> {
 			//Routes get requests with id path parameter to respective userController method
 		    get(userController::handleGetUserById);
-		}};			
-	}};
+	});			
 	
 	// Setting the /reimbursements path
 	path("reimbursements", () -> {
@@ -98,8 +100,9 @@ Javalin app = Javalin.create(JavalinConfig::enableCorsForAllOrigins).routes(()->
 		    // Routes put http requests for /reimbursements/{id} to process requirements
 		    put(reimbursementController::handleProcess);
 		
-		}};
-	}};	      
-}};
+		});
+	});	      
+});
 
 
+}

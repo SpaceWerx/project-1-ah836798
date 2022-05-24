@@ -64,7 +64,7 @@ public int registerMenu(User userToBeRegistered) {
 	
 	// checking if the username already exists in the database
 	// if the method returns null, the username is already taken 
-	if(User_DAO.getByUsername(userToBeRegistered.getUsername()) != null) {
+	if(userDAO.getByUsername(userToBeRegistered.getUsername()) != null) {
 
 		// Throws a NullPointerException if the username is already taken
         throw new NullPointerException("Username is already taken");
@@ -72,7 +72,7 @@ public int registerMenu(User userToBeRegistered) {
 	
     // take in the user object sent from the menu and send it to the userDAO to be inserted into the database
     // After the entry has been made, the ID of the new user is immediately removed
-    return User_DAO.create(userToBeRegistered);    
+    return userDAO.create(userToBeRegistered);    
 
 }
 }

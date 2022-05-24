@@ -18,6 +18,11 @@ import com.revature.utilities.Connection_Factory_Utility;
 public class Reimbursement_DAO {
 
 	
+
+
+
+
+
 /**
  * Should retrieve a Reimbursement from the DB with the corresponding id or null if there is no match.
  */
@@ -41,29 +46,28 @@ public class Reimbursement_DAO {
 		if (resultSet.next()) {
 			
 			// return a reimbursement with the data to be returned to the service layer
-			return new Reimbursement
+			return new Reimbursement(
 					resultSet.getInt("id"),
 					resultSet.getInt("author"),
 					resultSet.getInt("resolver"),
-					resultSet.getInt("resolver"),
-					Reimbursement_Type.valueOf(resultSet.getString("type"));
-					Status.valueOf(resultSet.getString("status"));
-					resultSet.getDouble("amount");
+					Reimbursement_Type.valueOf(resultSet.getString("type")),
+					Status.valueOf(resultSet.getString("status")),
+					resultSet.getDouble("amount")
 					);	
 		}
 	 
+				
+		
 	 } catch (SQLException e) {
 		 System.out.println("Something went wrong with the database!");
 		 e.printStackTrace();
 	 }
  }
+
+
+
      //Fail=safe if the try+catch block does not run
-     return null;
-private int columnLabel(String string) {
-	// TODO Auto-generated method stub
-	return 0;
-}
-}
+   
 /**
  *This method is inteded to extract any reimbursements from the database
  *that were submitted by a specific user, whose ID is passed in as a paramenter
@@ -103,9 +107,11 @@ public List<Reimbursement> getReimbursementsByUser(int userID) {
 					resultSet.getInt("author"),
 					resultSet.getInt("resolver"),
 					resultSet.getString("description"),
-					Reimbursement_Type.valueOf(resultSet.getString("type"))),
-					Status.valueOf(resultSet.getString("status")));
-					resultSet.getDouble("amount"));	
+					Reimbursement_Type.valueOf(resultSet.getString("type")),
+					Status.valueOf(resultSet.getString("status")),
+					resultSet.getDouble("amount")
+					
+			));
 		}
 					
 		//Return the list of reimbursements that hava a matching author (user) id
@@ -158,8 +164,11 @@ public List<Reimbursement> getByStatus(Status status) {
 				resultSet.getInt("resolver"),
 				resultSet.getString("description"),
 				Reimbursement_Type.valueOf(resultSet.getString("type")),
-				Status.valueOf(resultSet.getString("status"));
-				resultSet.getDouble("amount");	
+				Status.valueOf(resultSet.getString("status")),
+				resultSet.getDouble("amount")	
+				
+		));
+		
 	 }
 				
 	//when there are no more results in resultSet, the while loop will break
@@ -205,7 +214,7 @@ public List<Reimbursement> getAllReimbursement() {
 				resultSet.getInt("resolver"),
 				resultSet.getString("description"),
 				Reimbursement_Type.valueOf(resultSet.getString("type")),
-				Status.valueOf(resultSet.getString("status"))
+				Status.valueOf(resultSet.getString("status")),
 				resultSet.getDouble("amount")
 		));	
 	 }			
@@ -227,7 +236,7 @@ public List<Reimbursement> getAllReimbursement() {
 
 // The create method is meant to create a new record in the database for new reimbursement submissions
 
-public int create(Reimbursement reimbursementToBeSubmitted) {
+public int create(Reimbursement reimbursementToBeSubmitted, int columnindex) {
   
 	// try+catch block to catch sql exception that can be thrown with connection
 	try (Connection connection = Connection_Factory_Utility.getConnection()) {
@@ -235,19 +244,19 @@ public int create(Reimbursement reimbursementToBeSubmitted) {
 		// writing out the (relativity complex) sql insert string to create a new record
 		// we explicitly ask the database to return the new id after entry
 		String sql = "INSERT INTO ers_reimbursements (author, description, type, status, amount)"
-				* "VALUES(?, ? .?::type, ?::status, ?)"
-				* "RETURNING ers_reimbursements.id";
+				+ "VALUES(?, ? .?::type, ?::status, ?)"
+				+ "RETURNING ers_reimbursements.id";
 		
 		// We must use a prepared statement because we have parameters
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		
 		//use the PreparedStatementobjects method to insert values into the query
 		//the values will come from the Reimbursement object we send in. 
-		preparedStatement.setInt( parameterindex: 1, reimbursementToBeSubmitted.getAuthor());
-		preparedStatement.setString( parameterindex: 2, reimbursementToBeSubmitted.getDescription());
-		preparedStatement.setObject( parameterindex: 3, reimbursementToBeSubmitted.getType().name());
-		preparedStatement.setObject( parameterindex: 4, reimbursementToBeSubmitted.getStatus());		
-	    preparedStatement.setDouble( parameterindex: 5, reimbursementToBeSubmitted.getAmount());
+		preparedStatement.setInt(1, reimbursementToBeSubmitted.getAuthor());
+		preparedStatement.setString(2, reimbursementToBeSubmitted.getDescription());
+		preparedStatement.setObject(3, reimbursementToBeSubmitted.getType().name());
+		preparedStatement.setObject(4, reimbursementToBeSubmitted.getStatus());		
+	    preparedStatement.setDouble(5, reimbursementToBeSubmitted.getAmount());
 	
 	    //We need to use the result set to retrieve the newly generated ID after entry of the new record
 	    ResultSet resultSet;
@@ -255,9 +264,10 @@ public int create(Reimbursement reimbursementToBeSubmitted) {
 	    //Here, we are checking that the sql query executed and returned the reimbursement record with new id
 	    if((resultSet = preparedStatement.executeQuery()) !=null) {
 	    	  //must call this to get the returned reimbursement record id
-	    	resultSet.net();
+	    	resultSet.next();
 	    	//finally returning the new id
-	    	return resultSet.getInt( columnindex: 1);
+	    	
+			return resultSet.getInt(1);
 	    	
 	    }
 	
@@ -282,18 +292,19 @@ public int create(Reimbursement reimbursementToBeSubmitted) {
 public void update(Reimbursement unprocessedReimbursement) {
 
 	//try-catch block to catch sql exception that can be thrown with connection 
-	try (Connection connection = ConnectionFactoryUtility.getConnection()) {
+	try (Connection connection = Connection_Factory_Utility.getConnection()) {
 
 		//Write the query that we want to send to the database and assign it to a String 	
 		String sql = "UPDATE ers reimbursements SET resolver = ?, status = ?::status WHERE id = ?";
 
 		//Creating a prepared statement with the sql string we created
-		PreparedStatement preparedStatement = connection.preparedStatement(sql);
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
 		//Setting the update parameteres (?'s) with their respective values.
-		preparedStatement.setInt( paramenterindex: 1, unprocessedReimbursement.getResolver());
-		preparedStatement.setObject( paramenterindex: 2, unprocessedReimbursement.getStatus().name());
-		preparedStatement.setInt( paramenterindex: 3, unprocessedReimbursement.getId());
+		int paramenterindex;
+		preparedStatement.setInt(1, unprocessedReimbursement.getResolver());
+		preparedStatement.setObject(2, unprocessedReimbursement.getStatus().name());
+		preparedStatement.setInt(3, unprocessedReimbursement.getId());
 
 		//executing the record update
 		preparedStatement.executeUpdate();
@@ -305,5 +316,6 @@ public void update(Reimbursement unprocessedReimbursement) {
 		System.out.println("Updating Failed!"); //Proclaim defeat
 		e.printStackTrace(); // useful debugging tool
 	}
+}
 }
 
