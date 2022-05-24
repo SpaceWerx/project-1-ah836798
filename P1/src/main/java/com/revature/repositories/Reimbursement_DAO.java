@@ -47,7 +47,7 @@ public class Reimbursement_DAO {
 					resultSet.getInt("author"),
 					resultSet.getInt("resolver"),
 					resultSet.getString("description"),
-					Reimbursement_Type.valueOf(resultSet.getString("type")),
+					Reimbursement_Type.valueOf(resultSet.getString("type")), 
 					Status.valueOf(resultSet.getString("status")),
 					resultSet.getDouble("amount")
 					);	

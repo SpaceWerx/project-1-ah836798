@@ -46,7 +46,7 @@ public class Launcher {
 	  	 */
 	      public void start(int port) {
 	  		// Starting the Javalin instance on the server
-	  		this.app.start(port);
+	  		this.app.start(3000);
 	  		
 	  	}
      

@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import com.revature.models.User;
 import com.revature.services.Auth_Service;
+import com.revature.services.Reimbursement_Service;
+import com.revature.services.User_Service; 
 
 import io.javalin.http.Context;
 import io.javalin.http.HttpCode;
@@ -75,8 +77,8 @@ public void handleRegister(Context ctx) {
 		
 		// Instantiating and using the object mapper
 		// This will parse the input string to a User object and store it in a local variable
-		ObjectMapper mapper = new ObjectMapper();
-		User user =mapper.readValue(input, User.class);
+		objectMapper mapper = new objectMapper();
+		User user = mapper.readValue(input, User.class);
 		
 		//Once user object is created, storing the positive integer ID from the regular service method
 		int id = Auth_Service.registerMenu(user);

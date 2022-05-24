@@ -63,7 +63,7 @@ public static User loginMenu(String username, String password) {
  */
 	
 // making a new user object
-public int registerMenu(User userToBeRegistered) throws SQLException {
+public static int registerMenu(User userToBeRegistered) throws SQLException {
 	
 	// checking if the username already exists in the database
 	// if the method returns null, the username is already taken 

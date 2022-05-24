@@ -101,7 +101,13 @@ public class Reimbursement {
 	}
 
 
-	public Reimbursement getReimbursementById(int id2) {
+	public Reimbursement getReimbursementById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Reimbursement update(Reimbursement reimbursement, int userId, javax.net.ssl.SSLEngineResult.Status valueOf) {
 		// TODO Auto-generated method stub
 		return null;
 	}
