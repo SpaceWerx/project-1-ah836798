@@ -56,7 +56,10 @@ public Handler getUserByUsername = (ctx) ->{
 	
 public Handler getUserByUserID = (ctx) ->{
 
-		int userid = ctx.body();
+	
+// Having a problem with user id being declared as string vs. id.
+	
+		int userid = ctx.body();   
 		User userbyuserID = us.getUserById(userid);
 		Gson gson = new Gson();
 		String JSONObject = gson.toJson(userbyuserID);

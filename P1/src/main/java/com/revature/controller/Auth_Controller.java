@@ -30,7 +30,13 @@ public void handleLogin(Context ctx) {
 	} else {
 		
 		// Calling the authService login method
-		User user = Auth_Service.loginMenu(username, password);
+		User user;
+		try {
+			user = Auth_Service.loginMenu(username, password);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// Ensuring the user was found and accepted
 		// The service returns null if unsuccesful

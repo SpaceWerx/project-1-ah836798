@@ -100,4 +100,10 @@ public class Reimbursement {
 		this.amount = amount;
 	}
 
+
+	public Reimbursement getReimbursementById(int id2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

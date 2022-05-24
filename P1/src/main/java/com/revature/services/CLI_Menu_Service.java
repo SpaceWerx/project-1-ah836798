@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class CLI_Menu_Service {
 		//initialize a new CLI Menu Service  
 	        
 //Display Main Menu Method//	       
-public void displayMenu() {
+public void displayMenu() throws SQLException {
 	boolean menuOptions = true; //Using this to let the menu continue after user input
 	
 	//Greetings for the user
@@ -71,7 +72,7 @@ public void displayMenu() {
 
 //Display Employee Menu Method//
 
-public void displayEmployeeMenu(User employee) {
+public void displayEmployeeMenu(User employee) throws SQLException {
 	boolean employeePortal = true;
 	
 	System.out.println("--------------------------------------------------------");
@@ -107,7 +108,7 @@ public void displayEmployeeMenu(User employee) {
 
 
 //Display Manager Menu Method//	
-public void displayFinanceManagerMenu(User manager) {
+public void displayFinanceManagerMenu(User manager) throws SQLException {
 	boolean managerPortal = true; 
 	
 	System.out.println("--------------------------------------------------------");
@@ -230,7 +231,7 @@ public double parseDoubleInput(String input) {
 
 
 //Handle Portal Helper Method//
-public void handlePortal(Roles role) {
+public void handlePortal(Roles role) throws SQLException {
 	// get the List of employees from the repository layer
 	List<User> users = userService.getUserByRole(role);
 	
@@ -284,7 +285,7 @@ public void displayPreviousRequests(User employee) {
 
 //Submit Reimbursement helper method//
 
-public void submitReimbursement(User employee) {
+public void submitReimbursement(User employee) throws SQLException {
 	Reimbursement reimbursementToBeSubmitted = new Reimbursement();
 	reimbursementToBeSubmitted.setAuthor(employee.getId());
 	
@@ -371,7 +372,7 @@ public void displayResolvedReimbursements() {
 }
 
 //Process Reimbursement Helper Method//
-public void processReimbursement(User manager) {
+public void processReimbursement(User manager) throws SQLException {
 	boolean processPortal = true;
 	
 	System.out.println("--------------------------------------------------------");

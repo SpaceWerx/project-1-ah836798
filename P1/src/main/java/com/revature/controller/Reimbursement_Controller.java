@@ -83,7 +83,7 @@ public void handleProcess(Context ctx) {
 			// Checking to ensure that the reimbursement exists in the database before updating
 			if(reimbursement != null) {
 				// Calling the update method and storing the updated reimbursement
-				Reimbursement processedReimbursement = reimbursement.updated(reimbursement, userId, Status.valueOf(statusInput));
+				Reimbursement processedReimbursement = reimbursement.updated(reimbursement, userid, Status.valueOf(statusInput));
 				
 				// Proclaim victory and return the processed reimbursement object
 				ctx.status(HttpCode.ACCEPTED);

@@ -33,14 +33,15 @@ public static void setUpBeforeClass() throws Exception {
 	// Instantiating a new reimbursement service that is being tested
 	reimbursementService = new Reimbursement_Service();
 }
-
+}
 // This method will be called before each test is initiated
+/*
 @Before
 public void setUp() throws Exception {
-	
+
 	// Mocking the user service and reimbursementDAO because they are not directly tested here
 	userService = mock(User_Service.class);
-	reimbursementDAO - mock(Reimbursement_DAO.class);
+	reimbursementDAO  mock(Reimbursement_DAO.class);
 	
 	// Retrieving the mock data we made in week 1 to leverage in our tests
 	Mockreimbursementdata mockReimbursementData = new Mockreimbursementdata();
@@ -75,6 +76,11 @@ public void setUp() throws Exception {
 	
 	}
 	
+}
+
+private User_Service mock(Class<User_Service> class1) {
+	// TODO Auto-generated method stub
+	return null;
 }
 
 private User_Service mock(Class<Reimbursement_DAO> class1) {
@@ -119,11 +125,6 @@ public void testResolverIsAssignedAfterReimbursementUpdate() {
 	verify(userService).getUserById(GENERIC_MANAGER_1.getId());
 }
 
-
-private int anyInt() {
-	// TODO Auto-generated method stub
-	return 0;
-}
 
 private Reimbursement_DAO verify(Reimbursement_DAO reimbursementDAO2, Object never) {
 	// TODO Auto-generated method stub
@@ -218,3 +219,4 @@ public void testGetPendingReimbursementsRetrunsOnlyPending() {
 }
 
 }
+*/

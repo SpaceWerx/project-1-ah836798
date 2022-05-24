@@ -13,7 +13,7 @@ public class Auth_Service {
 // @return User object
 //
   
-public User loginMenu(String username, String password) {
+public static User loginMenu(String username, String password) {
    // Instantiating a temporary user
    User user;
    
@@ -75,6 +75,9 @@ public int registerMenu(User userToBeRegistered) throws SQLException {
 	
     // take in the user object sent from the menu and send it to the userDAO to be inserted into the database
     // After the entry has been made, the ID of the new user is immediately removed
-    return User_DAO.add(userToBeRegistered);    
+    try {
+		return User_DAO.create(userToBeRegistered);
+		e.printStackTrace();
+	}    
 }
 }

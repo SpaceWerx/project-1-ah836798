@@ -15,8 +15,9 @@ import java.util.List;
 
 public class Reimbursement_Service {
 
-	public Reimbursement_DAO reimbursementDAO = new Reimbursement_DAO();
+	public static Reimbursement_DAO reimbursementDAO = new Reimbursement_DAO();
 	public User_Service rService = new User_Service();
+	public User_Service userService;
 	public static List<Mockreimbursementdata> mockData = new ArrayList<>();
 	public static ArrayList<Reimbursement> reimbursements = new ArrayList<>();	
 	public static void clearData() {	
@@ -46,13 +47,13 @@ public Reimbursement update(Reimbursement unprocessedReimbursement, int resolver
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
-	public List<Reimbursement> getPendingReimbursements() { 
+	public static List<Reimbursement> getPendingReimbursements() { 
 
 		return reimbursementDAO.getByStatus(Status.Pending);
 }
 ////////////////////////////////////////////////////////////////////
 
-	public List<Reimbursement> getResolvedReimbursements(){
+	public static List<Reimbursement> getResolvedReimbursements(){
 		
 		List<Reimbursement> resolvedReimbursements = new ArrayList<>();
 		
