@@ -34,8 +34,8 @@ public static void setUpBeforeClass() throws Exception {
 	reimbursementService = new Reimbursement_Service();
 }
 }
-// This method will be called before each test is initiated
-/*
+/* This method will be called before each test is initiated
+
 @Before
 public void setUp() throws Exception {
 

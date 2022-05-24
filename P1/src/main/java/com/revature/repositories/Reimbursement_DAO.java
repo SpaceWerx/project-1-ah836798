@@ -23,7 +23,7 @@ public class Reimbursement_DAO {
  * Should retrieve a Reimbursement from the DB with the corresponding id or null if there is no match.
  */
 	
- public Reimbursement getReimbursementbyId(int id) {
+ public Reimbursement getReimbursementById(int id) {
 
 	 //try+catch block to catch sql exception that can be thrown with connection 
 	 try(Connection connection = Connection_Factory_Utility.getConnection()) {
@@ -46,6 +46,7 @@ public class Reimbursement_DAO {
 					resultSet.getInt("id"),
 					resultSet.getInt("author"),
 					resultSet.getInt("resolver"),
+					resultSet.getString("description"),
 					Reimbursement_Type.valueOf(resultSet.getString("type")),
 					Status.valueOf(resultSet.getString("status")),
 					resultSet.getDouble("amount")
@@ -59,6 +60,7 @@ public class Reimbursement_DAO {
 		 System.out.println("Something went wrong with the database!");
 		 e.printStackTrace();
 	 }
+	return null;
  }
 
 
@@ -142,7 +144,7 @@ public List<Reimbursement> getByStatus(Status status) {
 	PreparedStatement preparedStatement = connection.prepareStatement(sql); 
 	
 	// Filling the missing query value (?) with the method parameter (userId)
-	preparedStatement.setInt(1, status.toString()); 
+	preparedStatement.setString(1, status.toString()); 
 			
 	//Execute the Query by putting the results of the query into our ResultSet object (resultSet)
 	//The Statement object has a method that takes Strings to execute as a SQL query

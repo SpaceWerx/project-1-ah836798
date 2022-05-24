@@ -10,6 +10,10 @@ import io.javalin.http.Context;
 import io.javalin.http.HttpCode;
 
 public class Reimbursement_Controller {
+	
+	objectMapper objectmapper = new objectMapper();
+	Reimbursement_Service reimbursementService = new Reimbursement_Service();
+	
 
 /** 
  * This Javalin handler method controls any reimbursement submission http calls 	
@@ -22,10 +26,10 @@ public void handleSubmit(Context ctx) {
 		String input = ctx.body();
 		
 		// Utilizing the object mapper to parse the input into a reimbursement object
-		Reimbursement reimbursement = objectMapper.readValue(input, Reimbursement.class);
+		Reimbursement reimbursement = objectmapper.readValue(input, Reimbursement.class);
 		
 		// Storing the positive integer ID that is returned from the service method
-		int id = Reimbursement_Service.submitReimbursement(reimbursement);
+		int id = reimbursementService.submitReimbursement(reimbursement); 
 		
 		// If the ID is still 0, the submission was unsuccessful
 		if(id !=0) {
@@ -83,7 +87,7 @@ public void handleProcess(Context ctx) {
 			// Checking to ensure that the reimbursement exists in the database before updating
 			if(reimbursement != null) {
 				// Calling the update method and storing the updated reimbursement
-				Reimbursement processedReimbursement = reimbursement.updated(reimbursement, userid, Status.valueOf(statusInput));
+				Reimbursement processedReimbursement = reimbursement.update(reimbursement, userId, Status.valueOf(statusInput));
 				
 				// Proclaim victory and return the processed reimbursement object
 				ctx.status(HttpCode.ACCEPTED);

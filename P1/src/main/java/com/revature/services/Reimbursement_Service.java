@@ -16,7 +16,7 @@ import java.util.List;
 public class Reimbursement_Service {
 
 	public static Reimbursement_DAO reimbursementDAO = new Reimbursement_DAO();
-	public User_Service rService = new User_Service();
+	public static User_Service rService = new User_Service();
 	public User_Service userService;
 	public static List<Mockreimbursementdata> mockData = new ArrayList<>();
 	public static ArrayList<Reimbursement> reimbursements = new ArrayList<>();	
@@ -114,7 +114,7 @@ public Reimbursement updateManager(Reimbursement unprocessedReimbursement, int r
 	}
 }
 ////////////////////////////////////////
-public Reimbursement getReimbursementById(int id) {return reimbursementDAO.getReimbursementbyId(id);}
+public Reimbursement getReimbursementById(int id) {return reimbursementDAO.getReimbursementById(id);}
 
 public List<Reimbursement> getReimbursementByAuthor(int userId) {
 return reimbursementDAO.getReimbursementsByUser(userId);
