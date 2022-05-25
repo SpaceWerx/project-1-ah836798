@@ -85,7 +85,7 @@ public int submitReimbursement (Reimbursement reimbursementToBeSubmitted) throws
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public List<Reimbursement> getReimbursementsByAuthor(int userId) {
+public static List<Reimbursement> getReimbursementsByAuthor(int userId) {
 	
 	List<Reimbursement> userReimbursements = new ArrayList<>();
 	
@@ -114,7 +114,7 @@ public Reimbursement updateManager(Reimbursement unprocessedReimbursement, int r
 	}
 }
 ////////////////////////////////////////
-public Reimbursement getReimbursementById(int id) {return reimbursementDAO.getReimbursementById(id);}
+public Reimbursement getReimbursementById() {return reimbursementDAO.getReimbursementById(Id);}
 
 public List<Reimbursement> getReimbursementByAuthor(int userId) {
 return reimbursementDAO.getReimbursementsByUser(userId);
@@ -126,4 +126,5 @@ public User_Service getUserService() {
 public void setUserService(User_Service userService) {
     this.rService = userService;
 }
+
 }

@@ -1,8 +1,9 @@
 package com.revature.controller;
 
-import javax.net.ssl.SSLEngineResult.Status;
+
 
 import com.revature.models.Reimbursement;
+import com.revature.models.Status;
 import com.revature.services.Reimbursement_Service;
 import com.revature.services.User_Service; 
 
@@ -235,7 +236,7 @@ public void handleGetReimbursementsById(Context ctx) {
 		int id = Integer.parseInt(idParam);
 		
 		// Using the int ID to get the respective reimbursement
-		Reimbursement reimbursement = reimbursementService.getReimbursementById;
+		Reimbursement reimbursement = reimbursementService.getReimbursementById();
 		
 		// Checking to make sure reimbursement was retrieved
 		if(reimbursement != null) {
@@ -249,7 +250,7 @@ public void handleGetReimbursementsById(Context ctx) {
 			ctx.status(HttpCode.BAD_REQUEST);
 			ctx.result("Could not retrieve the reimbursement");
 			}
-		}
+		
 		// Catching any exception thrown
 	} catch (Exception e) {
 		// Returning 500 status
@@ -265,6 +266,7 @@ public void handleGetReimbursementsById(Context ctx) {
 		
 
 	}
+}
 }
 
 

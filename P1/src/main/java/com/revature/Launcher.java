@@ -97,5 +97,4 @@ Javalin app = Javalin.create(JavalinConfig::enableCorsForAllOrigins).routes(()->
 		});
 	});	      
 });
-
 }

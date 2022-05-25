@@ -6,7 +6,8 @@ import com.revature.models.Roles;
 
 public class User {
 
-  private int Id;
+  public static final String getId = null;
+private int Id;
   private String username;
   private String password;
   private Roles role;

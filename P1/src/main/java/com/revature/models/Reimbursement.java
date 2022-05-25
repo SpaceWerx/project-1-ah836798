@@ -112,4 +112,10 @@ public class Reimbursement {
 		return null;
 	}
 
+
+	public Reimbursement update(Reimbursement reimbursement, int userId, Status valueOf) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
