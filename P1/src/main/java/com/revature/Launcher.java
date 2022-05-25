@@ -61,7 +61,11 @@ public class Launcher {
 			//Now we need our endpoints
             
        
-			app.get("/employee", uc.getAllUsersHandler);
+			app.get("/user", uc.getAllUsersHandler);
+			
+			
+			
+			
 			app.post("/employee", uc.insertUsersHandler);
 		
 			
