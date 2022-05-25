@@ -14,6 +14,7 @@ public class Reimbursement_Controller {
 	
 	objectMapper objectmapper = new objectMapper();
 	Reimbursement_Service reimbursementService = new Reimbursement_Service();
+	User_Service us = new User_Service();
 	
 
 /** 
@@ -187,7 +188,7 @@ public void handleGetReimbursementsByAuthor(Context ctx) {
 			int id = Integer.parseInt(idParam);
 		
 			// Checking if the user exists
-			if (User_Service.checkUserExistsById(id)) {
+			if (us.checkUserExistsById(id)) {
 				// Proclaim victory
 				ctx.status(HttpCode.OK);
 				// Returnf all reimbursements submitted by the current user
@@ -236,7 +237,7 @@ public void handleGetReimbursementsById(Context ctx) {
 		int id = Integer.parseInt(idParam);
 		
 		// Using the int ID to get the respective reimbursement
-		Reimbursement reimbursement = reimbursementService.getReimbursementById();
+		Reimbursement reimbursement = reimbursementService.getReimbursementById(id);
 		
 		// Checking to make sure reimbursement was retrieved
 		if(reimbursement != null) {

@@ -2,16 +2,19 @@ package com.revature;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Scanner; // import the Scanner class 
+//import java.util.Scanner; // import the Scanner class 
 
 import com.revature.controller.Auth_Controller;
 import com.revature.controller.Reimbursement_Controller;
 import com.revature.controller.User_Controller;
 import com.revature.services.CLI_Menu_Service;
-import com.revature.services.Auth_Service;
+//import com.revature.services.Auth_Service;
 import com.revature.utilities.Connection_Factory_Utility;
 
 import io.javalin.Javalin;
+
+
+
 
 public class Launcher {
 	public static void main(String[] args) throws SQLException {
@@ -28,31 +31,49 @@ public class Launcher {
 				System.out.println("Connection failed");
 				e.printStackTrace();
 			}	
-	}
+	
 	
 	//CLI Menu is the Command Line Interface Menu for the 
 		//initialize a new CLI Menu Service 
-
-	        CLI_Menu_Service options = new CLI_Menu_Service();
-	        options.displayMenu();
-	        options.loginMenu();
-	        options.registerMenu(); 
-	      }
+//
+//        CLI_Menu_Service options = new CLI_Menu_Service();
+//            options.displayMenu();
+//	        options.loginMenu();
+//	        options.registerMenu(); 
+//	      }
 	      
 	      /**
 	  	 * This method is used in the Launcher class to start the Javalin app on the desired port.
-	  	 */
-	      public void start(int port) {
-	  		// Starting the Javalin instance on the server
-	  		this.app.start(3000);
+*/
+//	      public void start(int port) {
+//	  		// Starting the Javalin instance on the server
+//	  		this.app.start(3000);
 	  		
-	  	}
-     
+//
+//This is our Javalin object (Which creates the connection, done)
+
+            Javalin app = Javalin.create(
+				config -> {
+					config.enableCorsForAllOrigins(); //This is what allows teh server to process JS requests from anywhere
+				}
+			).start(3000);
+		
+			//Now we need our endpoints
+            
+       
+			app.get("/employee", uc.getAllUsersHandler);
+			app.post("/employee", uc.insertUsersHandler);
+		
+			
+//			app.post("/login", null);
+			
+		}	    		  
+	      
 	      
 
-// Creating the Javalin app to designate routes
+/* Creating the Javalin app to designate routes
 // Enabling CORS for all origins to avoid http request constraints
-Javalin app = Javalin.create(JavalinConfig::enableCorsForAllOrigins).routes(()->{
+//Javalin app = Javalin.create(JavalinConfig::enableCorsForAllOrigins).routes(()->{
 
 	// Setting the /login path
 	path("login", () -> {
@@ -97,4 +118,6 @@ Javalin app = Javalin.create(JavalinConfig::enableCorsForAllOrigins).routes(()->
 		});
 	});	      
 });
+*/
 }
+	

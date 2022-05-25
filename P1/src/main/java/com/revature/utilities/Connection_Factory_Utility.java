@@ -54,7 +54,7 @@ public class Connection_Factory_Utility {
     	//we'll hardcode them for now, but I'll show a way to hide the credentials in environment variables
     	
     	//the url to my database schema
-    	String url = "jdbc:postgresql://java-fullstack-aws-p1.czxegbes2gjf.us-east-1.rds.amazonaws.com:5432/postgres?currentSchema=P1";
+    	String url = "jdbc:postgresql://java-fullstack-aws-p1.czxegbes2gjf.us-east-1.rds.amazonaws.com:5432/postgres?currentSchema=p1";
     	//your postgres username (should just be postgres)
     	String username = "postgres";
     	//your postgres password (hopefully just "password")

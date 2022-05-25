@@ -114,7 +114,9 @@ public Reimbursement updateManager(Reimbursement unprocessedReimbursement, int r
 	}
 }
 ////////////////////////////////////////
-public Reimbursement getReimbursementById() {return reimbursementDAO.getReimbursementById(Id);}
+public Reimbursement getReimbursementById(int userId) {
+	return reimbursementDAO.getReimbursementById(userId);
+}
 
 public List<Reimbursement> getReimbursementByAuthor(int userId) {
 return reimbursementDAO.getReimbursementsByUser(userId);

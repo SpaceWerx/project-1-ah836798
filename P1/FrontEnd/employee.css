@@ -47,7 +47,7 @@ header,
     background-color: white; /* Fallback color */
     color: black;
     font-weight: bold;
-    border: 3px solid white #flflfl;
+    border: 3px solid white;
     position: absolute;
     top: 50;
     left: 50;
