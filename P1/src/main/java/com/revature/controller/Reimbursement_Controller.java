@@ -84,7 +84,7 @@ public void handleProcess(Context ctx) {
 			String statusInput = ctx.formParam("status");
 			
 			// Calling the getReimbursementByID Method and storing the return method
-			Reimbursement reimbursement =reimbursement.getReimbursementById(id);
+			Reimbursement reimbursement = new Reimbursement();
 			
 			// Checking to ensure that the reimbursement exists in the database before updating
 			if(reimbursement != null) {

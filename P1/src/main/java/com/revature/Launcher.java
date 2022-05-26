@@ -61,13 +61,22 @@ public class Launcher {
 			//Now we need our endpoints
             
        
-			app.get("/user", uc.getAllUsersHandler);
-			
-			
-			
-			
+			app.get("/employee", uc.getAllUsersHandler);
 			app.post("/employee", uc.insertUsersHandler);
-		
+		    
+			app.post("/login", ac.handleLogin);
+			
+			app.post("/register", ac.handleRegister);  
+				
+			app.get("/status", rc.handleGetReimbursementsByStatus();
+			app.get("/reimbursement", rc.handleGetReimbursements);
+			app.get("/reimbursement/{id}", rc.handleGetReimbursementsById);
+			app.post("/submit", rc.handleSubmit);
+			app.post("/process", rc.handleProcess);
+			app.get("author", rc.handleGetReimbursementsByAuthor);
+			
+		    
+		    
 			
 //			app.post("/login", null);
 			

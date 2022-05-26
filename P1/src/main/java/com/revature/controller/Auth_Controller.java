@@ -34,7 +34,7 @@ public void handleLogin(Context ctx) {
 		
 		// Calling the authService login method
 		try {
-			user = Auth_Service.loginMenu(username, password);
+			username = Auth_Service.loginMenu(username, password);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,7 +42,7 @@ public void handleLogin(Context ctx) {
 		
 		// Ensuring the user was found and accepted
 		// The service returns null if unsuccesful
-		if (user != null) {
+		if (username != null) {
 			
 			// Sending accepted status code
 			ctx.status(HttpCode.ACCEPTED);
@@ -51,7 +51,7 @@ public void handleLogin(Context ctx) {
 			// Returning a Current-User header for authentication
 			ctx.header("Current-User", ""+ User.getId); 
 			// Sending user role for portal navigation
-			ctx.result(user.getRole().toString());
+			ctx.result(username.getUserByRole();
 			
 			
 		} else {

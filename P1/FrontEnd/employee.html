@@ -42,7 +42,10 @@
                         </button>
                     </div>
                 </div>
-                <!-- Wrapper div for styling -->
+            </nav>
+        </header>        
+            <div>  
+            <!-- Wrapper div for styling -->
                 <div id="main">
                     <!-- Background image wrapper div for styling-->
                     <div id-"bg">
@@ -51,80 +54,77 @@
                     </div>
 
                     <!-- Sectional div for content styling -->
-                </div id="display">
+                    </div id="display">
 
-                    <!-- H2 Title for the sectional content -->
-                    <h2 id=""display-title">Employee Portal</h2>
+                        <!-- H2 Title for the sectional content -->
+                        <h2 id=""display-title">Employee Portal</h2>
 
-                    <!-- Wrapper div for styling -->
-                    <div id-"display-buttons">
-                        <!-- Bootstrap button to submit new reimbursement -->
-                          <button class-"btn btn-outline-dark">
-                              <!--Anchor to reference other pages  -->
-                            <a id-"submit anchor" href-"./submit.html">
-                            Submit Reimbursement
-                            </a>
-                          </button>
+                        <!-- Wrapper div for styling -->
+                        <div id-"display-buttons">
+                            <!-- Bootstrap button to submit new reimbursement -->
+                            <button class-"btn btn-outline-dark">
+                                <!--Anchor to reference other pages  -->
+                                <a id-"submit anchor" href-"./submit.html">
+                                    Submit Reimbursement
+                                </a>
+                            </button>
+                        </div>
+
+                        <!-- Bootstrap table with mock data for styling -->
+                        <table id-"display-table" class-"table table-striped">
+                            <!-- Thead establishes column names -->
+                            <thead>
+                                <!-- Tr is a single record -->
+                                <tr>
+                                    <!-- Th is table header with column scope -->
+                                    <th scope-"col">ID</th>
+                                    <th scope-"col">Type</th>
+                                    <th scope-"col">Desciption</th>
+                                    <th scope-"col">Amount</th>
+                                    <th scope-"col">Status</th>
+                                </tr>
+                            </thead>
+                            <!-- Tbody contains the rose of data -->
+                            <tbody>
+                                <!-- Tr is a single record-->
+                                <tr>
+                                    <!-- Table header with scope row denote primary identifieer for record-->
+                                    <th scope-"row">l</th>
+                                    <!-- Td is just table data in the order of the respective columnns -->
+                                    <td>Lodging </td>
+                                    <td> Hotel stay in Orlando</td>
+                                    <td>$500.00</td>
+                                    <td>Pending</td>
+                                </tr>
+                                <tr>
+                                    <th scope-"row">l</th>                           
+                                    <td>Travel</td>
+                                    <td>Flights to Orlando</td>
+                                    <td>$100.00</td>
+                                    <td>Approved</td>
+                                </tr>
+                                <tr>
+                                    <th scope-"row">l</th>                           
+                                    <td>Food</td>
+                                    <td>Dinner in Orlando</td>
+                                    <td>$200.00</td>
+                                    <td>Denied</td>
+                                </tr>
+                                <tr>
+                                    <th scope-"row">l</th>                           
+                                    <td>Other</td>
+                                    <td>Beach trip with team</td>
+                                    <td>$750.00</td>
+                                    <td>Denied</td>
+                                </tr>
+                            </tbody>                    
+                        </table>
                     </div>
-
-                    <!-- Bootstrap table with mock data for styling -->
-                    <table id-"display-table" class-"table table-striped">
-                        <!-- Thead establishes column names -->
-                        <thead>
-                            <!-- Tr is a single record -->
-                            <tr>
-                                <!-- Th is table header with column scope -->
-                                <th scope-"col">ID</th>
-                                <th scope-"col">Type</th>
-                                <th scope-"col">Desciption</th>
-                                <th scope-"col">Amount</th>
-                                <th scope-"col">Status</th>
-                            </tr>
-                        </thead>
-                        <!-- Tbody contains the rose of data -->
-                        <tbody>
-                            <!-- Tr is a single record-->
-                            <tr>
-                                <!-- Table header with scope row denote primary identifieer for record-->
-                                <th scope-"row">l</th>
-                                <!-- Td is just table data in the order of the respective columnns -->
-                                <td>Lodging </td>
-                                <td> Hotel stay in Orlando</td>
-                                <td>$500.00</td>
-                                <td>Pending</td>
-                            </tr>
-                            <tr>
-                                <th scope-"row">l</th>                           
-                                <td>Travel</td>
-                                <td>Flights to Orlando</td>
-                                <td>$100.00</td>
-                                <td>Approved</td>
-                            </tr>
-                            <tr>
-                                <th scope-"row">l</th>                           
-                                <td>Food</td>
-                                <td>Dinner in Orlando</td>
-                                <td>$200.00</td>
-                                <td>Denied</td>
-                            </tr>
-                            <tr>
-                                <th scope-"row">l</th>                           
-                                <td>Other</td>
-                                <td>Beach trip with team</td>
-                                <td>$750.00</td>
-                                <td>Denied</td>
-                            </tr>
-                        </tbody>                    
-                    </table>
-                </nav>
-        </header>
+                </div>   
+            </div>         
     </body>
-
-
-
-
-
-
-
-
+</html>
+<script src-"../server-requests.js"></script>
+<!-- Calling in the respective javascript file for core functionality -->
+<script src-"employee.js"></script>
 </html>
