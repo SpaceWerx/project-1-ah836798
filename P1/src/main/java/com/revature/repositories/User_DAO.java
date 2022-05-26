@@ -185,9 +185,12 @@ public User getUserbyId(int id) throws SQLException {
 	 }
 
 
-	public static void create(User newEmployee) {
+	public void create(User newEmployee) {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+
 
 }

@@ -16,6 +16,7 @@ public class Auth_Controller {
  * This Javalin handler method leverages the Http call contect to call the login AuthService method.
  */
 	
+	objectMapper mapper = new objectMapper();
 public void handleLogin(Context ctx) {
 	
 	// Reading the form parameters from the http request with the respective string keys.
@@ -32,7 +33,6 @@ public void handleLogin(Context ctx) {
 	} else {
 		
 		// Calling the authService login method
-		User user;
 		try {
 			user = Auth_Service.loginMenu(username, password);
 		} catch (Exception e) {
@@ -49,7 +49,7 @@ public void handleLogin(Context ctx) {
 			// Giving the front-end access to the response headers
 			ctx.header("Access-Control-Expose-Headers", "Current-User" );
 			// Returning a Current-User header for authentication
-			ctx.header("Current-User",""+ User.getId); 
+			ctx.header("Current-User", ""+ User.getId); 
 			// Sending user role for portal navigation
 			ctx.result(user.getRole().toString());
 			
