@@ -8,15 +8,15 @@ import com.revature.services.Reimbursement_Service;
 import com.revature.services.User_Service; 
 
 import io.javalin.http.Context;
+import io.javalin.http.Handler;
 import io.javalin.http.HttpCode;
 
 public class Auth_Controller {
 
-/**
- * This Javalin handler method leverages the Http call contect to call the login AuthService method.
- */
 	
 	objectMapper mapper = new objectMapper();
+	public Handler handleLogin;
+	public Handler handleRegister;
 public void handleLogin(Context ctx) {
 	
 	// Reading the form parameters from the http request with the respective string keys.

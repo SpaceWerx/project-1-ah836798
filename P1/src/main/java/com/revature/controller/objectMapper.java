@@ -6,10 +6,12 @@ import com.revature.models.User;
 public class objectMapper {
 
 
-	public Reimbursement readValue(String input, Class<Reimbursement> class1) {
+	public User readValue(String input, Class<User> class1) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 	
 	}

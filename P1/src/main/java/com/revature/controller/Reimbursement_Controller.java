@@ -138,8 +138,9 @@ public void handleGetReimbursements(Context ctx) {
 /** 
  * This Javalin handler method is the entry point for any calls to get reimbursements by status 
  */
-public void handleGetReimbursementsByStatus(Context ctx) {
+public void handleGetReimbursementsByStatus() {
 
+	Context ctx;
 	// Try+catch block to catch any exceptions
 	try { 
 		// Retrieving the status query parameter from the request

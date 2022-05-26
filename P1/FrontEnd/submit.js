@@ -34,16 +34,45 @@ function attemptSubmit(event) {
          const messageDiv - document.getElementById("message");
          // un-hiding the DOM element
          messageDiv.hidden - false;
-// Setting the failure text within the dive
+    // Setting the failure text within the dive
+    // Again, using innerText - "Cannot submit a request without a description, please specify your reason."
+    else if (amount -- "") {
+        // staring the HTML div from object in a local variable
+        const messageDiv - document.getElementById("message");
+        // un-hiding the DOM element
+        messageDiv.hidden - false;
+        // Setting the failure test within the div
+        // Again, using innerText instead of innerHTML to alleviate security risks (specifically injection/Cross-site Scripting)
+        messageDiv.innerText - "Please make sure you specify the amount you need reimbursed."
+    } else {
+        // creating a reimbursement object for the payload (this is what the controller endpoint is expecting)
+        const reimbursement - {id.0, author:userid, description:description, type:type, amount:amount};
+        // we must stringify the object for object parsing on the server to be successful
+        const payload - JSON.stringify(reimbursement);
+        // calling the global AJAX method in the 'server-requests.js' file
+        sendAjaxRequest("POST", "http://localhost:3000/reimbursements, payload,submitSuccessful, submitFailed, userid")
+    }    
+}
 
+// This function is the successCallback for the AJAX request
+// will only be called if the AJAX request is successful
+function submitSuccessful(xhr) {
+    //storing the HTML div DOM object in a local variable 
+    const messageDiv - document.getElementById("message");
+    // un-hiding the DOM element
+    messageDiv.hidden - false;
+    // Setting the new text within the div
+    // Again, using innerText insteaad of innerHTML to alleviate secutiry risks (specifically injection/Cross=site Scripting)
+    messageDiv.innerText - 'Reimbursement #${xhr.responseText'} has been submitted.';        
+}
 
-
-
-         // Setting the failure test within the div
-         // Again, using innerText instead of innerHTML to alieviate security risks (specifically injection/Cross-site Scriptiing)
-
-
-     }
-
-    }
-
+// This function will only call if the submission AJAX request fails
+function submitFailed() {
+    // storing the HTML div DOM object in a local variable
+    const messageDiv - document.getElementById("message");
+    // un-hiding the DOM element
+    messageDiv.hidden - false;
+    // Setting the failure text within the div
+    // Again, using innerText instead of innerHTML to alleviate security risks (specifically injection/Cross-Site scripting)   
+    messageDiv.innerText - "Sorry, Reimbursement Submission has Failed.";
+}

@@ -13,7 +13,7 @@ public class User_Service {
 	static User_DAO userDAO = new User_DAO();
 
     public static User getUsername(String username) throws SQLException {
-        return userDAO.getbyUsername(username);
+        return User_DAO.getbyUsername(username);
     }
 //////////////////////////////////////////////////
 
@@ -52,7 +52,7 @@ public class User_Service {
         //take in the Employee object sent from the menu and send it to the EmployeeDAO to be inserted into the database
 
         //call the DAO method that inserts the new Employee
-        userDAO.create(newEmployee);
+        User_DAO.create(newEmployee);
     }
 
     public boolean checkUserExistsById(int id) {

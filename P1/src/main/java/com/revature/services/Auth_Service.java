@@ -52,8 +52,7 @@ public static User loginMenu(String username, String password) {
 	  
 	   // if the try+catch does not run, a null object is returned and login is deemed unsuccessful
 	   return null;
-   }
-   
+  }
 
 	/////registerMenu////
 /**
@@ -77,7 +76,14 @@ public static int registerMenu(User userToBeRegistered) throws SQLException {
     // After the entry has been made, the ID of the new user is immediately removed
     try {
 		return User_DAO.create(userToBeRegistered);
+		Throwable e;
 		e.printStackTrace();
-	}    
+    
+    
 }
-}
+
+
+
+
+
+

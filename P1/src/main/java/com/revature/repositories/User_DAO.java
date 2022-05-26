@@ -185,7 +185,7 @@ public User getUserbyId(int id) throws SQLException {
 	 }
 
 
-	public void create(User newEmployee) {
+	public static int create(User newEmployee) {
 		// TODO Auto-generated method stub
 		
 	}
