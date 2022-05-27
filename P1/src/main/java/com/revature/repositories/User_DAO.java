@@ -156,21 +156,22 @@ public User getUserbyId(int id) throws SQLException {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql); //prepareStatement() as opposed to createStatement()
 	        
 			//insert the methods argument (int id) as the first (and only) variable in our SQL query
-			preparedStatement.setString(2, username); //the 1 here is referring to the first parameter (?) found in our SQL String
+			preparedStatement.setString(1, username); //the 1 here is referring to the first parameter (?) found in our SQL String
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
-			
+			List<User> userList = new ArrayList<User>();
 			// if there are results in the result set...
 			if (resultSet.next()) {
 				
 				// return a reimbursement with the data to be returned to the service layer
-				return new User(
+			 User u = new User(
 						resultSet.getInt("Id"),
 						resultSet.getString("username"),
 						resultSet.getString("password"),
 						Roles.valueOf(resultSet.getString("role"))
 
-						);	
+						);
+				userList.add(u);
 			}
 		 
 					
@@ -183,12 +184,6 @@ public User getUserbyId(int id) throws SQLException {
 		return null;
 		
 	 }
-
-
-	public static void create(User newEmployee) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 }

@@ -2,15 +2,15 @@ package com.revature.controller;
 
 
 
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.revature.models.Reimbursement;
 import com.revature.models.Status;
-import com.revature.models.User;
-import com.revature.services.Auth_Service;
+import com.revature.repositories.Reimbursement_DAO;
 import com.revature.services.Reimbursement_Service;
-import com.revature.services.User_Service; 
+import com.revature.services.User_Service;
 
-import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import io.javalin.http.HttpCode;
 
@@ -18,13 +18,23 @@ public class Reimbursement_Controller {
 	
 	Reimbursement_Service reimbursementService = new Reimbursement_Service();
 	User_Service us = new User_Service();
+	Reimbursement_DAO rDAO = new Reimbursement_DAO();
 	
 
 /** 
  * This Javalin handler method controls any reimbursement submission http calls 	
  */
 
+	public Handler handleGetReimbursements =(ctx) -> 
+    {
+        List<Reimbursement> allReim = rDAO.getAllReimbursement();
 
+        Gson gson = new Gson();
+        String JSONObject = gson.toJson(allReim);
+
+        ctx.result(JSONObject);
+        ctx.status(200);
+    };
 	
 public Handler handleSubmit = (ctx) ->{
     String body = ctx.body();
@@ -44,9 +54,9 @@ public Handler handleSubmit = (ctx) ->{
 	}
 
 };
-};
 
- public Handler Approved = (ctx) ->{
+
+public Handler Approved = (ctx) ->{
 	String body = ctx.body();
 	Gson gson = new Gson();
 	Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
@@ -56,10 +66,9 @@ public Handler handleSubmit = (ctx) ->{
     ctx.result(JSONObject);
     ctx.status(237);
 	
-;
+};
 
-
- public Handler Denied = (ctx) ->{
+ public Handler denied = (ctx) -> {
 	String body = ctx.body();
 	Gson gson = new Gson();
 	Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
@@ -69,8 +78,9 @@ public Handler handleSubmit = (ctx) ->{
     ctx.result(JSONObject);
     ctx.status(300);
  };
- 
 
+ 
+ 
 
 
 
@@ -328,6 +338,7 @@ public void handleGetReimbursementsById(Context ctx) {
 }
 }
 */
+}
 
 
 

@@ -2,7 +2,6 @@ package com.revature.controller;
 
 import java.util.List;
 import java.util.Objects;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.revature.models.User;
 import com.revature.repositories.User_DAO;
@@ -13,74 +12,32 @@ import io.javalin.http.Handler;
 import io.javalin.http.HttpCode;
 
 
-Auth_Service ac = new Auth_Service();
-ObjectMapper Mapper = new ObjectMapper();
-
 public class Auth_Controller {
+	Auth_Service as = new Auth_Service();
 	
-	
-	    public void handleRegister(Context ctx) {
 
-	        try {
-
-	            String input = ctx.body();
-
-	            User users = Mapper.readValue(input, User.class);
-
-	            int id = Auth_Service.register(users);
-
-	            if(id == 0) {
-
-	                ctx.status(HttpCode.INTERNAL_SERVER_ERROR);
-	                ctx.result("Registration unsuccessful.");
-	            }
-
-	        } catch (Exception e) {
-
-	            ctx.status(HttpCode.INTERNAL_SERVER_ERROR);
-
-	            if(!e.getMessage().isEmpty()) {
-	                ctx.result(e.getMessage());
-	            }
-
-	            e.printStackTrace();
-	        }
-
-	    }
-	    Auth_Service as = new Auth_Service();
-
-	    public Handler loginHandler = (ctx) -> {
-	        String body = ctx.body();
-
-	        Gson gson = new Gson();
-	        //I recommend you make this an employee object 
-	        Users u = gson.fromJson(body, Users.class);
-
-	        if(as.login(u.getUsername(), u.getPassword()) == 1) {
-	            ctx.status(201);
-	            ctx.result("Manager Login Sucessful!");
-	        }
-	        else if(as.login(u.getUsername(), u.getPassword()) == 2) {
-	            ctx.status(202);
-	            ctx.result("Employee Login Sucessful!");
-	        }
-	        else {
-	        ctx.result("Login Failed!");
-	        ctx.status(401);
-	        }
-	    };
-	}
+	  
 	
  public Handler handleLogin = (ctx) -> {
     String body = ctx.body();
     Gson gson = new Gson();
-	User allEmployees = gson.fromJson(body, User.class); 
-	User temp = Auth_Service.loginMenu(allEmployees.getUsername(),allEmployees.getPassword());
-	String JSONObject = gson.toJson(allEmployees);
+	User u = gson.fromJson(body, User.class); 
+	int temp = as.loginMenu(u.getUsername(),u.getPassword());
+	String JSONObject = gson.toJson(u);
 	
-    ctx.result("Login Successful");
-	ctx.status(200);
-	
+	 if(as.loginMenu(u.getUsername(), u.getPassword()) == 1) {
+         ctx.status(201);
+         ctx.result("Manager Login Sucessful!");
+     }
+     else if(as.loginMenu(u.getUsername(), u.getPassword()) == 2) {
+         ctx.status(202);
+         ctx.result("Employee Login Sucessful!");
+     }
+     else {
+     ctx.result("Login Failed!");
+     ctx.status(401);
+     }
+	 
  };
  
 /*	
@@ -93,17 +50,16 @@ public class Auth_Controller {
 	*/
 
 
-public Handler handleRegister (ctx) -> {
+public Handler handleRegister =  (ctx) -> {
 	String body = ctx.body();
     Gson gson = new Gson();
 	User user = gson.fromJson(body, User.class);
-	User temp = Auth Service.
 	String JSONObject = gson.toJson(user);
     ctx.result("Login Successful");
 	ctx.status(200);
 	if(user != null) {
 		// Telling the client that registration failed
-		User_DAO.create(user);
+		User_DAO.addUser(user);
 		ctx.status(HttpCode.CREATED);
 		ctx.result("Registration unsuccessful.");
 	} else {
@@ -112,7 +68,6 @@ public Handler handleRegister (ctx) -> {
 	}
 };
 
-}
 
 
 
@@ -213,6 +168,7 @@ public Handler handleRegister (ctx) -> {
 		// Stacktrace to help debug the server
 		e.printStackTrace();
 	}
-}
-}
-*/
+*/ 
+};
+
+

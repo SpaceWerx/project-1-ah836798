@@ -21,7 +21,7 @@ public class Launcher {
 		
 		// Instantiating respective controllers to access methods for the routes configuration
 		User_Controller uc = new User_Controller();
-//		Reimbursement_Controller rc = new Reimbursement_Controller();
+		Reimbursement_Controller rc = new Reimbursement_Controller();
 		Auth_Controller ac = new Auth_Controller();
 	
 	//Testing Database Connectivity - just testing whether our Connection (from ConnectionFactory) is successful
@@ -71,12 +71,12 @@ public class Launcher {
 //       app.post("
             
             
-			app.post("/login", ac.loginHandler);
+			app.post("/login", ac.handleLogin);
 //			app.post("/register", ac.handleRegister);  				
 //		    app.post("/status", rc.Approved);
 //		    app.post("/status", rc.Denied);
-//			app.get("/reimbursement", rc.handleGetReimbursements);		
-//			app.post("/submit", rc.handleSubmit);
+			app.get("/reimbursement", rc.handleGetReimbursements);		
+			app.post("/submit", rc.handleSubmit);
 //			app.put("/process", rc.handleProcess);
 			
 //			app.post("/login", null);
