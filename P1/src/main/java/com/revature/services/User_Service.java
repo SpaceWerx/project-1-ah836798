@@ -52,7 +52,7 @@ public class User_Service {
         //take in the Employee object sent from the menu and send it to the EmployeeDAO to be inserted into the database
 
         //call the DAO method that inserts the new Employee
-        User_DAO.create(newEmployee);
+        User_DAO.addUser(newEmployee);
     }
 
     public boolean checkUserExistsById(int id) {
