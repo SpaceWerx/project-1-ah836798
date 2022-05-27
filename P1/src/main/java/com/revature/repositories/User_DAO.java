@@ -102,9 +102,9 @@ public User getUserbyId(int id) throws SQLException {
 			
 			// writing out the (relativity complex) sql insert string to create a new record
 			// we explicitly ask the database to return the new id after entry
-			String sql = "INSERT INTO ers_users (user)"
-					+ "VALUES(?, ? .?::type, ?::role, ?)"
-					+ "RETURNING ers_reimbursements.username";
+			String sql = "INSERT INTO ers_users (id, username, password, role)"
+					+ "VALUES(?, ? , ?, ?::role)"
+					+ "RETURNING ers_users.id";
 			
 			// We must use a prepared statement because we have parameters
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -185,12 +185,10 @@ public User getUserbyId(int id) throws SQLException {
 	 }
 
 
-	public static int create(User newEmployee) {
+	public static void create(User newEmployee) {
 		// TODO Auto-generated method stub
 		
 	}
-
-
 
 
 }

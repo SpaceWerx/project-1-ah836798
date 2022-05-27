@@ -21,7 +21,7 @@ public class Launcher {
 		
 		// Instantiating respective controllers to access methods for the routes configuration
 		User_Controller uc = new User_Controller();
-		Reimbursement_Controller rc = new Reimbursement_Controller();
+//		Reimbursement_Controller rc = new Reimbursement_Controller();
 		Auth_Controller ac = new Auth_Controller();
 	
 	//Testing Database Connectivity - just testing whether our Connection (from ConnectionFactory) is successful
@@ -61,20 +61,23 @@ public class Launcher {
 			//Now we need our endpoints
             
        
-			app.get("/user", uc.getAllUsersHandler);
-			app.post("/user", uc.insertUsersHandler);
-		    
-			app.post("/login", ac.handleLogin);
 			
-			app.post("/register", ac.handleRegister);  
-				
-			app.get("/status", rc.handleGetReimbursementsByStatus);
-			app.get("/reimbursement", rc.handleGetReimbursements);
-			app.get("/reimbursement/{id}", rc.handleGetReimbursementsById(id));
-			app.post("/submit", rc.handleSubmit);
-			app.post("/process", rc.handleProcess);
-			app.get("author", rc.handleGetReimbursementsByAuthor);
-			
+            app.get("/user", uc.getAllUsersHandler);
+            app.post("/user", uc.insertUsersHandler);
+            
+            
+//       app.get("/author")
+//       app.get("/reimbursement/{"Id"}, rc.
+//       app.post("
+            
+            
+			app.post("/login", ac.loginHandler);
+//			app.post("/register", ac.handleRegister);  				
+//		    app.post("/status", rc.Approved);
+//		    app.post("/status", rc.Denied);
+//			app.get("/reimbursement", rc.handleGetReimbursements);		
+//			app.post("/submit", rc.handleSubmit);
+//			app.put("/process", rc.handleProcess);
 			
 //			app.post("/login", null);
 			

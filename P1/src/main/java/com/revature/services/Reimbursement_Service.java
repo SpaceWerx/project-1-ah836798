@@ -77,8 +77,7 @@ public int submitReimbursement (Reimbursement reimbursementToBeSubmitted) throws
 		
 		throw new IllegalArgumentException("Managers cannot submit reimbursement requests.");
 	} else {
-		reimbursementToBeSubmitted.setStatus(Status.Pending);
-		
+		reimbursementToBeSubmitted.setStatus(Status.Pending);	
 
 		return reimbursementDAO.create(reimbursementToBeSubmitted, 0);
 }

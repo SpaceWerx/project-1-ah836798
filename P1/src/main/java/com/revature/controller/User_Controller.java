@@ -53,8 +53,10 @@ public Handler getUserByUsername = (ctx) ->{
 		ctx.status(200);
 	};
 	
+}
 	
-public Handler getUserByUserID = (ctx) ->{
+	
+/*public Handler getUserByUserID = (ctx) ->{
 
 	
 // Having a problem with user id being declared as string vs. id.
@@ -67,4 +69,7 @@ public Handler getUserByUserID = (ctx) ->{
 		ctx.status(200);
 };
 
-}
+
+*/
+
+

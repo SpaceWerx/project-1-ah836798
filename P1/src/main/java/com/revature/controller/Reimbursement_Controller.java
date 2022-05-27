@@ -2,17 +2,20 @@ package com.revature.controller;
 
 
 
+import com.google.gson.Gson;
 import com.revature.models.Reimbursement;
 import com.revature.models.Status;
+import com.revature.models.User;
+import com.revature.services.Auth_Service;
 import com.revature.services.Reimbursement_Service;
 import com.revature.services.User_Service; 
 
 import io.javalin.http.Context;
+import io.javalin.http.Handler;
 import io.javalin.http.HttpCode;
 
 public class Reimbursement_Controller {
 	
-	objectMapper objectmapper = new objectMapper();
 	Reimbursement_Service reimbursementService = new Reimbursement_Service();
 	User_Service us = new User_Service();
 	
@@ -21,7 +24,61 @@ public class Reimbursement_Controller {
  * This Javalin handler method controls any reimbursement submission http calls 	
  */
 
-public void handleSubmit(Context ctx) {
+
+	
+public Handler handleSubmit = (ctx) ->{
+    String body = ctx.body();
+    Gson gson = new Gson();
+    Reimbursement type = gson.fromJson(body, Reimbursement.class);
+    int id = reimbursementService.submitReimbursement(type); 
+	
+	if (id != 0) {
+		// Proclaim victory and returning the ID
+		ctx.status(HttpCode.CREATED);
+		ctx.result("Successful reimbursement was created and the ID is :"+id);
+		
+	} else {
+		// Proclaim defeat if the ID was unchanged
+		ctx.status(HttpCode.BAD_REQUEST);
+		ctx.result("Reimbursement submission was unsuccessful. ");
+	}
+
+};
+};
+
+ public Handler Approved = (ctx) ->{
+	String body = ctx.body();
+	Gson gson = new Gson();
+	Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
+    reimbursement.setStatus(Status.Approved);
+    reimbursementService.update(reimbursement, reimbursement.getResolver(), reimbursement.getStatus());
+    String JSONObject = gson.toJson("Reimbursement processed successfully");
+    ctx.result(JSONObject);
+    ctx.status(237);
+	
+;
+
+
+ public Handler Denied = (ctx) ->{
+	String body = ctx.body();
+	Gson gson = new Gson();
+	Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
+    reimbursement.setStatus(Status.Denied);
+    reimbursementService.update(reimbursement, reimbursement.getResolver(), reimbursement.getStatus());
+    String JSONObject = gson.toJson("Reimbursement processed unsuccessfully");
+    ctx.result(JSONObject);
+    ctx.status(300);
+ };
+ 
+
+
+
+
+
+
+
+/*	
+public void handleSubmit (ctx) -> {
 	// Try+catch block to catch any exceptions
 	try {
 		// Storing the json object input as a string
@@ -127,20 +184,15 @@ public void handleProcess(Context ctx) {
  * @param  
  */
 
-public void handleGetReimbursements(Context ctx) {
-	if (ctx.queryParam("author") !=null) {
-		handleGetReimbursementsByAuthor(ctx);
-	} else if (ctx.queryParam("status") !=null) {
-		handleGetReimbursementsByStatus(ctx);
-	}
-}
+
 
 /** 
  * This Javalin handler method is the entry point for any calls to get reimbursements by status 
  */
-public void handleGetReimbursementsByStatus() {
+/*
+public Handler handleGetReimbursementsByStatus=(ctx) ->{
 
-	Context ctx;
+	
 	// Try+catch block to catch any exceptions
 	try { 
 		// Retrieving the status query parameter from the request
@@ -170,11 +222,16 @@ public void handleGetReimbursementsByStatus() {
 		// Stacktrace to help debug the server
 		e.printStackTrace();
 	}	
-}
+};
 
 /** 
  * This Javalin handler method is the entry point for any calls to get reimbursements by author ID  
  */
+/*
+/*
+ * 
+ *
+
 
 public void handleGetReimbursementsByAuthor(Context ctx) {
 	
@@ -218,16 +275,16 @@ public void handleGetReimbursementsByAuthor(Context ctx) {
 		// Stacktrace to help debug the server
 		e.printStackTrace();
 		
+*/
 
-	}
-}
+
 
 
 /** 
  * This Javalin handler method is the entry point for any calls to get reimbursements by reimbursement ID  
  */
 
-
+/*
 public void handleGetReimbursementsById(Context ctx) {
 	
 	// Try+catch block to catch any exceptions
@@ -270,8 +327,7 @@ public void handleGetReimbursementsById(Context ctx) {
 	}
 }
 }
-
-
+*/
 
 
 
