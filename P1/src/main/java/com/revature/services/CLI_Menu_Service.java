@@ -12,6 +12,10 @@ import com.revature.models.Roles;
 import com.revature.models.Status;
 import com.revature.models.User;
 
+
+import com.revature.services.User_Service;
+import com.revature.services.Reimbursement_Service;
+
 public class CLI_Menu_Service {
 	
 	public static void main(String[] args) {
@@ -106,7 +110,8 @@ public void displayEmployeeMenu(User employee) throws SQLException {
     }
 }
 
-
+/*
+ *
 //Display Manager Menu Method//	
 public void displayFinanceManagerMenu(User manager) throws SQLException {
 	boolean managerPortal = true; 
@@ -233,7 +238,7 @@ public double parseDoubleInput(String input) {
 //Handle Portal Helper Method//
 public void handlePortal(Roles role) throws SQLException {
 	// get the List of employees from the repository layer
-	List<User> users = userService.getUserByRole(role);
+	List<User> users = User_Service.getUserByRole(role);
 	
 	int[] ids = new int[users.size() + 1];
 	ids[users.size()] = 0;
@@ -431,5 +436,10 @@ public void processReimbursement(User manager) throws SQLException {
     }
     
     
+}
+
+public void loginMenu() {
+	// TODO Auto-generated method stub
+	
 }
 }
