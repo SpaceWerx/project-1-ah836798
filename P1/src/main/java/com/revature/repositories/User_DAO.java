@@ -65,7 +65,7 @@ public User getUserbyId(int id) throws SQLException {
 		
 			 try(Connection connection = Connection_Factory_Utility.getConnection()) {
 						 
-				String sql = "select * from ers_users ;";
+				String sql = "select * from ers_users;";
 				
 			
 				PreparedStatement preparedStatement = connection.prepareStatement(sql); 
@@ -103,7 +103,7 @@ public User getUserbyId(int id) throws SQLException {
 			// writing out the (relativity complex) sql insert string to create a new record
 			// we explicitly ask the database to return the new id after entry
 			String sql = "INSERT INTO ers_users (id, username, password, role)"
-					+ "VALUES(?, ? , ?, ?::role)"
+					+ "VALUES(?,? ,? , ?::role)"
 					+ "RETURNING ers_users.id";
 			
 			// We must use a prepared statement because we have parameters

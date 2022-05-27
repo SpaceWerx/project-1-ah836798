@@ -36,8 +36,8 @@ public class Launcher {
 	//CLI Menu is the Command Line Interface Menu for the 
 		//initialize a new CLI Menu Service 
 //
-//        CLI_Menu_Service options = new CLI_Menu_Service();
-//            options.displayMenu();
+        CLI_Menu_Service options = new CLI_Menu_Service();
+            options.displayMenu();
 //	        options.loginMenu();
 //	        options.registerMenu(); 
 //	      }
@@ -72,7 +72,7 @@ public class Launcher {
             
             
 			app.post("/login", ac.handleLogin);
-//			app.post("/register", ac.handleRegister);  				
+			app.post("/register", ac.handleRegister);  				
 //		    app.post("/status", rc.Approved);
 //		    app.post("/status", rc.Denied);
 			app.get("/reimbursement", rc.handleGetReimbursements);		
