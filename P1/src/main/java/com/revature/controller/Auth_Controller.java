@@ -13,6 +13,7 @@ import io.javalin.http.HttpCode;
 
 public class Auth_Controller {
 	Auth_Service as = new Auth_Service();
+	User_DAO ud = new User_DAO();
 	
 
 	  
@@ -58,7 +59,7 @@ public Handler handleRegister =  (ctx) -> {
 	ctx.status(200);
 	if(user != null) {
 		// Telling the client that registration failed
-		User_DAO.addUser(user);
+		ud.addUser(user);
 		ctx.status(HttpCode.CREATED);
 		ctx.result("Registration unsuccessful.");
 	} else {

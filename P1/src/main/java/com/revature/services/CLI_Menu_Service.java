@@ -11,19 +11,17 @@ import com.revature.models.Reimbursement_Type;
 import com.revature.models.Roles;
 import com.revature.models.Status;
 import com.revature.models.User;
-
-
+import com.revature.repositories.User_DAO;
 import com.revature.services.User_Service;
 import com.revature.services.Reimbursement_Service;
 
 public class CLI_Menu_Service {
 	
-	public static void main(String[] args) {
-		
-	}
+	
 	static Scanner scan = new Scanner(System.in);
 	Reimbursement_Service rService = new Reimbursement_Service();
     User_Service userService = new User_Service();
+    User_DAO ud = new User_DAO();
 	//CLI Menu is the Command Line Interface Menu for the 
 		//initialize a new CLI Menu Service  
 	        
@@ -442,8 +440,56 @@ public void processReimbursement(User manager) throws SQLException {
     
 }
 
-public void loginMenu() {
-	// TODO Auto-generated method stub
+public void loginMenu() throws SQLException {
+	Auth_Service x = new Auth_Service();
+    boolean accountFound = false;
+
+    System.out.println("---------------------------------------");
+    System.out.println("Welcome to the Login Portal") ;
+    System.out.println("---------------------------------------");
+    System.out.println();
+
+
+
+    while (accountFound != true) {
+        System.out.println("Please enter your username");
+        String username = scan.nextLine();
+        System.out.println("Please enter your password");
+        String password = scan.nextLine();
+        if (x.loginMenu(username, password)== 1) {
+            accountFound = true;
+            displayMenu();
+            break;
+        } else {
+            System.out.println("Account not found re-enter username and password");
+        }
+
+
+    }
 	
+}
+
+
+public void registerMenu() throws SQLException {
+    Auth_Service x = new Auth_Service();
+    //research and test to see what happens if user exist
+
+    System.out.println("---------------------------------------");
+    System.out.println("Welcome to the Registration Portal") ;
+    System.out.println("---------------------------------------");
+    System.out.println();
+
+    User userToBeRegistered = new User();
+    System.out.println("Please enter a username.");
+    String username = scan.nextLine();
+    System.out.println("Please enter a password.");
+    String password = scan.nextLine();
+    userToBeRegistered.setUsername(username);
+    userToBeRegistered.setPassword(password);
+    userToBeRegistered.setRole(Roles.Employee);
+    x.registerMenu(userToBeRegistered);
+    loginMenu();
+
+
 }
 }

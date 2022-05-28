@@ -3,6 +3,7 @@ package com.revature;
 import java.sql.Connection;
 import java.sql.SQLException;
 //import java.util.Scanner; // import the Scanner class 
+import java.util.Scanner;
 
 import com.revature.controller.Auth_Controller;
 import com.revature.controller.Reimbursement_Controller;
@@ -21,7 +22,7 @@ public class Launcher {
 	User_Controller uc = new User_Controller();
 	Reimbursement_Controller rc = new Reimbursement_Controller();
 	Auth_Controller ac = new Auth_Controller();
-
+	Scanner sc = new Scanner(System.in);
 	
 	//Testing Database Connectivity - just testing whether our Connection (from ConnectionFactory) is successful
 			try(Connection conn = Connection_Factory_Utility.getConnection()){
@@ -37,35 +38,44 @@ public class Launcher {
 
 			
 			User_DAO ud = new User_DAO();
-			System.out.println(ud.getAllUsers());
-        CLI_Menu_Service options = new CLI_Menu_Service();
+//			System.out.println(ud.getAllUsers());
+	        CLI_Menu_Service options = new CLI_Menu_Service();
+	
+        
+    //  Tried to create a menu option for display, login, and register 	
 //            options.displayMenu();
-	        options.loginMenu();
-//	        options.registerMenu(); 
-	      }
-	      
-	      /**
-	  	 * This method is used in the Launcher class to start the Javalin app on the desired port.
-*/
-//	      public void start(int port) {
-//	  		// Starting the Javalin instance on the server
-//	  		this.app.start(3000);
+//	    String s = sc.nextLine();   
+ 
+//  Tried to create a menu option for display, login, and register 	    
+//	    while (s != 'q') {
+//        	if (s.equals('1')) {
+//	        	options.loginMenu();
+//	        } else if (s.equals('2')) {
+//	        	options.registerMenu();
+//	        } else {
+//	        	System.out.println("Not valid option!");
+//	        }
+//}
+	//
+		      
+	     
+//	  	 * This method is used in the Launcher class to start the Javalin app on the desired port.
 	  		
-//
+
 //This is our Javalin object (Which creates the connection, done)
 
-//            Javalin app = Javalin.create(
-//				config -> {
-//					config.enableCorsForAllOrigins(); //This is what allows teh server to process JS requests from anywhere
-//				}
-//			).start(3000);
+            Javalin app = Javalin.create(
+				config -> {
+					config.enableCorsForAllOrigins(); //This is what allows teh server to process JS requests from anywhere
+				}
+			).start(4000);
 		
 			//Now we need our endpoints
-            
+	      
        
 			
-//            app.get("/user", uc.getAllUsersHandler);
-//            app.post("/user", uc.insertUsersHandler);
+            app.get("/user", uc.getAllUsersHandler);
+            app.post("/user", uc.insertUsersHandler);
             
             
 //       app.get("/author")
@@ -73,12 +83,12 @@ public class Launcher {
 //       app.post("
             
             
-//			app.post("/login", ac.handleLogin);
-//			app.post("/register", ac.handleRegister);  				
+			app.post("/login", ac.handleLogin);
+			app.post("/register", ac.handleRegister);  				
 //		    app.post("/status", rc.Approved);
 //		    app.post("/status", rc.Denied);
-//			app.get("/reimbursement", rc.handleGetReimbursements);		
-//			app.post("/submit", rc.handleSubmit);
+			app.get("/reimbursement", rc.handleGetReimbursements);		
+			app.post("/submit", rc.handleSubmit);
 //			app.put("/process", rc.handleProcess);
 			
 //			app.post("/login", null);
@@ -135,5 +145,6 @@ public class Launcher {
 	});	      
 });
 */
+}
 }
 	

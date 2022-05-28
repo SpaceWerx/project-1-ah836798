@@ -14,13 +14,13 @@ public class Auth_Service {
 // @return User object
 //
   
-public static int loginMenu(String username, String password) {
+public int loginMenu(String username, String password) {
    // Instantiating a temporary user
    User user;   
    //The try+catch block will catch any exceptions thrown by the userDAO methods
    try {	   
 	   // Retrieving the user data from the database from the username given
-	   user = ud.getByUsername(username);	   
+	   user = ud.getbyUsername(username);	   
 	   // These conditional statements are checking various contingencies
 	   // The first is checking if the user exists and that the password given matches the one stored
 	   if (user!=null && password.equals(user.getPassword())) {		   
@@ -54,7 +54,7 @@ public static int loginMenu(String username, String password) {
  * @throws SQLException 
  */
 
-public static int registerMenu(User userToBeRegistered) throws SQLException {
+public int registerMenu(User userToBeRegistered) throws SQLException {
 	
 	// checking if the username already exists in the database
 //	// if the method returns null, the username is already taken /*
@@ -68,12 +68,12 @@ public static int registerMenu(User userToBeRegistered) throws SQLException {
 //    try {
 //		return User_DAO.create(userToBeRegistered);
 //		e.printStackTrace();    
-	if(User_DAO.getbyUsername(userToBeRegistered.getUsername())!= null)
+	if(ud.getbyUsername(userToBeRegistered.getUsername())!= null)
     {
         throw new NullPointerException("Username is already taken");
     }
 
-    return User_DAO.addUser(userToBeRegistered); 
+    return ud.addUser(userToBeRegistered); 
 };
  }
  

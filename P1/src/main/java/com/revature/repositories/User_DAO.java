@@ -93,7 +93,7 @@ public User getUserbyId(int id) throws SQLException {
 	}
 			
 	
-	public static int addUser(User newEmployee) throws SQLException {
+	public int addUser(User newEmployee) throws SQLException {
 		// TODO Auto-generated method stub
 		  
 		// try+catch block to catch sql exception that can be thrown with connection
@@ -101,8 +101,8 @@ public User getUserbyId(int id) throws SQLException {
 			
 			// writing out the (relativity complex) sql insert string to create a new record
 			// we explicitly ask the database to return the new id after entry
-			String sql = "INSERT INTO ers_users (id, username, password, role)"
-					+ "VALUES(?,? ,? , ?::role)"
+			String sql = "INSERT INTO ers_users (username, password, role)"
+					+ "VALUES(?,? , ?::role)"
 					+ "RETURNING ers_users.id";
 			
 			// We must use a prepared statement because we have parameters
@@ -110,13 +110,13 @@ public User getUserbyId(int id) throws SQLException {
 			
 			//use the PreparedStatementobjects method to insert values into the query
 			//the values will come from the Reimbursement object we send in. 
-			preparedStatement.setInt(1, newEmployee.getId());
-			preparedStatement.setString(2, newEmployee.getUsername());
-			preparedStatement.setString(3, newEmployee.getPassword());
-			preparedStatement.setObject(4, newEmployee.getRole());	
+//			preparedStatement.setInt(1, newEmployee.getId());
+			preparedStatement.setString(1, newEmployee.getUsername());
+			preparedStatement.setString(2, newEmployee.getPassword());
+			preparedStatement.setObject(3, newEmployee.getRole().name());	
 			
 						
-			preparedStatement.executeUpdate();
+//			preparedStatement.executeUpdate();
 		
 		    //We need to use the result set to retrieve the newly generated ID after entry of the new record
 		    ResultSet resultSet;
@@ -125,11 +125,13 @@ public User getUserbyId(int id) throws SQLException {
 		    if((resultSet = preparedStatement.executeQuery()) !=null) {
 		    	  //must call this to get the returned reimbursement record id
 		    	resultSet.next();
-		    	//finally returning the new id
 		    	
 		    	System.out.println("Employee " + newEmployee.getUsername() + " was created. Welcome to the team!");
+		    	return resultSet.getInt(1);
+		    	//finally returning the new id
+		    	
 			}
-				return resultSet.getInt(1);
+				
 		    	
 		    }
 		
@@ -144,12 +146,12 @@ public User getUserbyId(int id) throws SQLException {
 	}
 
 	
-	public static User getbyUsername(String username) throws SQLException{
+	public User getbyUsername(String username) throws SQLException{
 
 		 //try+catch block to catch sql exception that can be thrown with connection 
 		 try(Connection connection = Connection_Factory_Utility.getConnection()) {
 			 
-			 String sql ="select * from ers_users where id = ?";
+			 String sql ="select * from ers_users where username = ?";
 			 
 			//when we need parameters we need to use a PREPARED Statement  as opposed to a Statement (seen above)
 			PreparedStatement preparedStatement = connection.prepareStatement(sql); //prepareStatement() as opposed to createStatement()
@@ -158,19 +160,21 @@ public User getUserbyId(int id) throws SQLException {
 			preparedStatement.setString(1, username); //the 1 here is referring to the first parameter (?) found in our SQL String
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
-			List<User> userList = new ArrayList<User>();
+//			List<User> userList = new ArrayList<User>();
 			// if there are results in the result set...
 			if (resultSet.next()) {
 				
 				// return a reimbursement with the data to be returned to the service layer
-			 User u = new User(
+				
+				/// User u new User(
+			 return new User(
 						resultSet.getInt("Id"),
 						resultSet.getString("username"),
 						resultSet.getString("password"),
 						Roles.valueOf(resultSet.getString("role"))
 
 						);
-				userList.add(u);
+//				userList.add(u);
 			}
 		 
 					
@@ -178,7 +182,7 @@ public User getUserbyId(int id) throws SQLException {
 		 } catch (SQLException e) {
 			 System.out.println("Something went wrong with the database!");
 			 e.printStackTrace();
-			 return null;
+//			 return null;
 		 }
 		return null;
 		
