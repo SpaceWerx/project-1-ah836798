@@ -68,14 +68,14 @@ public class Launcher {
 				config -> {
 					config.enableCorsForAllOrigins(); //This is what allows teh server to process JS requests from anywhere
 				}
-			).start(4000);
+			).start(3000);
 		
 			//Now we need our endpoints
 	      
        
 			
             app.get("/user", uc.getAllUsersHandler);
-            app.post("/user", uc.insertUsersHandler);
+            app.post("/newuser", uc.insertUsersHandler);
             
             
 //       app.get("/author")
@@ -87,8 +87,8 @@ public class Launcher {
 			app.post("/register", ac.handleRegister);  				
 //		    app.post("/status", rc.Approved);
 //		    app.post("/status", rc.Denied);
-			app.get("/reimbursement", rc.handleGetReimbursements);		
-			app.post("/submit", rc.handleSubmit);
+//			app.get("/reimbursement", rc.handleGetReimbursements);		
+//			app.post("/submit", rc.handleSubmit);
 //			app.put("/process", rc.handleProcess);
 			
 //			app.post("/login", null);
