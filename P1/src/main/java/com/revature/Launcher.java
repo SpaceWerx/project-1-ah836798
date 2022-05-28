@@ -70,9 +70,7 @@ public class Launcher {
 				}
 			).start(3000);
 		
-			//Now we need our endpoints
-	      
-       
+			//Now we need our endpoints       
 			
             app.get("/user", uc.getAllUsersHandler);
             app.post("/newuser", uc.insertUsersHandler);
@@ -83,11 +81,11 @@ public class Launcher {
 //       app.post("
             
             
-			app.post("/login", ac.handleLogin);
-			app.post("/register", ac.handleRegister);  				
+//			app.post("/login", ac.handleLogin);
+//			app.post("/register", ac.handleRegister);  				
 //		    app.post("/status", rc.Approved);
 //		    app.post("/status", rc.Denied);
-//			app.get("/reimbursement", rc.handleGetReimbursements);		
+			app.get("/reimbursement", rc.handleGetReimbursements);		
 //			app.post("/submit", rc.handleSubmit);
 //			app.put("/process", rc.handleProcess);
 			
