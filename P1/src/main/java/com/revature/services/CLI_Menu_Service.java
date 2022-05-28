@@ -2,7 +2,6 @@ package com.revature.services;
 
 import java.sql.SQLException;
 
-import java.util.*;
 import java.util.List;
 
 import java.util.Scanner; // import the Scanner class
@@ -241,7 +240,7 @@ public double parseDoubleInput(String input) {
 //Handle Portal Helper Method//
 public void handlePortal(Roles role) throws SQLException {
 	// get the List of employees from the repository layer
-	List<User> users = User_Service.getUserByRole();
+	List<User> users = userService.getUserByRole(role);
 	
 	int[] ids = new int[users.size() + 1];
 	ids[users.size()] = 0;

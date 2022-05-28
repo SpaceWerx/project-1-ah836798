@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import com.revature.controller.Auth_Controller;
 import com.revature.controller.Reimbursement_Controller;
 import com.revature.controller.User_Controller;
+import com.revature.repositories.User_DAO;
 import com.revature.services.CLI_Menu_Service;
 //import com.revature.services.Auth_Service;
 import com.revature.utilities.Connection_Factory_Utility;
@@ -33,12 +34,15 @@ public class Launcher {
 	
 	//CLI Menu is the Command Line Interface Menu for the 
 		//initialize a new CLI Menu Service 
-//
+
+			
+			User_DAO ud = new User_DAO();
+			System.out.println(ud.getAllUsers());
         CLI_Menu_Service options = new CLI_Menu_Service();
             options.displayMenu();
-	        options.loginMenu();
+//	        options.loginMenu();
 //	        options.registerMenu(); 
-//	      }
+	      }
 	      
 	      /**
 	  	 * This method is used in the Launcher class to start the Javalin app on the desired port.
@@ -50,18 +54,18 @@ public class Launcher {
 //
 //This is our Javalin object (Which creates the connection, done)
 
-            Javalin app = Javalin.create(
-				config -> {
-					config.enableCorsForAllOrigins(); //This is what allows teh server to process JS requests from anywhere
-				}
-			).start(3000);
+//            Javalin app = Javalin.create(
+//				config -> {
+//					config.enableCorsForAllOrigins(); //This is what allows teh server to process JS requests from anywhere
+//				}
+//			).start(3000);
 		
 			//Now we need our endpoints
             
        
 			
-            app.get("/user", uc.getAllUsersHandler);
-            app.post("/user", uc.insertUsersHandler);
+//            app.get("/user", uc.getAllUsersHandler);
+//            app.post("/user", uc.insertUsersHandler);
             
             
 //       app.get("/author")
@@ -69,17 +73,17 @@ public class Launcher {
 //       app.post("
             
             
-			app.post("/login", ac.handleLogin);
-			app.post("/register", ac.handleRegister);  				
+//			app.post("/login", ac.handleLogin);
+//			app.post("/register", ac.handleRegister);  				
 //		    app.post("/status", rc.Approved);
 //		    app.post("/status", rc.Denied);
-			app.get("/reimbursement", rc.handleGetReimbursements);		
-			app.post("/submit", rc.handleSubmit);
+//			app.get("/reimbursement", rc.handleGetReimbursements);		
+//			app.post("/submit", rc.handleSubmit);
 //			app.put("/process", rc.handleProcess);
 			
 //			app.post("/login", null);
 			
-		}	    		  
+//		}	    		  
 	      
 	      
 

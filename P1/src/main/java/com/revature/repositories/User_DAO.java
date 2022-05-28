@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,9 +67,9 @@ public User getUserbyId(int id) throws SQLException {
 		
 				String sql = "select * from ers_users;";
 			
-				PreparedStatement preparedStatement = connection.prepareStatement(sql); 
+				Statement statement = connection.createStatement(); 
 				
-				ResultSet resultSet = preparedStatement.executeQuery(sql);
+				ResultSet resultSet = statement.executeQuery(sql);
 						 
 				List<User> userList = new ArrayList<>();
 				

@@ -243,7 +243,7 @@ public int create(Reimbursement reimbursementToBeSubmitted, int columnindex) {
 		// writing out the (relativity complex) sql insert string to create a new record
 		// we explicitly ask the database to return the new id after entry
 		String sql = "INSERT INTO ers_reimbursements (author, description, type, status, amount)"
-				+ "VALUES(?, ? .?::type, ?::status, ?)"
+				+ "VALUES(?, ?, ?::type, ?::status, ?)"
 				+ "RETURNING ers_reimbursements.id";
 		
 		// We must use a prepared statement because we have parameters
@@ -254,7 +254,7 @@ public int create(Reimbursement reimbursementToBeSubmitted, int columnindex) {
 		preparedStatement.setInt(1, reimbursementToBeSubmitted.getAuthor());
 		preparedStatement.setString(2, reimbursementToBeSubmitted.getDescription());
 		preparedStatement.setObject(3, reimbursementToBeSubmitted.getType().name());
-		preparedStatement.setObject(4, reimbursementToBeSubmitted.getStatus());		
+		preparedStatement.setObject(4, reimbursementToBeSubmitted.getStatus().name());		
 	    preparedStatement.setDouble(5, reimbursementToBeSubmitted.getAmount());
 	
 	    //We need to use the result set to retrieve the newly generated ID after entry of the new record

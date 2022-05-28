@@ -11,7 +11,7 @@ import com.revature.models.User;
 import com.revature.repositories.User_DAO;
 
 public class User_Service {
-	   User_DAO userDAO = new User_DAO();
+	   static User_DAO userDAO = new User_DAO();
 
     public static User getUsername(String username) throws SQLException {
         return User_DAO.getbyUsername(username);
@@ -45,7 +45,7 @@ public class User_Service {
     }
 /////////////////////////////////////////////////////////////////////////
     public static User getUserById(int userid) throws SQLException {
-        return userDAO.getUserbyId(userid);
+        return userDAO.getUserbyId(userid);  
     }
 //////////////////////////////////////////////////////////////////////////
     public void addUser(User newEmployee) throws SQLException {
@@ -60,9 +60,9 @@ public class User_Service {
         return false;
     }
 
-	public static List<User> getUserByRole() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	public List<User> getUserByRole() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }
