@@ -14,15 +14,13 @@ import com.revature.utilities.Connection_Factory_Utility;
 import io.javalin.Javalin;
 
 
-
-
 public class Launcher {
 	public static void main(String[] args) throws SQLException {
-		
 		// Instantiating respective controllers to access methods for the routes configuration
-		User_Controller uc = new User_Controller();
-		Reimbursement_Controller rc = new Reimbursement_Controller();
-		Auth_Controller ac = new Auth_Controller();
+	User_Controller uc = new User_Controller();
+	Reimbursement_Controller rc = new Reimbursement_Controller();
+	Auth_Controller ac = new Auth_Controller();
+
 	
 	//Testing Database Connectivity - just testing whether our Connection (from ConnectionFactory) is successful
 			try(Connection conn = Connection_Factory_Utility.getConnection()){

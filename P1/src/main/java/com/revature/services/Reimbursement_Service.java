@@ -26,7 +26,7 @@ public class Reimbursement_Service {
 
 public Reimbursement update(Reimbursement unprocessedReimbursement, int resolverId, Status updatedStatus) throws SQLException {	
 
-	User manager = rService.getUserById(resolverId);
+	User manager = User_Service.getUserById(resolverId);
 	
 	if(manager.getRole() != Roles.Manager) {
 		throw new RuntimeException("There was an error processing this reimbursement, please try again.");
@@ -71,7 +71,7 @@ public int submitReimbursement (Reimbursement reimbursementToBeSubmitted) throws
 	
 
 
-	User employee = rService.getUserById(reimbursementToBeSubmitted.getAuthor());
+	User employee = User_Service.getUserById(reimbursementToBeSubmitted.getAuthor());
 
 	if(employee.getRole() != Roles.Employee) {
 		
@@ -98,7 +98,7 @@ public static List<Reimbursement> getReimbursementsByAuthor(int userId) {
 public Reimbursement updateManager(Reimbursement unprocessedReimbursement, int resolverId, Status updatedStatus) throws SQLException {
 
 	getUserService();//DELETE IF NECESSARY
-	User manager = rService.getUserById(resolverId);
+	User manager = User_Service.getUserById(resolverId);
 	
 	if(manager.getRole() != Roles.Manager) {
 		
@@ -125,7 +125,7 @@ public User_Service getUserService() {
 }
 
 public void setUserService(User_Service userService) {
-    this.rService = userService;
+    Reimbursement_Service.rService = userService;
 }
 
 }

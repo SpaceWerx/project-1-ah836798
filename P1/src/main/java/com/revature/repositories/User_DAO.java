@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.models.Reimbursement;
-import com.revature.models.Reimbursement_Type;
 import com.revature.models.Roles;
 import com.revature.models.Status;
 import com.revature.models.User;
@@ -64,13 +62,13 @@ public User getUserbyId(int id) throws SQLException {
 	public List<User> getAllUsers() throws SQLException {
 		
 			 try(Connection connection = Connection_Factory_Utility.getConnection()) {
-						 
-				String sql = "select * from ers_users;";
 				
+		
+				String sql = "select * from ers_users;";
 			
 				PreparedStatement preparedStatement = connection.prepareStatement(sql); 
-											
-				ResultSet resultSet = preparedStatement.executeQuery();
+				
+				ResultSet resultSet = preparedStatement.executeQuery(sql);
 						 
 				List<User> userList = new ArrayList<>();
 				

@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import com.revature.models.User;
 import com.revature.repositories.User_DAO;
 
 public class User_Service {
-	static User_DAO userDAO = new User_DAO();
+	   User_DAO userDAO = new User_DAO();
 
     public static User getUsername(String username) throws SQLException {
         return User_DAO.getbyUsername(username);
@@ -33,10 +34,10 @@ public class User_Service {
 //////////////////////////////////////////////
     public List<User> getUserByRole(Roles role) throws SQLException{
         List<User> byRole = new ArrayList<>();
-        for(User user : userDAO.getAllUsers()) {
-            if(user.getRole() == role) 
+        for(User users : userDAO.getAllUsers()) {
+            if(users.getRole() == role) 
             {
-                byRole.add(user);
+                byRole.add(users);
             }
         }
 
@@ -58,5 +59,10 @@ public class User_Service {
     public boolean checkUserExistsById(int id) {
         return false;
     }
+
+	public static List<User> getUserByRole() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

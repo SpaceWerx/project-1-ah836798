@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import java.sql.SQLException;
+
 import java.util.*;
 import java.util.List;
 
@@ -110,11 +111,11 @@ public void displayEmployeeMenu(User employee) throws SQLException {
     }
 }
 
-/*
- *
+
 //Display Manager Menu Method//	
 public void displayFinanceManagerMenu(User manager) throws SQLException {
 	boolean managerPortal = true; 
+	
 	
 	System.out.println("--------------------------------------------------------");
 	System.out.println("Welcome to the Manager Portal, " + manager.getUsername());
@@ -150,6 +151,8 @@ public void displayFinanceManagerMenu(User manager) throws SQLException {
         
     }
 }
+
+
 /*
 //Fetch Input Helper Method//
 
@@ -238,7 +241,7 @@ public double parseDoubleInput(String input) {
 //Handle Portal Helper Method//
 public void handlePortal(Roles role) throws SQLException {
 	// get the List of employees from the repository layer
-	List<User> users = User_Service.getUserByRole(role);
+	List<User> users = User_Service.getUserByRole();
 	
 	int[] ids = new int[users.size() + 1];
 	ids[users.size()] = 0;

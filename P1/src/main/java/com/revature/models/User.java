@@ -1,7 +1,5 @@
 package com.revature.models;
 
-import com.revature.models.Roles;
-
 //need to import the data from Mockuserdata.java//
 
 public class User {
