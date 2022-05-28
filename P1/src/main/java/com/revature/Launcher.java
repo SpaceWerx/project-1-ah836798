@@ -39,8 +39,8 @@ public class Launcher {
 			User_DAO ud = new User_DAO();
 			System.out.println(ud.getAllUsers());
         CLI_Menu_Service options = new CLI_Menu_Service();
-            options.displayMenu();
-//	        options.loginMenu();
+//            options.displayMenu();
+	        options.loginMenu();
 //	        options.registerMenu(); 
 	      }
 	      

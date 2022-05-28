@@ -84,15 +84,15 @@ public int submitReimbursement (Reimbursement reimbursementToBeSubmitted) throws
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-public static List<Reimbursement> getReimbursementsByAuthor(int userId) {
-	
-	List<Reimbursement> userReimbursements = new ArrayList<>();
-	
-		for(Reimbursement r : reimbursements) {
-			if (r.getAuthor() == userId || r.getResolver() == userId) {
-			}
-		}
-		return userReimbursements;
+public List<Reimbursement> getReimbursementsByAuthor(int userId) {
+		return reimbursementDAO.getReimbursementsByUser(userId);
+////	List<Reimbursement> userReimbursements = new ArrayList<>();
+//	
+////		for(Reimbursement r : reimbursements) {
+//			if (r.getAuthor() == userId || r.getResolver() == userId) {
+//			}
+//		}
+//		return userReimbursements;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 public Reimbursement updateManager(Reimbursement unprocessedReimbursement, int resolverId, Status updatedStatus) throws SQLException {

@@ -6,7 +6,8 @@ import com.revature.models.User;
 import com.revature.repositories.User_DAO;
 
 public class Auth_Service {
-
+	      User_DAO ud = new User_DAO();
+	      
 // 
 //  The login method is used to check the information give and vefity their credentials
 //
@@ -19,7 +20,7 @@ public static int loginMenu(String username, String password) {
    //The try+catch block will catch any exceptions thrown by the userDAO methods
    try {	   
 	   // Retrieving the user data from the database from the username given
-	   user = User_DAO.getbyUsername(username);	   
+	   user = ud.getByUsername(username);	   
 	   // These conditional statements are checking various contingencies
 	   // The first is checking if the user exists and that the password given matches the one stored
 	   if (user!=null && password.equals(user.getPassword())) {		   

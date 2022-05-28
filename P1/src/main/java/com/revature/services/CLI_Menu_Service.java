@@ -286,7 +286,9 @@ public void displayPreviousRequests(User employee) {
 		System.out.println("Returning to Previous Menu... ");
 	}
 	for (Reimbursement r : reimbursements) {
-		System.out.println(r);
+		
+		System.out.println(r.getAuthor() + " " + r.getType() + " " + r.getDescription() 
+        + " " + r.getAmount() + " " + r.getStatus());
 	}
 }
 

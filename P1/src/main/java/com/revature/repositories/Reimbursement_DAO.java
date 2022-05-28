@@ -81,7 +81,7 @@ public List<Reimbursement> getReimbursementsByUser(int userID) {
 		
 		// SQL statement prepared as a string
 		// In this instance, we are filtering reimbursements by an author (user) id
-		String sql ="select * from ers_reimbursements by an author =?";
+		String sql ="select * from ers_reimbursements where author =?";
 		
 		//Prepareing the sql statement to be executed once we fill the query parameters
 		
@@ -132,57 +132,67 @@ public List<Reimbursement> getReimbursementsByUser(int userID) {
  */
 
 public List<Reimbursement> getByStatus(Status status) {
-	
-	// try+catch block to catch sql exception that can be thrown with connection 
- try (Connection connection =Connection_Factory_Utility.getConnection()) {
-		
-	//Write the query that we want to send to the database and assign it a String
-	String sql ="select * from ers_reimbursements by an status =?::status";
-	
-	//Put the SQL query into a Statement ohject (The Connection object has a method for this implicitly). 
-	
-	PreparedStatement preparedStatement = connection.prepareStatement(sql); 
-	
-	// Filling the missing query value (?) with the method parameter (userId)
-	preparedStatement.setString(1, status.toString()); 
-			
-	//Execute the Query by putting the results of the query into our ResultSet object (resultSet)
-	//The Statement object has a method that takes Strings to execute as a SQL query
-	ResultSet resultSet = preparedStatement.executeQuery();
-	
-	// ALL THE CODE ABOVE MAKES A CALL TO OUR DATABASE. Now we need to store the data in an ArrayList.
-	List<Reimbursement> reimbursements =new ArrayList<>(); //Upcasting, we are instantiating an Arraylist
-	
-	//while there are results in the results
-	 while (resultSet.next() ) {
-		
-		//Adding reimbursements to the list with the data extracted from the database
-		reimbursements.add(new Reimbursement(
-				resultSet.getInt("id"),
-				resultSet.getInt("author"),
-				resultSet.getInt("resolver"),
-				resultSet.getString("description"),
-				Reimbursement_Type.valueOf(resultSet.getString("type")),
-				Status.valueOf(resultSet.getString("status")),
-				resultSet.getDouble("amount")	
-				
-		));
-		
-	 }
-				
-	//when there are no more results in resultSet, the while loop will break
-	//then, return the populated ArrayList of Users
-	 return reimbursements;
-	
- } catch (SQLException e) {
-	
-	// Catching the sql exception (this is a good place to utilize custom exception handling
-	System.out.println("Something Went Wrong obtaining the reimbursements!");
-	e.printStackTrace();
- }
-		
- //Fail=safe if the try*catch block does not run
- return null;
+	List<Reimbursement> byStatus = new ArrayList<>();
+    for(Reimbursement r: getAllReimbursement()) {
+        if(r.getStatus() == status) {
+            byStatus.add(r);
+        }
+    }
+    for(Reimbursement bs : byStatus) {
+        System.out.println( bs.getAuthor() + " " + bs.getType() + " " + bs.getDescription() 
+        + " " + bs.getAmount() + " " + bs.getStatus());
+    }
+    return byStatus;
+//	// try+catch block to catch sql exception that can be thrown with connection 
+// try (Connection connection =Connection_Factory_Utility.getConnection()) {
+//		
+//	//Write the query that we want to send to the database and assign it a String
+//	String sql ="select * from ers_reimbursements where status =?::status";
+//	
+//	//Put the SQL query into a Statement ohject (The Connection object has a method for this implicitly). 
+//	
+//	PreparedStatement preparedStatement = connection.prepareStatement(sql); 
+//	
+//	// Filling the missing query value (?) with the method parameter (userId)
+//	preparedStatement.setString(1, status.toString()); 
+//			
+//	//Execute the Query by putting the results of the query into our ResultSet object (resultSet)
+//	//The Statement object has a method that takes Strings to execute as a SQL query
+//	ResultSet resultSet = preparedStatement.executeQuery();
+//	
+//	// ALL THE CODE ABOVE MAKES A CALL TO OUR DATABASE. Now we need to store the data in an ArrayList.
+//	List<Reimbursement> reimbursements =new ArrayList<>(); //Upcasting, we are instantiating an Arraylist
+//	
+//	//while there are results in the results
+//	 while (resultSet.next() ) {
+//		
+//		//Adding reimbursements to the list with the data extracted from the database
+//		reimbursements.add(new Reimbursement(
+//				resultSet.getInt("id"),
+//				resultSet.getInt("author"),
+//				resultSet.getInt("resolver"),
+//				resultSet.getString("description"),
+//				Reimbursement_Type.valueOf(resultSet.getString("type")),
+//				Status.valueOf(resultSet.getString("status")),
+//				resultSet.getDouble("amount")	
+//				
+//		));
+//		
+//	 }
+//				
+//	//when there are no more results in resultSet, the while loop will break
+//	//then, return the populated ArrayList of Users
+//	 return reimbursements;
+//	
+// } catch (SQLException e) {
+//	
+//	// Catching the sql exception (this is a good place to utilize custom exception handling
+//	System.out.println("Something Went Wrong obtaining the reimbursements!");
+//	e.printStackTrace();
+// }
+//		
+// //Fail=safe if the try*catch block does not run
+// return null;
 }
 
 
@@ -294,7 +304,7 @@ public void update(Reimbursement unprocessedReimbursement) {
 	try (Connection connection = Connection_Factory_Utility.getConnection()) {
 
 		//Write the query that we want to send to the database and assign it to a String 	
-		String sql = "UPDATE ers reimbursements SET resolver = ?, status = ?::status WHERE id = ?";
+		String sql = "UPDATE ers_reimbursements SET resolver = ?, status = ?::status WHERE id = ?";
 
 		//Creating a prepared statement with the sql string we created
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
