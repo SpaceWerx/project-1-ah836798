@@ -8,8 +8,10 @@ import java.util.Scanner;
 import com.revature.controller.Auth_Controller;
 import com.revature.controller.Reimbursement_Controller;
 import com.revature.controller.User_Controller;
+import com.revature.models.User;
 import com.revature.repositories.User_DAO;
 import com.revature.services.CLI_Menu_Service;
+import com.revature.services.User_Service;
 //import com.revature.services.Auth_Service;
 import com.revature.utilities.Connection_Factory_Utility;
 
@@ -23,6 +25,9 @@ public class Launcher {
 	Reimbursement_Controller rc = new Reimbursement_Controller();
 	Auth_Controller ac = new Auth_Controller();
 	Scanner sc = new Scanner(System.in);
+	User_Service us = new User_Service();
+	
+	
 	
 	//Testing Database Connectivity - just testing whether our Connection (from ConnectionFactory) is successful
 			try(Connection conn = Connection_Factory_Utility.getConnection()){
@@ -31,15 +36,18 @@ public class Launcher {
 				System.out.println("Connection failed");
 				e.printStackTrace();
 			}	
+			User user = us.getUserById(1);
+			System.out.println(user.getId());
 	
 	
 	//CLI Menu is the Command Line Interface Menu for the 
 		//initialize a new CLI Menu Service 
 
 			
-			User_DAO ud = new User_DAO();
+//			User_DAO ud = new User_DAO();
+			
 //			System.out.println(ud.getAllUsers());
-	        CLI_Menu_Service options = new CLI_Menu_Service();
+//	        CLI_Menu_Service options = new CLI_Menu_Service();
 //         options.loginMenu;
 //	        options.registerMenu;
 	        
@@ -70,26 +78,26 @@ public class Launcher {
 					config.enableCorsForAllOrigins(); //This is what allows the server to process JS requests from anywhere
 				}
 			).start(3000);
-		
+//		
 			//Now we need our endpoints       
 			
-            app.get("/user", uc.getAllUsersHandler);
-            app.post("/newuser", uc.insertUsersHandler);
-            
-            
-//       app.get("/author")
-//       app.get("/reimbursement/{"Id"}, rc.
-//       app.post("
-            
-            
-			app.post("/login", ac.handleLogin);
-			app.post("/register", ac.handleRegister);  				
-//		    app.post("/status", rc.Approved);
-//		    app.post("/status", rc.Denied);
-			app.get("/reimbursement", rc.handleGetReimbursements);		
+//            app.get("/user", uc.getAllUsersHandler);  //Good//
+//            app.post("/newuser", uc.insertUsersHandler);  //Good//
+//            
+//            
+////       app.get("/author")
+////       app.get("/reimbursement/{"Id"}, rc.
+////       app.post("
+//            
+//            
+//			app.post("/login", ac.handleLogin);   //Good//
+//			app.post("/register", ac.handleRegister);  		//Good//		
+//		    app.put("/approved", rc.Approved);
+////		    app.post("/denied", rc.Denied);
+			app.get("/reimbursement", rc.handleGetReimbursements); //Good//
 //			app.post("/submit", rc.handleSubmit);
 //			app.put("/process", rc.handleProcess);
-			
+//			
 //			app.post("/login", null);
 			
 //		}	    		  
