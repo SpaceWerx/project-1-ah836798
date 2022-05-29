@@ -37,37 +37,55 @@ public class Reimbursement_Controller {
         ctx.status(200);
     };
 	
-public Handler handleSubmit = (ctx) ->{
-    String body = ctx.body();
-    Gson gson = new Gson();
-    Reimbursement type = gson.fromJson(body, Reimbursement.class);
-    currentid = type.getAuthor();
-//    int id = type.getAuthor();
-    
-	
-	// Proclaim victory and returning the ID
-	reimbursementService.submitReimbursement(type);
-	ctx.status(HttpCode.CREATED);
-	ctx.result("Successful reimbursement was created and the ID is :"+type.getId());
+//// early 5/28 version
+//    public Handler handleSubmit = (ctx) ->{
+//    String body = ctx.body();
+//    Gson gson = new Gson();
+//    Reimbursement type = gson.fromJson(body, Reimbursement.class);
+//    currentid = type.getAuthor();
+////    int id = type.getAuthor();
+//    
+//	
+//	// Proclaim victory and returning the ID
+//	reimbursementService.submitReimbursement(type);
+//	ctx.status(HttpCode.CREATED);
+//	ctx.result("Successful reimbursement was created and the ID is :"+type.getId());
+//
+//};
 
-};
-
-
+//this handler worked...
 public Handler Approved = (ctx) ->{
 	String body = ctx.body();
 	Gson gson = new Gson();
 	Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
-    reimbursement.setStatus(Status.Approved);
+	reimbursement.setStatus(Status.Approved);
     int resolver = reimbursement.getResolver();
     reimbursement = reimbursementService.getReimbursementById(reimbursement.getId());
     reimbursementService.update(reimbursement, resolver, Status.Approved);
     String JSONObject = gson.toJson("Reimbursement processed successfully");
     ctx.result(JSONObject);
     ctx.status(237);
-	
 };
 
-// //public Handler Denied = (ctx) -> {
+    
+ // this is correct Denied handler //
+    
+ public Handler Denied = (ctx) -> {
+	 
+	 String body = ctx.body();
+		Gson gson = new Gson();
+		Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
+		reimbursement.setStatus(Status.Denied);
+	    int resolver = reimbursement.getResolver();
+	    reimbursement = reimbursementService.getReimbursementById(reimbursement.getId());
+	    reimbursementService.update(reimbursement, resolver, Status.Denied);
+	    String JSONObject = gson.toJson("Reimbursement was processed Denied");
+	    ctx.result(JSONObject);
+	    ctx.status(237);
+	 
+ 	 
+	 
+	 
 //	String body = ctx.body();
 //	Gson gson = new Gson();
 //	Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
@@ -76,15 +94,60 @@ public Handler Approved = (ctx) ->{
 //    String JSONObject = gson.toJson("Reimbursement processed unsuccessfully");
 //    ctx.result(JSONObject);
 //    ctx.status(300);
-// };
- 
- 
-public Handler handleProcess;
-
+ };
  
 
+// this is the working code for handleSubmit....
 
+public Handler handleSubmit = (ctx) ->{
+	
+	String body = ctx.body();
+    Gson gson = new Gson();
+    Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
+//    Reimbursement_Service.update(reimbursement);
+    String JSONObject = gson.toJson("Reimbursement processed successfully!");
+    ctx.result(JSONObject);
+    ctx.status(208);
+		
+		int id = reimbursementService.submitReimbursement(reimbursement);
+		
+		if(id !=0) {
+			ctx.status(HttpCode.CREATED);
+			ctx.result("Reimbursement submission was successful");
+			
+		} else {
+			ctx.status(HttpCode.BAD_REQUEST);
+			ctx.result("Reimbursement submission was unsuccessful");
+		}
+	
+};
+//public Handler handleProcess;
 
+//// get by status 
+//public Handler handleGetReimbursmentByStatus=(ctx) -> { 
+//	
+//
+//	String statusParam = ctx.body();
+//	
+//	Status status = Status.valueOf(statusParam);
+//	List<Reimbursement> reim = reimbursementService.getReimbursementByStatus(status); //DELETE IF NECESSARY
+//	Gson gson = new Gson();
+//	String json = gson.toJson(reim);
+//	
+//	//if(status == Status.Pending)
+//	if(reim != null) {
+//		
+//		ctx.result(json);
+//		ctx.status(HttpCode.OK);
+//	
+////		ctx.json(reimbursementService.getPendingReimbursements());
+//	} else {
+//		ctx.status(HttpCode.OK);
+//		ctx.result(json);
+//	}
+//
+//
+//
 
 
 
@@ -202,7 +265,14 @@ public void handleProcess(Context ctx) {
  * This Javalin handler method is the entry point for any calls to get reimbursements by status 
  */
 /*
-public Handler handleGetReimbursementsByStatus=(ctx) ->{
+ public Handler handleGetReimbursementsByStatus=(ctx) ->{
+
+
+
+
+
+
+
 
 	
 	// Try+catch block to catch any exceptions

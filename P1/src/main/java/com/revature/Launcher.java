@@ -81,21 +81,22 @@ public class Launcher {
 //		
 			//Now we need our endpoints       
 			
-//            app.get("/user", uc.getAllUsersHandler);  //Good//
-//            app.post("/newuser", uc.insertUsersHandler);  //Good//
+            app.get("/user", uc.getAllUsersHandler);  //Good//
+            app.post("/newuser", uc.insertUsersHandler);  //Good//
 //            
 //            
 ////       app.get("/author")
-////       app.get("/reimbursement/{"Id"}, rc.
+//        app.get("/reimbursement/{"Id"}, rc.  
 ////       app.post("
 //            
 //            
-//			app.post("/login", ac.handleLogin);   //Good//
-//			app.post("/register", ac.handleRegister);  		//Good//		
-//		    app.put("/approved", rc.Approved);
-////		    app.post("/denied", rc.Denied);
+			app.post("/login", ac.handleLogin);   //Good//
+			app.post("/register", ac.handleRegister);  		//Good//		
+		    app.put("/approved", rc.Approved);   //good//
+		    app.put("/denied", rc.Denied);       //good//
 			app.get("/reimbursement", rc.handleGetReimbursements); //Good//
-//			app.post("/submit", rc.handleSubmit);
+//			app.get("/status", rc.handleGetReimbursementsByStatus); 
+            app.post("/submit", rc.handleSubmit);   //good//
 //			app.put("/process", rc.handleProcess);
 //			
 //			app.post("/login", null);

@@ -50,8 +50,8 @@ public class User_Service {
         return byRole;
     }
 /////////////////////////////////////////////////////////////////////////
-   public User getUserById(int userid) throws SQLException {
-        return userDAO.getUserbyId(userid);  
+   public static User getUserById(int userid) throws SQLException {
+        return User_DAO.getUserbyId(userid);  
   }
 //////////////////////////////////////////////////////////////////////////
     public void addUser(User newEmployee) throws SQLException {

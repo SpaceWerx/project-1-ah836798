@@ -70,7 +70,8 @@ public Reimbursement update(Reimbursement unprocessedReimbursement, int resolver
 	
 public int submitReimbursement (Reimbursement reimbursementToBeSubmitted) throws SQLException {
 	
-	User employee = userService.getUserById(Reimbursement_Controller.currentid);
+//	User employee = userService.getUserById(Reimbursement_Controller.currentid);
+	User employee = userService.getUserById(reimbursementToBeSubmitted.getAuthor()); 
 	if(employee.getRole() != Roles.Employee) {
 		
 		throw new IllegalArgumentException("Managers cannot submit reimbursement requests.");

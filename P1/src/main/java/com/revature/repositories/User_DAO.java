@@ -16,7 +16,7 @@ import com.revature.utilities.Connection_Factory_Utility;
 public class User_DAO {
 
 	
-public User getUserbyId(int id) throws SQLException {
+public static User getUserbyId(int id) throws SQLException {
 
 		 //try+catch block to catch sql exception that can be thrown with connection 
 		 try(Connection connection = Connection_Factory_Utility.getConnection()) {
