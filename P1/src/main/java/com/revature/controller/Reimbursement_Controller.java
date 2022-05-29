@@ -79,7 +79,7 @@ public Handler Approved = (ctx) ->{
 	    int resolver = reimbursement.getResolver();
 	    reimbursement = reimbursementService.getReimbursementById(reimbursement.getId());
 	    reimbursementService.update(reimbursement, resolver, Status.Denied);
-	    String JSONObject = gson.toJson("Reimbursement was processed Denied");
+	    String JSONObject = gson.toJson("Reimbursement was successfully processed Denied");
 	    ctx.result(JSONObject);
 	    ctx.status(237);
 	 
@@ -121,7 +121,34 @@ public Handler handleSubmit = (ctx) ->{
 		}
 	
 };
-//public Handler handleProcess;
+////
+//public Handler handleProcess = (ctx) ->{
+//	String authHeader = ctx.header("Current-User");
+//	
+//	if(authHeader != null) {
+//		
+//		int userId = Integer.parseInt(authHeader);
+//		
+//		String reimbursementIdInput = ctx.pathParam("id");
+//		
+//		int id = Integer.parseInt(reimbursementIdInput);
+//		
+//		String statusInput = ctx.formParam("status");
+//		
+//		Reimbursement reimbursement = reimbursementService.getReimbursementById(id);
+//		
+//		if(reimbursement != null) {
+//			
+//			Reimbursement processedReimbursement = reimbursementService.update(reimbursement);
+//			
+//			ctx.status(HttpCode.ACCEPTED);
+//			ctx.json(processedReimbursement);
+//		} else {
+//			ctx.status(HttpCode.ACCEPTED);
+//			ctx.result("Reimbursement processing was not successful");
+//		}
+//	}
+//};
 
 //// get by status 
 //public Handler handleGetReimbursmentByStatus=(ctx) -> { 

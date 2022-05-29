@@ -97,7 +97,7 @@ public class Launcher {
 			app.get("/reimbursement", rc.handleGetReimbursements); //Good//
 //			app.get("/status", rc.handleGetReimbursementsByStatus); 
             app.post("/submit", rc.handleSubmit);   //good//
-//			app.put("/process", rc.handleProcess);
+//			app.post("/process", rc.handleProcess);
 //			
 //			app.post("/login", null);
 			

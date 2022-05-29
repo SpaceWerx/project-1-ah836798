@@ -116,6 +116,14 @@ public Reimbursement getReimbursementById(int userId) {
 	return reimbursementDAO.getReimbursementById(userId);
 }
 
+
+
+
+public Reimbursement update(Reimbursement reimbursement) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 //public List<Reimbursement> getReimbursementByAuthor(int userId) {
 //return reimbursementDAO.getReimbursementsByUser(userId);
 //}
