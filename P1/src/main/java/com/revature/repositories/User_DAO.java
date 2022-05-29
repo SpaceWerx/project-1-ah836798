@@ -36,7 +36,7 @@ public User getUserbyId(int id) throws SQLException {
 				
 				// return a reimbursement with the data to be returned to the service layer
 				return new User(
-						resultSet.getInt("Id"),
+						resultSet.getInt("id"),
 						resultSet.getString("username"),
 						resultSet.getString("password"),
 						Roles.valueOf(resultSet.getString("role"))

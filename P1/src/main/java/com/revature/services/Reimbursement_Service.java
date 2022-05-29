@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import com.revature.controller.Reimbursement_Controller;
 import com.revature.models.Reimbursement;
 import com.revature.models.Roles;
 import com.revature.models.Status;
@@ -15,18 +16,18 @@ import java.util.List;
 
 public class Reimbursement_Service {
 
-	public static Reimbursement_DAO reimbursementDAO = new Reimbursement_DAO();
-	public static User_Service rService = new User_Service();
-	public User_Service userService;
-	public static List<Mockreimbursementdata> mockData = new ArrayList<>();
-	public static ArrayList<Reimbursement> reimbursements = new ArrayList<>();	
-	public static void clearData() {	
-		reimbursements.clear();
-	}
+	public  Reimbursement_DAO reimbursementDAO = new Reimbursement_DAO();
+	public  User_Service rService = new User_Service();
+	public  User_Service userService;
+	public  List<Mockreimbursementdata> mockData = new ArrayList<>();
+	public  ArrayList<Reimbursement> reimbursements = new ArrayList<>();	
+//	public static void clearData() {	
+//		reimbursements.clear();
+//	}
 
 public Reimbursement update(Reimbursement unprocessedReimbursement, int resolverId, Status updatedStatus) throws SQLException {	
 
-	User manager = User_Service.getUserById(resolverId);
+	User manager = userService.getUserById(resolverId);
 	
 	if(manager.getRole() != Roles.Manager) {
 		throw new RuntimeException("There was an error processing this reimbursement, please try again.");
@@ -47,13 +48,13 @@ public Reimbursement update(Reimbursement unprocessedReimbursement, int resolver
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	
-	public static List<Reimbursement> getPendingReimbursements() { 
+	public List<Reimbursement> getPendingReimbursements() { 
 
 		return reimbursementDAO.getByStatus(Status.Pending);
 }
 ////////////////////////////////////////////////////////////////////
 
-	public static List<Reimbursement> getResolvedReimbursements(){
+	public List<Reimbursement> getResolvedReimbursements(){
 		
 		List<Reimbursement> resolvedReimbursements = new ArrayList<>();
 		
@@ -69,17 +70,14 @@ public Reimbursement update(Reimbursement unprocessedReimbursement, int resolver
 	
 public int submitReimbursement (Reimbursement reimbursementToBeSubmitted) throws SQLException {
 	
-
-
-	User employee = User_Service.getUserById(reimbursementToBeSubmitted.getAuthor());
-
+	User employee = userService.getUserById(Reimbursement_Controller.currentid);
 	if(employee.getRole() != Roles.Employee) {
 		
 		throw new IllegalArgumentException("Managers cannot submit reimbursement requests.");
 	} else {
 		reimbursementToBeSubmitted.setStatus(Status.Pending);	
 
-		return reimbursementDAO.create(reimbursementToBeSubmitted, 0);
+		return reimbursementDAO.create(reimbursementToBeSubmitted);
 }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -97,8 +95,8 @@ public List<Reimbursement> getReimbursementsByAuthor(int userId) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 public Reimbursement updateManager(Reimbursement unprocessedReimbursement, int resolverId, Status updatedStatus) throws SQLException {
 
-	getUserService();//DELETE IF NECESSARY
-	User manager = User_Service.getUserById(resolverId);
+//	getUserService();//DELETE IF NECESSARY
+	User manager = userService.getUserById(resolverId);
 	
 	if(manager.getRole() != Roles.Manager) {
 		
@@ -112,20 +110,20 @@ public Reimbursement updateManager(Reimbursement unprocessedReimbursement, int r
 		return unprocessedReimbursement;
 	}
 }
-////////////////////////////////////////
-public Reimbursement getReimbursementById(int userId) {
-	return reimbursementDAO.getReimbursementById(userId);
-}
-
-public List<Reimbursement> getReimbursementByAuthor(int userId) {
-return reimbursementDAO.getReimbursementsByUser(userId);
-}
-public User_Service getUserService() {
-    return rService;
-}
-
-public void setUserService(User_Service userService) {
-    Reimbursement_Service.rService = userService;
-}
+//////////////////////////////////////////
+//public Reimbursement getReimbursementById(int userId) {
+//	return reimbursementDAO.getReimbursementById(userId);
+//}
+//
+//public List<Reimbursement> getReimbursementByAuthor(int userId) {
+//return reimbursementDAO.getReimbursementsByUser(userId);
+//}
+//public User_Service getUserService() {
+//    return rService;
+//}
+//
+//public void setUserService(User_Service userService) {
+//    Reimbursement_Service.rService = userService;
+//}
 
 }

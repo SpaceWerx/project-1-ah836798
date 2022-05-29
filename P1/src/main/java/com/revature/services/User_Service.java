@@ -11,10 +11,16 @@ import com.revature.models.User;
 import com.revature.repositories.User_DAO;
 
 public class User_Service {
-	   static User_DAO userDAO = new User_DAO();
+	   User_DAO userDAO = new User_DAO();
 
-    public static User getUsername(String username) throws SQLException {
-        return User_DAO.getbyUsername(username);
+    public User getUsername(String username) throws SQLException {
+        try {
+			return userDAO.getbyUsername(username);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
     }
 //////////////////////////////////////////////////
 
@@ -44,16 +50,16 @@ public class User_Service {
         return byRole;
     }
 /////////////////////////////////////////////////////////////////////////
-    public static User getUserById(int userid) throws SQLException {
+   public User getUserById(int userid) throws SQLException {
         return userDAO.getUserbyId(userid);  
-    }
+  }
 //////////////////////////////////////////////////////////////////////////
     public void addUser(User newEmployee) throws SQLException {
 
         //take in the Employee object sent from the menu and send it to the EmployeeDAO to be inserted into the database
 
         //call the DAO method that inserts the new Employee
-        User_DAO.addUser(newEmployee);
+        userDAO.addUser(newEmployee);
     }
 
     public boolean checkUserExistsById(int id) {

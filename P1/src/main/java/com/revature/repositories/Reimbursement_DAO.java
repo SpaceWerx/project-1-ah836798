@@ -245,7 +245,7 @@ public List<Reimbursement> getAllReimbursement() {
 
 // The create method is meant to create a new record in the database for new reimbursement submissions
 
-public int create(Reimbursement reimbursementToBeSubmitted, int columnindex) {
+public int create(Reimbursement reimbursementToBeSubmitted) {
   
 	// try+catch block to catch sql exception that can be thrown with connection
 	try (Connection connection = Connection_Factory_Utility.getConnection()) {

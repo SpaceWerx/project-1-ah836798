@@ -3,6 +3,7 @@ package com.revature.controller;
 import java.util.List;
 import java.util.Objects;
 import com.google.gson.Gson;
+import com.revature.models.Roles;
 import com.revature.models.User;
 import com.revature.repositories.User_DAO;
 import com.revature.services.Auth_Service; 
@@ -22,17 +23,24 @@ public class Auth_Controller {
     String body = ctx.body();
     Gson gson = new Gson();
 	User u = gson.fromJson(body, User.class); 
-	int temp = as.loginMenu(u.getUsername(),u.getPassword());
-	String JSONObject = gson.toJson(u);
+//	int temp = as.loginMenu(u.getUsername(),u.getPassword());
+//	String JSONObject = gson.toJson(u);
 	
-	 if(as.loginMenu(u.getUsername(), u.getPassword()) == 1) {
-         ctx.status(201);
+	 if(as.loginMenu(u.getUsername(), u.getPassword()) == 1){
+        if (u.getRole() == Roles.Manager) {
+		 ctx.status(201);
          ctx.result("Manager Login Sucessful!");
-     }
-     else if(as.loginMenu(u.getUsername(), u.getPassword()) == 2) {
-         ctx.status(202);
-         ctx.result("Employee Login Sucessful!");
-     }
+        } else {
+        	ctx.status(202);
+        	ctx.result("Employee Login Successful!");
+        }
+	 }
+//     else if(as.loginMenu(u.getUsername(), u.getPassword()) == 1) {
+//         
+//    	 ctx.status(201);
+//         ctx.status(202);
+//         ctx.result("Employee Login Sucessful!");
+//     }
      else {
      ctx.result("Login Failed!");
      ctx.status(401);
@@ -61,7 +69,7 @@ public Handler handleRegister =  (ctx) -> {
 		// Telling the client that registration failed
 		ud.addUser(user);
 		ctx.status(HttpCode.CREATED);
-		ctx.result("Registration unsuccessful.");
+		ctx.result("Registration successful.");
 	} else {
 		ctx.status(HttpCode.INTERNAL_SERVER_ERROR);
 		ctx.result("Registration unsuccessful.");

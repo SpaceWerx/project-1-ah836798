@@ -4,7 +4,6 @@ package com.revature.models;
 
 public class User {
 
-  public static final String getId = null;
   private int Id;
   private String username;
   private String password;

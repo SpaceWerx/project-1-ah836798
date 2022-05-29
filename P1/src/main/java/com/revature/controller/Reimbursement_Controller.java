@@ -19,6 +19,7 @@ public class Reimbursement_Controller {
 	Reimbursement_Service reimbursementService = new Reimbursement_Service();
 	User_Service us = new User_Service();
 	Reimbursement_DAO rDAO = new Reimbursement_DAO();
+	public static int currentid;
 	
 
 /** 
@@ -40,18 +41,14 @@ public Handler handleSubmit = (ctx) ->{
     String body = ctx.body();
     Gson gson = new Gson();
     Reimbursement type = gson.fromJson(body, Reimbursement.class);
-    int id = reimbursementService.submitReimbursement(type); 
+    currentid = type.getAuthor();
+//    int id = type.getAuthor();
+    
 	
-	if (id != 0) {
-		// Proclaim victory and returning the ID
-		ctx.status(HttpCode.CREATED);
-		ctx.result("Successful reimbursement was created and the ID is :"+id);
-		
-	} else {
-		// Proclaim defeat if the ID was unchanged
-		ctx.status(HttpCode.BAD_REQUEST);
-		ctx.result("Reimbursement submission was unsuccessful. ");
-	}
+	// Proclaim victory and returning the ID
+	reimbursementService.submitReimbursement(type);
+	ctx.status(HttpCode.CREATED);
+	ctx.result("Successful reimbursement was created and the ID is :"+type.getId());
 
 };
 
@@ -61,26 +58,30 @@ public Handler Approved = (ctx) ->{
 	Gson gson = new Gson();
 	Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
     reimbursement.setStatus(Status.Approved);
-    reimbursementService.update(reimbursement, reimbursement.getResolver(), reimbursement.getStatus());
+    
+    reimbursementService.update(reimbursement, reimbursement.getResolver(), Status.Approved);
     String JSONObject = gson.toJson("Reimbursement processed successfully");
     ctx.result(JSONObject);
     ctx.status(237);
 	
 };
 
- public Handler denied = (ctx) -> {
+ public Handler Denied = (ctx) -> {
 	String body = ctx.body();
 	Gson gson = new Gson();
 	Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
     reimbursement.setStatus(Status.Denied);
-    reimbursementService.update(reimbursement, reimbursement.getResolver(), reimbursement.getStatus());
+    reimbursementService.update(reimbursement, reimbursement.getResolver(), reimbursement.);
     String JSONObject = gson.toJson("Reimbursement processed unsuccessfully");
     ctx.result(JSONObject);
     ctx.status(300);
  };
+ 
+ 
+public Handler handleProcess;
 
  
- 
+
 
 
 

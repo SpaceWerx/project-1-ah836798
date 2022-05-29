@@ -17,6 +17,16 @@ public class Reimbursement {
 	}
 
 
+	public Reimbursement(int author, String description, Reimbursement_Type type, Status status, double amount) {
+		super();
+		this.author = author;
+		this.description = description;
+		this.type = type;
+		this.status = status;
+		this.amount = amount;
+	}
+
+
 	public Reimbursement(int id, int author, int resolver, String description, Reimbursement_Type type,
 			Status status, double amount) {
 		super();
@@ -101,21 +111,21 @@ public class Reimbursement {
 	}
 
 
-	public Reimbursement getReimbursementById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public Reimbursement update(Reimbursement reimbursement, int userId, javax.net.ssl.SSLEngineResult.Status valueOf) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public Reimbursement update(Reimbursement reimbursement, int userId, Status valueOf) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	public Reimbursement getReimbursementById(int id) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//
+//	public Reimbursement update(Reimbursement reimbursement, int userId, javax.net.ssl.SSLEngineResult.Status valueOf) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//
+//	public Reimbursement update(Reimbursement reimbursement, int userId, Status valueOf) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }
