@@ -23,18 +23,18 @@ public class Auth_Controller {
     String body = ctx.body();
     Gson gson = new Gson();
 	User u = gson.fromJson(body, User.class); 
-//	int temp = as.loginMenu(u.getUsername(),u.getPassword());
-//	String JSONObject = gson.toJson(u);
+	int temp = as.loginMenu(u.getUsername(),u.getPassword());
+	String JSONObject = gson.toJson(u);
 	
-	 if(as.loginMenu(u.getUsername(), u.getPassword()) == 1){
-        if (u.getRole() == Roles.Manager) {
+	 if(temp == 1){
 		 ctx.status(201);
          ctx.result("Manager Login Sucessful!");
-        } else {
+        } 
+	 else if (temp == 2) {
         	ctx.status(202);
         	ctx.result("Employee Login Successful!");
         }
-	 }
+	 
 //     else if(as.loginMenu(u.getUsername(), u.getPassword()) == 1) {
 //         
 //    	 ctx.status(201);

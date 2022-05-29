@@ -2,6 +2,7 @@ package com.revature.services;
 
 import java.sql.SQLException;
 
+import com.revature.models.Roles;
 import com.revature.models.User;
 import com.revature.repositories.User_DAO;
 
@@ -23,14 +24,14 @@ public int loginMenu(String username, String password) {
 	   user = ud.getbyUsername(username);	   
 	   // These conditional statements are checking various contingencies
 	   // The first is checking if the user exists and that the password given matches the one stored
-	   if (user!=null && password.equals(user.getPassword())) {		   
+	   if (user!=null && password.equals(user.getPassword()) && user.getRole() == Roles.Manager) {		   
 		   //If this one is true, the user object is returned and login is deemed successful
-		   System.out.println("Logged in Successfully!");
+		   System.out.println("Manager logged in Successfully!");
 		   return 1;		   
 	   // The second is checking if the user exists and the password given is different than the one stored
-	   } else if (user!=null && !password.equals(user.getPassword())){		   
+	   } else if (user!=null && password.equals(user.getPassword()) && user.getRole() == Roles.Employee){		   
 	        //If this one is true and the previous false; a null object is returned and login is deemed unsuccessful
-		   System.out.println("Wrong Password");
+		   System.out.println("Employee Loggged in Successfully!");
            return 2;	   
 	   // The third is the final contingency and will only occur if the username does not exist in the database
 	   } else {		   

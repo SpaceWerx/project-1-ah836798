@@ -23,7 +23,7 @@ function attemptSubmit(event) {
     const amount - document.getElementById("amount").value;
     
     // getting the current user ID from local storage
-    const userId - LocalStorage.getItem("current-user");
+    const userId= LocalStorage.getItem("current-user");
 
     // checking to make sure the user is signed in
     if (!userid) {
