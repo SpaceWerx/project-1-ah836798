@@ -83,23 +83,18 @@ public class Launcher {
 			
             app.get("/user", uc.getAllUsersHandler);  //Good//
             app.post("/newuser", uc.insertUsersHandler);  //Good//
-//            
-//            
-////       app.get("/author")
-//        app.get("/reimbursement/{"Id"}, rc.  
-////       app.post("
-//            
-//            
+         
 			app.post("/login", ac.handleLogin);   //Good//
 			app.post("/register", ac.handleRegister);  		//Good//		
 		    app.put("/approved", rc.Approved);   //good//
 		    app.put("/denied", rc.Denied);       //good//
 			app.get("/reimbursement", rc.handleGetReimbursements); //Good//
-//			app.get("/status", rc.handleGetReimbursementsByStatus); 
+//	        app.get("/reimbursement/{"Id"}, rc.
+//			app.get("/reimbursement/{id}", rc.handleGetReimbursementById); //show you the reimbursement based on id same ID
+			//			app.get("/status", rc.handleGetReimbursementsByStatus); 
             app.post("/submit", rc.handleSubmit);   //good//
 //			app.post("/process", rc.handleProcess);
 //			
-//			app.post("/login", null);
 			
 //		}	    		  
 	      

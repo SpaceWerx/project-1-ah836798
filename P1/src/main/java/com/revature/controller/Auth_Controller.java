@@ -16,7 +16,6 @@ public class Auth_Controller {
 	Auth_Service as = new Auth_Service();
 	User_DAO ud = new User_DAO();
 	
-
 	  
 	
  public Handler handleLogin = (ctx) -> {

@@ -121,6 +121,20 @@ public Handler handleSubmit = (ctx) ->{
 		}
 	
 };
+
+
+
+//public Handler handleGetReimbursementById = (ctx) ->{
+//	String body = ctx.body();
+//	int id = Integer.parseInt(body);
+//	Reimbursement reimId = reimbursementService.getReimbursementById(id);
+//	
+//	Gson gson = new Gson();
+//	String JSONObject = gson.toJson(reimId);
+//	
+//	ctx.result(JSONObject);
+//	ctx.status(200);
+//};
 ////
 //public Handler handleProcess = (ctx) ->{
 //	String authHeader = ctx.header("Current-User");

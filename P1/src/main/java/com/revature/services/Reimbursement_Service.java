@@ -65,22 +65,38 @@ public Reimbursement update(Reimbursement unprocessedReimbursement, int resolver
 		
 		
 	}
+	
+	
+	
+	public int submitReimbursement (Reimbursement reimbursementToBeSubmitted) throws SQLException {
+		
+//		User employee = userService.getUserById(Reimbursement_Controller.currentid);
+		User employee = userService.getUserById(reimbursementToBeSubmitted.getAuthor()); 
+		if(employee.getRole() != Roles.Employee) {
+			
+			throw new IllegalArgumentException("Managers cannot submit reimbursement requests.");
+		} else {
+			reimbursementToBeSubmitted.setStatus(Status.Pending);	
+
+			return reimbursementDAO.create(reimbursementToBeSubmitted);
+	}
+	}
 
 /////////////////////////////////////////////////////////////////////////////		
 	
-public int submitReimbursement (Reimbursement reimbursementToBeSubmitted) throws SQLException {
-	
-//	User employee = userService.getUserById(Reimbursement_Controller.currentid);
-	User employee = userService.getUserById(reimbursementToBeSubmitted.getAuthor()); 
-	if(employee.getRole() != Roles.Employee) {
-		
-		throw new IllegalArgumentException("Managers cannot submit reimbursement requests.");
-	} else {
-		reimbursementToBeSubmitted.setStatus(Status.Pending);	
-
-		return reimbursementDAO.create(reimbursementToBeSubmitted);
-}
-}
+//public int submitReimbursement (Reimbursement reimbursementToBeSubmitted) throws SQLException {
+//	
+////	User employee = userService.getUserById(Reimbursement_Controller.currentid);
+//	User employee = userService.getUserById(reimbursementToBeSubmitted.getAuthor()); 
+//	if(employee.getRole() != Roles.Manager) {
+//		
+//		throw new IllegalArgumentException("Employees cannot submit reimbursement requests.");
+//	} else {
+//		reimbursementToBeSubmitted.setStatus(Status.Pending);	
+//
+//		return reimbursementDAO.create(reimbursementToBeSubmitted);
+//}
+//}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 public List<Reimbursement> getReimbursementsByAuthor(int userId) {
