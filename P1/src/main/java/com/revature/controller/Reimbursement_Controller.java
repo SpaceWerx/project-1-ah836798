@@ -53,36 +53,52 @@ public class Reimbursement_Controller {
 //
 //};
 
-//this handler worked...
-public Handler Approved = (ctx) ->{
-	String body = ctx.body();
-	Gson gson = new Gson();
-	Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
-	reimbursement.setStatus(Status.Approved);
-    int resolver = reimbursement.getResolver();
-    reimbursement = reimbursementService.getReimbursementById(reimbursement.getId());
-    reimbursementService.update(reimbursement, resolver, Status.Approved);
-    String JSONObject = gson.toJson("Reimbursement processed successfully");
-    ctx.result(JSONObject);
-    ctx.status(237);
-};
+//this handler used to work, but gives errors...
+//public Handler Approved = (ctx) ->{
+//	String body = ctx.body();
+//	Gson gson = new Gson();
+//	Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
+//	reimbursement.setStatus(Status.Approved);
+//    int resolver = reimbursement.getResolver();
+//    reimbursement = reimbursementService.getReimbursementById(reimbursement.getId());
+//    reimbursementService.update(reimbursement, resolver, Status.Approved);
+//    String JSONObject = gson.toJson("Reimbursement processed successfully");
+//    ctx.result(JSONObject);
+//    ctx.status(237);
+//};
 
-    
- // this is correct Denied handler //
-    
- public Handler Denied = (ctx) -> {
-	 
-	 String body = ctx.body();
+	public Handler handleApproved = (ctx) ->{
+		
+		String body = ctx.body();
 		Gson gson = new Gson();
 		Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
-		reimbursement.setStatus(Status.Denied);
-	    int resolver = reimbursement.getResolver();
-	    reimbursement = reimbursementService.getReimbursementById(reimbursement.getId());
-	    reimbursementService.update(reimbursement, resolver, Status.Denied);
-	    String JSONObject = gson.toJson("Reimbursement was successfully processed Denied");
-	    ctx.result(JSONObject);
-	    ctx.status(237);
-	 
+		int resolver = reimbursement.getResolver();
+		
+		Reimbursement processedReimbursement = Reimbursement_Service.update(reimbursement);
+		if(processedReimbursement != null) {
+			ctx.status(HttpCode.ACCEPTED);
+		
+		
+		} else {
+				ctx.status(HttpCode.ACCEPTED);
+				ctx.result("Reimbursement processing was not successful");
+		}
+	};
+ // this is correct Denied handler //
+    
+// //public Handler Denied = (ctx) -> {
+//	 
+//	 String body = ctx.body();
+//		Gson gson = new Gson();
+//		Reimbursement reimbursement = gson.fromJson(body, Reimbursement.class);
+//		reimbursement.setStatus(Status.Denied);
+//	    int resolver = reimbursement.getResolver();
+//	    reimbursement = reimbursementService.getReimbursementById(reimbursement.getId());
+//	    reimbursementService.update(reimbursement, resolver, Status.Denied);
+//	    String JSONObject = gson.toJson("Reimbursement was successfully processed Denied");
+//	    ctx.result(JSONObject);
+//	    ctx.status(237);
+//	 
  	 
 	 
 	 
@@ -94,7 +110,7 @@ public Handler Approved = (ctx) ->{
 //    String JSONObject = gson.toJson("Reimbursement processed unsuccessfully");
 //    ctx.result(JSONObject);
 //    ctx.status(300);
- };
+// };
  
 
 // this is the working code for handleSubmit....
@@ -119,8 +135,8 @@ public Handler handleSubmit = (ctx) ->{
 			ctx.status(HttpCode.BAD_REQUEST);
 			ctx.result("Reimbursement submission was unsuccessful");
 		}
-	
 };
+}
 
 
 
@@ -451,9 +467,6 @@ public void handleGetReimbursementsById(Context ctx) {
 }
 }
 */
-}
-
-
 
 
 

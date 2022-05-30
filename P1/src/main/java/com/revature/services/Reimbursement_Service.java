@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Reimbursement_Service {
 
-	public  Reimbursement_DAO reimbursementDAO = new Reimbursement_DAO();
+	public static  Reimbursement_DAO reimbursementDAO = new Reimbursement_DAO();
 	public  User_Service rService = new User_Service();
 	public  User_Service userService;
 	public  List<Mockreimbursementdata> mockData = new ArrayList<>();
@@ -30,7 +30,7 @@ public Reimbursement update(Reimbursement unprocessedReimbursement, int resolver
 	User manager = userService.getUserById(resolverId);
 	
 	if(manager.getRole() != Roles.Manager) {
-		throw new RuntimeException("There was an error processing this reimbursement, please try again.");
+		throw new IllegalArgumentException("There was an error processing this reimbursement, please try again.");
 	}else {
 		
 		unprocessedReimbursement.setResolver(resolverId);
@@ -130,6 +130,16 @@ public Reimbursement updateManager(Reimbursement unprocessedReimbursement, int r
 //////////////////////////////////////////
 public Reimbursement getReimbursementById(int userId) {
 	return reimbursementDAO.getReimbursementById(userId);
+}
+
+
+
+
+public static Reimbursement update(Reimbursement unprocessedReimbursement) {
+	// TODO Auto-generated method stub
+	reimbursementDAO.update(unprocessedReimbursement);
+
+    return unprocessedReimbursement;
 }
 
 

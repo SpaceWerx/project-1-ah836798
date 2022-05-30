@@ -86,8 +86,8 @@ public class Launcher {
          
 			app.post("/login", ac.handleLogin);   //Good//
 			app.post("/register", ac.handleRegister);  		//Good//		
-		    app.put("/approved", rc.Approved);   //good//
-		    app.put("/denied", rc.Denied);       //good//
+		    app.put("/approved", rc.handleApproved);   //good//
+//		    app.put("/denied", rc.Denied);       //good//
 			app.get("/reimbursement", rc.handleGetReimbursements); //Good//
 //	        app.get("/reimbursement/{"Id"}, rc.
 //			app.get("/reimbursement/{id}", rc.handleGetReimbursementById); //show you the reimbursement based on id same ID
